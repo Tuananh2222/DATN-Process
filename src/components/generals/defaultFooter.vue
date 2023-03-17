@@ -79,6 +79,9 @@
     }
     .content-footer {
       width: calc(100% / 3);
+      h4 {
+        text-align: left;
+      }
       @media not screen and (min-width: 1280px) {
         width: 100%;
       }
