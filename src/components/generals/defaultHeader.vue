@@ -5,9 +5,10 @@
       <div class="main-logo"></div>
     </div>
     <div class="header-menu">
-      <li v-for="(item, index) in headerList" :key="index" class="menu-item">
-        <a>{{ item.text }}</a>
-      </li>
+      <router-link  v-for="(item, index) in headerList"
+        :key="index"
+        :to="item.to"
+        class="menu-item">{{ item.text }}</router-link>
     </div>
     <div class="header-icons">
       <div class="icon">
