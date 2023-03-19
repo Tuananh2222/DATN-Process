@@ -25,7 +25,6 @@
       </div>
     </div>
   </div>
-  <router-view/>
 </template>
 
 <script setup>
@@ -94,6 +93,10 @@ const headerList = [
       cursor: pointer;
       padding: 10px 20px;
       list-style: none;
+      a{
+        text-decoration: none;
+        color: #000;
+      }
     }
   }
   .header-icons {

@@ -2,7 +2,7 @@
   <!-- <CLoading v-if="state.isLoading" /> -->
   <DefaultHeader />
   <div class="body-container">
-    <slot />
+    <router-view></router-view>
   </div>
   <DefaultFooter />
 </template>

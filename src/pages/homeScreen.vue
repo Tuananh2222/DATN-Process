@@ -1,5 +1,4 @@
 <template>
-  <DefaultLayout>
     <div class="container-main">
       <div class="banner-wrapper">
         <div class="banner-slide">
@@ -385,7 +384,6 @@
         </div>
       </div>
     </div>
-  </DefaultLayout>
 </template>
 <script setup>
 // import CardProduct from "~~/components/generals/cardProduct.vue";
@@ -395,7 +393,6 @@ import "swiper/css/navigation";
 import "swiper/swiper.min.css";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, EffectFade } from "swiper";
-import DefaultLayout from "@/layouts/defaultLayout.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";

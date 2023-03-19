@@ -13,7 +13,7 @@
             <a href="#" class="author"><span class="name">Jane Doe</span></a>
           </div>
         </header>
-        <a href="single.html" class="image featured"><img src="~/public/image/Blog/pic01.jpg" alt="" /></a>
+        <a href="single.html" class="image featured"><img src="@/public/image/Blog/pic01.jpg" alt="" /></a>
         <p>
           Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat.
           Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam
@@ -47,7 +47,7 @@
             <a href="#" class="author"><span class="name">Jane Doe</span></a>
           </div>
         </header>
-        <a href="single.html" class="image featured"><img src="~/public/image/Blog/pic02.jpg" alt="" /></a>
+        <a href="single.html" class="image featured"><img src="@/public/image/Blog/pic02.jpg" alt="" /></a>
         <p>
           Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat.
           Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam
@@ -80,7 +80,7 @@
             <a href="#" class="author"><span class="name">Jane Doe</span></a>
           </div>
         </header>
-        <a href="single.html" class="image featured"><img src="~/public/image/Blog/pic03.jpg" alt="" /></a>
+        <a href="single.html" class="image featured"><img src="@/public/image/Blog/pic03.jpg" alt="" /></a>
         <p>
           Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat.
           Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam
@@ -122,7 +122,7 @@
               <h3><a href="single.html">Vitae sed condimentum</a></h3>
               <time class="published" datetime="2015-10-20">October 20, 2015</time>
             </header>
-            <a href="single.html" class="image"><img src="~/public/image/Blog/pic04.jpg" alt="" /></a>
+            <a href="single.html" class="image"><img src="@/public/image/Blog/pic04.jpg" alt="" /></a>
           </article>
 
           <!-- Mini Post -->
@@ -131,7 +131,7 @@
               <h3><a href="single.html">Rutrum neque accumsan</a></h3>
               <time class="published" datetime="2015-10-19">October 19, 2015</time>
             </header>
-            <a href="single.html" class="image"><img src="~/public/image/Blog/pic05.jpg" alt="" /></a>
+            <a href="single.html" class="image"><img src="@/public/image/Blog/pic05.jpg" alt="" /></a>
           </article>
 
           <!-- Mini Post -->
@@ -140,7 +140,7 @@
               <h3><a href="single.html">Odio congue mattis</a></h3>
               <time class="published" datetime="2015-10-18">October 18, 2015</time>
             </header>
-            <a href="single.html" class="image"><img src="~/public/image/Blog/pic06.jpg" alt="" /></a>
+            <a href="single.html" class="image"><img src="@/public/image/Blog/pic06.jpg" alt="" /></a>
           </article>
 
           <!-- Mini Post -->
@@ -149,7 +149,7 @@
               <h3><a href="single.html">Enim nisl veroeros</a></h3>
               <time class="published" datetime="2015-10-17">October 17, 2015</time>
             </header>
-            <a href="single.html" class="image"><img src="~/public/image/Blog/pic07.jpg" alt="" /></a>
+            <a href="single.html" class="image"><img src="@/public/image/Blog/pic07.jpg" alt="" /></a>
           </article>
         </div>
       </section>
@@ -165,7 +165,7 @@
                 </h3>
                 <time class="published" datetime="2015-10-20">October 20, 2015</time>
               </header>
-              <a href="single.html" class="image"><img src="~/public/image/Blog/pic08.jpg" alt="" /></a>
+              <a href="single.html" class="image"><img src="@/public/image/Blog/pic08.jpg" alt="" /></a>
             </article>
           </li>
           <li>
@@ -176,7 +176,7 @@
                 </h3>
                 <time class="published" datetime="2015-10-15">October 15, 2015</time>
               </header>
-              <a href="single.html" class="image"><img src="~/public/image/Blog/pic09.jpg" alt="" /></a>
+              <a href="single.html" class="image"><img src="@/public/image/Blog/pic09.jpg" alt="" /></a>
             </article>
           </li>
           <li>
@@ -187,7 +187,7 @@
                 </h3>
                 <time class="published" datetime="2015-10-10">October 10, 2015</time>
               </header>
-              <a href="single.html" class="image"><img src="~/public/image/Blog/pic10.jpg" alt="" /></a>
+              <a href="single.html" class="image"><img src="@/public/image/Blog/pic10.jpg" alt="" /></a>
             </article>
           </li>
           <li>
@@ -198,7 +198,7 @@
                 </h3>
                 <time class="published" datetime="2015-10-08">October 8, 2015</time>
               </header>
-              <a href="single.html" class="image"><img src="~/public/image/Blog/pic11.jpg" alt="" /></a>
+              <a href="single.html" class="image"><img src="@/public/image/Blog/pic11.jpg" alt="" /></a>
             </article>
           </li>
           <li>
@@ -209,7 +209,7 @@
                 </h3>
                 <time class="published" datetime="2015-10-06">October 7, 2015</time>
               </header>
-              <a href="single.html" class="image"><img src="~/public/image/Blog/pic12.jpg" alt="" /></a>
+              <a href="single.html" class="image"><img src="@/public/image/Blog/pic12.jpg" alt="" /></a>
             </article>
           </li>
         </ul>
@@ -389,7 +389,7 @@
   margin-right: 3em;
   min-width: 22em;
   width: 22em;
-  @include sp {
+  @media not screen and (min-width: 1280px) {
     border-top: solid 1px rgba(160, 160, 160, 0.3);
     margin: 3em 0 0 0;
     min-width: 0;
@@ -411,7 +411,7 @@
 }
 .mini-posts {
   margin: 0 0 2em 0;
-  @include sp {
+  @media not screen and (min-width: 1280px) {
     display: -moz-flex;
     display: -webkit-flex;
     display: -ms-flex;

@@ -1,9 +1,11 @@
 <template>
-  <Home />
+  <DefaultLayout />
 </template>
 
 <script setup>
-import Home from "./pages/homeScreen.vue";
+import { defineAsyncComponent } from "vue";
+
+const DefaultLayout = defineAsyncComponent(() => import("@/layouts/defaultLayout.vue"))
 </script>
 
 <style lang="scss">

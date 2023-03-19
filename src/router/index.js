@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { defineAsyncComponent } from 'vue'
-const Home = defineAsyncComponent(() => import('@/pages/homeScreen.Vue'))
-const Blog = defineAsyncComponent(() => import('@/pages/blog.vue'))
 
 const router = createRouter({
   history: createWebHistory(),
@@ -9,12 +6,22 @@ const router = createRouter({
     {
       path: "/",
       name: "Home",
-      component: Home,
+      component: () => import("@/pages/homeScreen.vue"),
+    },
+    {
+      path: "/about",
+      name: "About",
+      component: () => import("@/pages/AboutScreen.vue"),
+    },
+    {
+      path: "/contact",
+      name: "Contact",
+      component: () => import("@/pages/ContactScreen.vue"),
     },
     {
       path: "/blog",
       name: "Blog",
-      component: Blog,
+      component: () => import("@/pages/BlogScreen.vue"),
     },
   ],
 });

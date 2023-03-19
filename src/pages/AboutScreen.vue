@@ -16,11 +16,11 @@
   .img-banner {
     height: 304px;
     width: 1920px;
-    background: url('~/public/image/about/breadcrumbs-01.jpg');
+    background: url('@/public/image/about/breadcrumbs-01.jpg');
     padding-top: 95px;
     padding-bottom: 110px;
     .text-white {
-      color: $white;
+      color: white;
       font-size: 60px;
       font-weight: 700;
       text-align: center;

@@ -96,10 +96,10 @@
 <script setup lang="ts">
 import TextBox from '@/components/elements/textBox.vue'
 import useContactStore from '@/stores/contact';
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 
 const contactStore = useContactStore()
-const { isValidForm } = storeToRefs(contactStore)
+// const { isValidForm } = storeToRefs(contactStore)
 const { state } = contactStore
 </script>
 
@@ -118,11 +118,11 @@ const { state } = contactStore
   .img-banner {
     height: 304px;
     width: 1920px;
-    background: url('~/public/image/about/breadcrumbs-01.jpg');
+    background: url('@/public/image/about/breadcrumbs-01.jpg');
     padding-top: 95px;
     padding-bottom: 110px;
     .text-white {
-      color: $white;
+      color: white;
       font-size: 60px;
       font-weight: 700;
       text-align: center;
@@ -136,7 +136,7 @@ const { state } = contactStore
   .header-container {
     font-size: 36px;
     font-weight: 700;
-    color: $dark-color;
+    color: #000;
     text-align: center;
   }
   p {
@@ -209,7 +209,7 @@ const { state } = contactStore
     justify-content: center;
     font-weight: bold;
     border: none;
-    background-color: $primary;
+    background-color: green;
     border-radius: 8px;
     margin: auto;
     cursor: pointer;
@@ -220,7 +220,7 @@ const { state } = contactStore
     padding: 0;
   }
   .btn-primary:hover {
-    background-color: $primary-color;
+    background-color: green;
     opacity: 0.9;
   }
   .btn-disable {
@@ -232,7 +232,7 @@ const { state } = contactStore
     border: none;
     border-radius: 8px;
 
-    background: $disable !important;
+    background: #ccc;
     pointer-events: none;
   }
   .form-input {
