@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-// import { useProps } from "@/composables/useProps";
+import { useProps } from "@/composables/useProps";
 import { computed, defineProps, defineEmits, ref } from "vue";
 
 const props = defineProps({
@@ -77,7 +77,7 @@ const emits = defineEmits([
   "focusOut",
   "search",
 ]);
-const modelValue = 1;
+const modelValue = useProps(props, 'modelValue', emits);
 const placeholderStyle = "placeholder";
 
 const isFocusing = ref(false);

@@ -1,10 +1,9 @@
 import { computed, reactive } from "vue";
 import axios from "axios";
-import { GeneralState } from "@/utils/types/state/general";
 import { defineStore } from "pinia";
 
 export const useGeneralStore = defineStore("general", () => {
-  const state = reactive<GeneralState>({
+  const state = reactive({
     revision: "",
     isLoading: false,
     isShowAuthPopup: false,
@@ -16,7 +15,7 @@ export const useGeneralStore = defineStore("general", () => {
     return state.originLink;
   });
 
-  const updateOriginLink = (link: string) => {
+  const updateOriginLink = (link) => {
     state.originLink = link;
   };
 
@@ -38,7 +37,7 @@ export const useGeneralStore = defineStore("general", () => {
     }
   }
 
-  const actionLoading = (action: boolean) => {
+  const actionLoading = (action) => {
     state.isLoading = action;
   };
 

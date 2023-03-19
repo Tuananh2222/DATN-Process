@@ -36,7 +36,7 @@ export const useAuthenStore = defineStore('authen', () => {
   const state = reactive({
     ..._.cloneDeep(defaultState),
   })
-  const confirmPasswordRegex = (value: string) => {
+  const confirmPasswordRegex = (value) => {
     return state.password === value
   }
 

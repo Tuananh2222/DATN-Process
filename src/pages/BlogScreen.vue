@@ -248,7 +248,7 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup></script>
 
 <style lang="scss" scoped>
 #wrapper {

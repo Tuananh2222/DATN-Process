@@ -73,7 +73,7 @@
           </div>
           <div class="cell-sm-6">
             <p class="text-uppercase">Arrival</p>
-            <!-- <CDatePicker /> -->
+            <CDatePicker />
           </div>
           <div class="cell-sm-6">
             <p class="text-uppercase">Departure</p>
@@ -396,6 +396,7 @@ import { Autoplay, EffectFade } from "swiper";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";
+import CDatePicker from "@/components/elements/CDatePicker.vue";
 
 
 </script>

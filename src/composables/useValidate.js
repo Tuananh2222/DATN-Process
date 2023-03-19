@@ -1,24 +1,24 @@
 import useVuelidate from '@vuelidate/core'
 import lodash from 'lodash'
+import { ref } from 'vue'
 const { isEmpty } = lodash
 
-export const useValidate = (rules: any, state: any) => {
+export const useValidate = (rules, state) => {
   const $v = useVuelidate(rules, state)
 
   const isValidForm = ref(false)
 
-  const checkField = async (name: string) => {
+  const checkField = async (name) => {
     const formKeys = Object.keys(rules)
     if (formKeys.includes(name)) {
       await $v.value[name].$validate()
-
       if (!isEmpty($v.value[name].$errors)) {
         state.hasErrors[name] = $v.value[name].$errors[0].$message
+        console.log($v.value[name].$errors[0].$message)
       } else {
         state.hasErrors[name] = ''
       }
     }
-    console.log(isValidForm.value)
     isValidForm.value = await $v.value.$validate()
   }
 

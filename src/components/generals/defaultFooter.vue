@@ -47,17 +47,21 @@
       <div class="myself-wrapper">
         <h4>Join Our Newsletter</h4>
         <div class="email-wrapper">
-          <text-box :placeholder="'Enter your email'" />
-          <div class="btn-normal-gradient" type="submit">
-            <span>Subscribe</span>
-          </div>
+          <TextBox :placeholder="'Enter your email'" />
+          <CButton
+            :label="'Subscribe'"
+            :class-name="'button-primary button-square button-block button-effect-ujarak'"
+          />
         </div>
       </div>
     </div>
   </footer>
 </template>
 
-<script setup></script>
+<script setup>
+import CButton from "../elements/CButton.vue";
+import TextBox from "../elements/textBox.vue";
+</script>
 <style lang="scss" scoped>
 .site-footer {
   display: flex;
@@ -103,7 +107,6 @@
       width: calc(100% / 3);
       display: flex;
       flex-direction: column;
-      align-items: center;
       @media not screen and (min-width: 1280px) {
         width: 100%;
         align-items: flex-start;
@@ -120,8 +123,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        .btn-normal-gradient {
-          margin-top: 7px;
+        :deep(.input-textbox){
+          height: 50px;
+        }
+        :deep(.sub-container) {
+          margin-top: 0;
+        }
+        :deep(.input-border){
+          border-radius: 0px;
+        }
+        :deep(.button-block){
+          width: 50%;
         }
       }
     }

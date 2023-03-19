@@ -5,10 +5,13 @@
       <div class="main-logo"></div>
     </div>
     <div class="header-menu">
-      <router-link  v-for="(item, index) in headerList"
+      <router-link
+        v-for="(item, index) in headerList"
         :key="index"
-        :to="{name: item.to}"
-        class="menu-item">{{ item.text }}</router-link>
+        :to="{ name: item.to }"
+        class="menu-item"
+        >{{ item.text }}</router-link
+      >
     </div>
     <div class="header-icons">
       <div class="icon">
@@ -93,10 +96,8 @@ const headerList = [
       cursor: pointer;
       padding: 10px 20px;
       list-style: none;
-      a{
-        text-decoration: none;
-        color: #000;
-      }
+      text-decoration: none;
+      color: #000;
     }
   }
   .header-icons {

@@ -7,8 +7,9 @@
       <div class="about-content">
         <div class="header-container">Get in Touch</div>
         <p>
-          We are available 24/7 by fax, e-mail or by phone. You can also use our quick contact form to ask a question
-          about our services. We would be pleased to answer your questions.
+          We are available 24/7 by fax, e-mail or by phone. You can also use our
+          quick contact form to ask a question about our services. We would be
+          pleased to answer your questions.
         </p>
 
         <div class="box-container">
@@ -62,8 +63,14 @@
           <p class="aside-title">Phone</p>
           <hr class="divider divider-left divider-custom" />
           <div class="unit-horizontal">
-            <div class="unit__left"><font-awesome-icon icon="fa-solid fa-phone" /></div>
-            <div class="unit__body"><a class="text-middle link link-gray-dark" href="tel:#">1-800-1234-567</a></div>
+            <div class="unit__left">
+              <font-awesome-icon icon="fa-solid fa-phone" />
+            </div>
+            <div class="unit__body">
+              <a class="text-middle link link-gray-dark" href="tel:#"
+                >1-800-1234-567</a
+              >
+            </div>
           </div>
         </div>
         <div class="cell-xs-6">
@@ -74,7 +81,9 @@
               <font-awesome-icon icon="fa-solid fa-location-dot" />
             </div>
             <div class="unit__body">
-              <a class="text-middle link link-gray-dark" href="contacts.html">267 Park Avenue New York, NY 90210</a>
+              <a class="text-middle link link-gray-dark" href="contacts.html"
+                >267 Park Avenue New York, NY 90210</a
+              >
             </div>
           </div>
         </div>
@@ -82,7 +91,9 @@
           <p class="aside-title">opening hours</p>
           <hr class="divider divider-left divider-custom" />
           <div class="unit-horizontal">
-            <div class="unit__left"><font-awesome-icon icon="fa-solid fa-clock" /></div>
+            <div class="unit__left">
+              <font-awesome-icon icon="fa-solid fa-clock" />
+            </div>
             <div class="unit__body text-gray-darker">
               <p>We work every day 9:00–23:00</p>
             </div>
@@ -93,14 +104,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import TextBox from '@/components/elements/textBox.vue'
-import useContactStore from '@/stores/contact';
-// import { storeToRefs } from 'pinia'
+<script setup>
+import TextBox from "@/components/elements/textBox.vue";
+import { useContactStore } from "@/stores/contact.js";
+import { onMounted } from "vue";
 
-const contactStore = useContactStore()
-// const { isValidForm } = storeToRefs(contactStore)
-const { state } = contactStore
+const contactStore = useContactStore();
+const { state } = contactStore;
+
+onMounted(() => {});
 </script>
 
 <style lang="scss" scoped>
@@ -118,7 +130,7 @@ const { state } = contactStore
   .img-banner {
     height: 304px;
     width: 1920px;
-    background: url('@/public/image/about/breadcrumbs-01.jpg');
+    background: url("@/public/image/about/breadcrumbs-01.jpg");
     padding-top: 95px;
     padding-bottom: 110px;
     .text-white {

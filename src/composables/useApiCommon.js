@@ -1,14 +1,15 @@
+import { useGeneralStore } from '@/stores/general'
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, Axios, HttpStatusCode } from 'axios'
 
 export default function () {
   const { actionLoading } = useGeneralStore()
 
-  const handleAPICommon = async (actionOrigin: () => void) => {
+  const handleAPICommon = async (actionOrigin) => {
     // start loading
     actionLoading(true)
     try {
       await actionOrigin()
-    } catch (e: any) {
+    } catch (e) {
       //sử lý lỗi common 401, 500, >400
       if (e.response && axios.isAxiosError(e)) {
         const errorCode = e.response.status

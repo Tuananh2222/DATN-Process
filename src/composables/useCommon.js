@@ -1,7 +1,8 @@
-import { SSR_DEFAULT_SCREEN_SIZE_HEIGHT, SSR_DEFAULT_SCREEN_SIZE_WIDTH } from '~~/utils/constant'
-import { BREAKPOINT, DATE_FORMAT } from '~~/utils/constant'
+import { SSR_DEFAULT_SCREEN_SIZE_HEIGHT, SSR_DEFAULT_SCREEN_SIZE_WIDTH } from '@/utils/constant'
+import { BREAKPOINT, DATE_FORMAT } from '@/utils/constant'
+import dayjs from 'dayjs'
+import { computed, reactive } from 'vue'
 export default function () {
-  const { $dayjs } = useNuxtApp()
 
   const state = reactive({
     screenSize: {
@@ -10,19 +11,19 @@ export default function () {
     },
   })
 
-  const formatDate = (date: string | number | null, format = DATE_FORMAT) => {
-    return date ? $dayjs(date).format(format) : ''
+  const formatDate = (date, format = DATE_FORMAT) => {
+    return date ? dayjs().format(format) : ''
   }
 
   const isMobileResolution = computed(() => state.screenSize.width < BREAKPOINT)
 
-  const formatNumber = (number: number | string | null) => {
+  const formatNumber = (number) => {
     return number ? new Intl.NumberFormat().format(Number(number)) : 0
   }
 
   
 
-  const copyToClipBoard = (textToCopy: string) => {
+  const copyToClipBoard = (textToCopy) => {
     if (process.client) {
       const tmpTextField = document.createElement('textarea')
       tmpTextField.textContent = textToCopy
@@ -55,7 +56,7 @@ export default function () {
 
   
 
-  const scrollTo = (top?: number, behavior?: ScrollBehavior) => {
+  const scrollTo = (top, behavior) => {
     if (process.client) {
       window.scrollTo({ top: top || 0, behavior })
     }

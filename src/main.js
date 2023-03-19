@@ -1,3 +1,4 @@
+import 'devextreme/dist/css/dx.light.css';
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -7,6 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import router from './router'
+import 'devextreme/dist/css/dx.light.css';
 
 
 const pinia = createPinia()
