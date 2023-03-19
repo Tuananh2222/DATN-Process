@@ -64,15 +64,14 @@
 </template>
 
 <script setup lang="ts">
+import useAuthenStore from '@/stores/login';
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue';
 
 const rotateScreen = ref(false)
 const loginStore = useAuthenStore()
 const { state, handleSignUp, resetStateToDefault, handleSignIn } = loginStore
 const { isValidForm } = storeToRefs(loginStore)
-definePageMeta({
-  layout: 'other',
-})
 const handleChangeScreen = () => {
   rotateScreen.value = !rotateScreen.value
 }

@@ -94,7 +94,8 @@
 </template>
 
 <script setup lang="ts">
-import TextBox from '~~/components/elements/textBox.vue'
+import TextBox from '@/components/elements/textBox.vue'
+import useContactStore from '@/stores/contact';
 import { storeToRefs } from 'pinia'
 
 const contactStore = useContactStore()

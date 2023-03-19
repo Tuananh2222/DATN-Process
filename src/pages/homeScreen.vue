@@ -399,6 +399,8 @@ import DefaultLayout from "@/layouts/defaultLayout.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";
+
+
 </script>
 
 <style lang="scss" scoped>

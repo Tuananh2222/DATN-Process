@@ -1,10 +1,10 @@
-import { reactive } from 'vue'
-import { STORE_DATA_USER } from '~~/utils/constant/user'
-import { TOKEN_KEY, USER_TYPE_ENTERPRISE, USER_TYPE_PERSONAL } from '~~/utils/constant/userStore'
-import { User } from '~~/utils/types/general'
+import { computed, reactive, ref } from 'vue'
+import { STORE_DATA_USER } from '@/utils/constant/user'
+import { TOKEN_KEY } from '@/utils/constant/userStore'
+import { User } from '@/utils/types/general'
+import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
-  const { vueApp } = useNuxtApp()
   const token = ref<string>('')
   const isLogin = computed(() => !!token.value)
   const state = reactive<any>({
@@ -23,7 +23,3 @@ export const useUserStore = defineStore('user', () => {
 })
 export default useUserStore
 
-// https://pinia.vuejs.org/cookbook/hot-module-replacement.html
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
-}

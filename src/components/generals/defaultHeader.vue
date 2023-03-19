@@ -7,7 +7,7 @@
     <div class="header-menu">
       <router-link  v-for="(item, index) in headerList"
         :key="index"
-        :to="item.to"
+        :to="{name: item.to}"
         class="menu-item">{{ item.text }}</router-link>
     </div>
     <div class="header-icons">
@@ -25,6 +25,7 @@
       </div>
     </div>
   </div>
+  <router-view/>
 </template>
 
 <script setup>
@@ -35,19 +36,19 @@
 const headerList = [
   {
     text: "Trang chủ",
-    to: "/",
+    to: "Home",
   },
   {
     text: "About US",
-    to: "/about",
+    to: "About",
   },
   {
     text: "Contact",
-    to: "/contact",
+    to: "Contact",
   },
   {
     text: "Blog",
-    to: "/blog",
+    to: "Blog",
   },
 ];
 </script>

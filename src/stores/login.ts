@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 import { email, helpers, required, minLength } from '@vuelidate/validators'
-import { passwordValidate } from '~~/utils/constant/validate'
+import { passwordValidate } from '@/utils/constant/validate'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -11,6 +11,9 @@ import {
 } from 'firebase/auth'
 
 import _ from 'lodash'
+import { useValidate } from '@/composables/useValidate'
+import { defineStore } from 'pinia'
+import useApiCommon from '@/composables/useApiCommon'
 
 const defaultState = {
   hasErrors: {
@@ -109,7 +112,7 @@ export const useAuthenStore = defineStore('authen', () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user
-        navigateTo('/')
+        // navigateTo('/')
         // ...
       })
       .catch((error) => {
@@ -155,7 +158,3 @@ export const useAuthenStore = defineStore('authen', () => {
 })
 export default useAuthenStore
 
-// https://pinia.vuejs.org/cookbook/hot-module-replacement.html
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useAuthenStore, import.meta.hot))
-}
