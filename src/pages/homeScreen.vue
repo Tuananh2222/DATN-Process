@@ -709,6 +709,7 @@ const data = [
     display: flex;
     margin-top: 50px;
     .card {
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       box-shadow: 2px 0.8rem 1rem rgba(0, 0, 0, 0.5);
