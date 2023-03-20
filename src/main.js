@@ -9,6 +9,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import router from './router'
 import 'devextreme/dist/css/dx.light.css';
+import '@/css/common.css'
 
 
 const pinia = createPinia()

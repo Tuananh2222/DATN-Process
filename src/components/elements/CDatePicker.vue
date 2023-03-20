@@ -1,14 +1,9 @@
 <template>
-  <div class="dx-field-value">
-    <DxDateBox
-      v-model:value="currentValue"
-      :min="minDateValue"
-      :max="maxDateValue"
-    />
-  </div>
+  <dx-date-box type="date" :value="now"></dx-date-box>
 </template>
 
 <script setup>
+import "devextreme/dist/css/dx.light.css";
 import DxDateBox from "devextreme-vue/date-box";
 const now = new Date();
 </script>

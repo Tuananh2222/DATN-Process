@@ -134,10 +134,12 @@ onMounted(() => {});
     padding-top: 95px;
     padding-bottom: 110px;
     .text-white {
+      position: absolute;
       color: white;
       font-size: 60px;
       font-weight: 700;
-      text-align: center;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

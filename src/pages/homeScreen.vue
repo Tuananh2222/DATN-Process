@@ -1,389 +1,365 @@
 <template>
-    <div class="container-main">
-      <div class="banner-wrapper">
-        <div class="banner-slide">
-          <Swiper
-            class="container-swipper"
-            :slides-per-view="1"
-            :modules="[Autoplay, EffectFade]"
-            :autoplay="{
-              delay: 3000,
-              disableOnInteraction: false,
-            }"
-            :effect="'fade'"
-            :fade="true"
-            :fade-effect="{
-              crossFade: false,
-            }"
-            :speed="1000"
-          >
-            <SwiperSlide>
-              <div class="img-banner">
-                <img
-                  class="img-slide"
-                  src="@/public/image/slide-01.jpg"
-                  alt=""
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="img-banner">
-                <img
-                  class="img-slide"
-                  src="@/public/image/slide-02.jpg"
-                  alt=""
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div class="img-banner">
-                <img
-                  class="img-slide"
-                  src="@/public/image/slide-03.jpg"
-                  alt=""
-                />
-              </div>
-            </SwiperSlide>
-          </Swiper>
-          <div class="banner-item">
-            <div class="box-banner-text">
-              <div class="box-text">
-                <h1>Your Ideal Retreat</h1>
-                <div class="slider-subtitle-group">
-                  <h4>Indulge in our top-notch</h4>
-                  <h3>Spa resort</h3>
-                </div>
-              </div>
-              <div class="btn-wrapper">
-                <CButton
-                  :label="'Learn more'"
-                  :class-name="'button-effect-ujarak button-lg button-white-outline button-square'"
-                />
+  <div class="container-main">
+    <div class="banner-wrapper">
+      <div class="banner-slide">
+        <Swiper
+          class="container-swipper"
+          :slides-per-view="1"
+          :modules="[Autoplay, EffectFade]"
+          :autoplay="{
+            delay: 3000,
+            disableOnInteraction: false,
+          }"
+          :effect="'fade'"
+          :fade="true"
+          :fade-effect="{
+            crossFade: false,
+          }"
+          :speed="1000"
+        >
+          <SwiperSlide>
+            <div class="img-banner">
+              <img class="img-slide" src="@/public/image/slide-01.jpg" alt="" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div class="img-banner">
+              <img class="img-slide" src="@/public/image/slide-02.jpg" alt="" />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div class="img-banner">
+              <img class="img-slide" src="@/public/image/slide-03.jpg" alt="" />
+            </div>
+          </SwiperSlide>
+        </Swiper>
+        <div class="banner-item">
+          <div class="box-banner-text">
+            <div class="box-text">
+              <h1>Your Ideal Retreat</h1>
+              <div class="slider-subtitle-group">
+                <h4>Indulge in our top-notch</h4>
+                <h3>Spa resort</h3>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="hotel-booking-form">
-        <h3>Book a Room</h3>
-        <!-- RD Mailform-->
-        <div class="rd-mailform">
-          <div class="cell-lg-12 cell-md-4">
-            <TextBox :label="'Your Name'" :placeholder="'Your Full Name'" />
-          </div>
-          <div class="cell-sm-6">
-            <p class="text-uppercase">Arrival</p>
-            <CDatePicker />
-          </div>
-          <div class="cell-sm-6">
-            <p class="text-uppercase">Departure</p>
-            <!-- <div class="form-wrap">
-                <label class="form-label form-label-icon" for="date-out"
-                  ><span class="icon icon-primary fa-calendar"></span><span>Check-out Date</span></label
-                >
-                <input
-                  class="form-input"
-                  id="date-out"
-                  data-time-picker="date"
-                  type="text"
-                  name="date"
-                  data-constraints="@Required"
-                />
-              </div> -->
-          </div>
-          <div class="cell-xs-6">
-            <p class="text-uppercase">Adults</p>
-            <CDropdown :style="'width-full'" :fluid="true" />
-          </div>
-          <div class="cell-xs-6">
-            <p class="text-uppercase">Children</p>
-            <CDropdown :style="'width-full'" :fluid="true" />
-          </div>
-          <div class="btn-wrapper">
-            <CButton
-              :label="'check availability'"
-              class-name="button-primary button-square button-block button-effect-ujarak"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="content-video">
-      <iframe
-        width="1020"
-        height="525"
-        src="https://www.youtube.com/embed/IijKvP-vJDo?autoplay=1&mute=1"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
-      <div class="box-text-about">
-        <div class="section-wrap-content-var-1-inner">
-          <h2>About Us</h2>
-          <p>
-            Committed to everyone seeking energy and excitement, we offer
-            endless possibilities to unwind and reenergize.
-          </p>
-          <div class="group">
-            <dl class="list-desc">
-              <dt>Weekdays:</dt>
-              <dd><span>8:00–20:00</span></dd>
-            </dl>
-            <dl class="list-desc">
-              <dt>Weekends:</dt>
-              <dd><span>9:00–18:00</span></dd>
-            </dl>
-          </div>
-          <CButton
-            :label="'book now'"
-            :class-name="'button-effect-ujarak button-lg button-secondary-outline button-square'"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="guide-content">
-      <div class="shell">
-        <div class="text-guide">
-          <h3>Indoor Hotel Pool</h3>
-          <p>
-            The indoor heated pool has vaulted wood beam ceilings. The whirlpool
-            features bay windows and overlooks the pond and the north face of
-            the local beauty spot. For the safety and health reasons, children
-            must be accompanied by an adult when visiting the pool.
-          </p>
-          <p>
-            The serene pool at Royal Villas spa resort and hotel boasts sleek
-            décor that features striking floor-to-ceiling teak columns set
-            against a cool black tile floor. Poolside dining is also available,
-            featuring a selection of dishes from any cuisine you desire that are
-            both healthy and delicious. Daily aqua aerobics classes help keep
-            guests fit while on the road.
-          </p>
-          <div class="btn-wrapper">
-            <CButton
-              :label="'read more'"
-              :class-name="'button-primary button button-square button-effect-ujarak button-lg'"
-            />
-          </div>
-        </div>
-        <div class="img-guide">
-          <div class="box-outline box-outline__mod-1">
-            <figure>
-              <img
-                src="@/public/image/img-content.jpg"
-                alt=""
-                width="546"
-                height="516"
+            <div class="btn-wrapper">
+              <CButton
+                :label="'Learn more'"
+                :class-name="'button-effect-ujarak button-lg button-white-outline button-square'"
               />
-            </figure>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="gallery-content">
-      <div class="header-gallery">
+    <div class="hotel-booking-form">
+      <h3>Book a Room</h3>
+      <!-- RD Mailform-->
+      <div class="rd-mailform">
+        <div class="cell-lg-12 cell-md-4">
+          <TextBox :label="'Your Name'" :placeholder="'Your Full Name'" />
+        </div>
         <div class="cell-sm-6">
-          <h3>Our Gallery</h3>
+          <p class="text-uppercase">Arrival</p>
+          <CDatePicker />
         </div>
-        <div class="cell-sm-6 text-sm-right">
-          <a class="heading-link link-gray-darker" href="#">See All Photos</a>
+        <div class="cell-sm-6">
+          <p class="text-uppercase">Departure</p>
+          <CDatePicker />
+        </div>
+        <div class="cell-xs-6">
+          <p class="text-uppercase">Adults</p>
+          <CDropdown :data="data" fieldDisplay="name" fieldName="id" />
+        </div>
+        <div class="cell-xs-6">
+          <p class="text-uppercase">Children</p>
+          <CDropdown :data="data" />
+        </div>
+        <div class="btn-wrapper">
+          <CButton
+            :label="'check availability'"
+            class-name="button-primary button-square button-block button-effect-ujarak"
+          />
         </div>
       </div>
-      <hr />
-      <div class="gallery-wrapper">
-        <div class="gallery-item" tabindex="0">
-          <img
-            src="@/public/image/gallery-1-420x584.jpg"
-            class="gallery-image"
-            alt=""
+    </div>
+  </div>
+  <div class="content-video">
+    <iframe
+      width="1020"
+      height="525"
+      src="https://www.youtube.com/embed/IijKvP-vJDo?autoplay=1&mute=1"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+    <div class="box-text-about">
+      <div class="section-wrap-content-var-1-inner">
+        <h2>About Us</h2>
+        <p>
+          Committed to everyone seeking energy and excitement, we offer endless
+          possibilities to unwind and reenergize.
+        </p>
+        <div class="group">
+          <dl class="list-desc">
+            <dt>Weekdays:</dt>
+            <dd><span>8:00–20:00</span></dd>
+          </dl>
+          <dl class="list-desc">
+            <dt>Weekends:</dt>
+            <dd><span>9:00–18:00</span></dd>
+          </dl>
+        </div>
+        <CButton
+          :label="'book now'"
+          :class-name="'button-effect-ujarak button-lg button-secondary-outline button-square'"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="guide-content">
+    <div class="shell">
+      <div class="text-guide">
+        <h3>Indoor Hotel Pool</h3>
+        <p>
+          The indoor heated pool has vaulted wood beam ceilings. The whirlpool
+          features bay windows and overlooks the pond and the north face of the
+          local beauty spot. For the safety and health reasons, children must be
+          accompanied by an adult when visiting the pool.
+        </p>
+        <p>
+          The serene pool at Royal Villas spa resort and hotel boasts sleek
+          décor that features striking floor-to-ceiling teak columns set against
+          a cool black tile floor. Poolside dining is also available, featuring
+          a selection of dishes from any cuisine you desire that are both
+          healthy and delicious. Daily aqua aerobics classes help keep guests
+          fit while on the road.
+        </p>
+        <div class="btn-wrapper">
+          <CButton
+            :label="'read more'"
+            :class-name="'button-primary button button-square button-effect-ujarak button-lg'"
           />
+        </div>
+      </div>
+      <div class="img-guide">
+        <div class="box-outline box-outline__mod-1">
+          <figure>
+            <img
+              src="@/public/image/img-content.jpg"
+              alt=""
+              width="546"
+              height="516"
+            />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gallery-content">
+    <div class="header-gallery">
+      <div class="cell-sm-6">
+        <h3>Our Gallery</h3>
+      </div>
+      <div class="cell-sm-6 text-sm-right">
+        <a class="heading-link link-gray-darker" href="#">See All Photos</a>
+      </div>
+    </div>
+    <hr />
+    <div class="gallery-wrapper">
+      <div class="gallery-item" tabindex="0">
+        <img
+          src="@/public/image/gallery-1-420x584.jpg"
+          class="gallery-image"
+          alt=""
+        />
 
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <font-awesome-icon icon="fa-solid fa-heart" /> 56
-              </li>
-              <li class="gallery-item-comments">
-                <font-awesome-icon icon="fa-solid fa-eye" /> 2
-              </li>
-            </ul>
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <font-awesome-icon icon="fa-solid fa-heart" /> 56
+            </li>
+            <li class="gallery-item-comments">
+              <font-awesome-icon icon="fa-solid fa-eye" /> 2
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gallery-item" tabindex="1">
+        <img
+          src="@/public/image/gallery-2-420x278.jpg"
+          class="gallery-image"
+          alt=""
+        />
+
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <font-awesome-icon icon="fa-solid fa-heart" /> 56
+            </li>
+            <li class="gallery-item-comments">
+              <font-awesome-icon icon="fa-solid fa-eye" /> 2
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gallery-item" tabindex="2">
+        <img
+          src="@/public/image/gallery-3-584x800_original.jpg"
+          class="gallery-image"
+          alt=""
+        />
+
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <font-awesome-icon icon="fa-solid fa-heart" /> 56
+            </li>
+            <li class="gallery-item-comments">
+              <font-awesome-icon icon="fa-solid fa-eye" /> 2
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gallery-item" tabindex="3">
+        <img
+          src="@/public/image/gallery-4-1200x800_original.jpg"
+          class="gallery-image"
+          alt=""
+        />
+
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <font-awesome-icon icon="fa-solid fa-heart" /> 56
+            </li>
+            <li class="gallery-item-comments">
+              <font-awesome-icon icon="fa-solid fa-eye" /> 2
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gallery-item" tabindex="4">
+        <img
+          src="@/public/image/gallery-5-1200x800_original.jpg"
+          class="gallery-image"
+          alt=""
+        />
+
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <font-awesome-icon icon="fa-solid fa-heart" /> 56
+            </li>
+            <li class="gallery-item-comments">
+              <font-awesome-icon icon="fa-solid fa-eye" /> 2
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gallery-item" tabindex="5">
+        <img
+          src="@/public/image/gallery-6-1200x798_original.jpg"
+          class="gallery-image"
+          alt=""
+        />
+
+        <div class="gallery-item-info">
+          <ul>
+            <li class="gallery-item-likes">
+              <font-awesome-icon icon="fa-solid fa-heart" /> 56
+            </li>
+            <li class="gallery-item-comments">
+              <font-awesome-icon icon="fa-solid fa-eye" /> 2
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blog-content">
+    <div class="header-content">
+      <h3>Our Blog</h3>
+    </div>
+    <hr />
+    <div class="blog-wrapper">
+      <div class="card">
+        <div class="image-data">
+          <div class="background-image">
+            <img src="@/public/image/blog-01-460x369.jpg" alt="" />
+          </div>
+          <div class="publication-details">
+            <a href="" class="author">
+              <font-awesome-icon icon="fa-regular fa-thumbs-up" />
+              220
+            </a>
+            <spam class="date"
+              ><font-awesome-icon icon="fa-solid fa-clock" /> March 30,
+              2020</spam
+            >
           </div>
         </div>
-        <div class="gallery-item" tabindex="1">
-          <img
-            src="@/public/image/gallery-2-420x278.jpg"
-            class="gallery-image"
-            alt=""
-          />
-
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <font-awesome-icon icon="fa-solid fa-heart" /> 56
-              </li>
-              <li class="gallery-item-comments">
-                <font-awesome-icon icon="fa-solid fa-eye" /> 2
-              </li>
-            </ul>
+        <div class="post-data">
+          <h1 class="title">
+            Top 3 Reasons Why Royal Villas Offers the Best Spa Procedures
+          </h1>
+          <div class="cta">
+            <a href="#">Read more &rarr;</a>
           </div>
         </div>
-        <div class="gallery-item" tabindex="2">
-          <img
-            src="@/public/image/gallery-3-584x800_original.jpg"
-            class="gallery-image"
-            alt=""
-          />
-
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <font-awesome-icon icon="fa-solid fa-heart" /> 56
-              </li>
-              <li class="gallery-item-comments">
-                <font-awesome-icon icon="fa-solid fa-eye" /> 2
-              </li>
-            </ul>
+      </div>
+      <div class="card">
+        <div class="image-data">
+          <div class="background-image">
+            <img src="@/public/image/blog-02-460x369.jpg" alt="" />
+          </div>
+          <div class="publication-details">
+            <a href="" class="author">
+              <font-awesome-icon icon="fa-regular fa-thumbs-up" />
+              40
+            </a>
+            <spam class="date"
+              ><font-awesome-icon icon="fa-solid fa-clock" /> October 26,
+              2017</spam
+            >
           </div>
         </div>
-        <div class="gallery-item" tabindex="3">
-          <img
-            src="@/public/image/gallery-4-1200x800_original.jpg"
-            class="gallery-image"
-            alt=""
-          />
-
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <font-awesome-icon icon="fa-solid fa-heart" /> 56
-              </li>
-              <li class="gallery-item-comments">
-                <font-awesome-icon icon="fa-solid fa-eye" /> 2
-              </li>
-            </ul>
+        <div class="post-data">
+          <h1 class="title">
+            Featured Therapies and Activities at Royal Villas Spa Resort and
+            Hotel
+          </h1>
+          <div class="cta">
+            <a href="#">Read more &rarr;</a>
           </div>
         </div>
-        <div class="gallery-item" tabindex="4">
-          <img
-            src="@/public/image/gallery-5-1200x800_original.jpg"
-            class="gallery-image"
-            alt=""
-          />
-
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <font-awesome-icon icon="fa-solid fa-heart" /> 56
-              </li>
-              <li class="gallery-item-comments">
-                <font-awesome-icon icon="fa-solid fa-eye" /> 2
-              </li>
-            </ul>
+      </div>
+      <div class="card">
+        <div class="image-data">
+          <div class="background-image">
+            <img src="@/public/image/blog-03-460x369.jpg" alt="" />
+          </div>
+          <div class="publication-details">
+            <a href="" class="author">
+              <font-awesome-icon icon="fa-regular fa-thumbs-up" />
+              15
+            </a>
+            <spam class="date"
+              ><font-awesome-icon icon="fa-solid fa-clock" /> August 23,
+              2017</spam
+            >
           </div>
         </div>
-        <div class="gallery-item" tabindex="5">
-          <img
-            src="@/public/image/gallery-6-1200x798_original.jpg"
-            class="gallery-image"
-            alt=""
-          />
-
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <font-awesome-icon icon="fa-solid fa-heart" /> 56
-              </li>
-              <li class="gallery-item-comments">
-                <font-awesome-icon icon="fa-solid fa-eye" /> 2
-              </li>
-            </ul>
+        <div class="post-data">
+          <h1 class="title">Why Your Relaxing Getaway Starts Here</h1>
+          <div class="cta">
+            <a href="#">Read more &rarr;</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="blog-content">
-      <div class="header-content">
-        <h3>Our Blog</h3>
-      </div>
-      <hr />
-      <div class="blog-wrapper">
-        <div class="card">
-          <div class="image-data">
-            <div class="background-image">
-              <img src="@/public/image/blog-01-460x369.jpg" alt="" />
-            </div>
-            <div class="publication-details">
-              <a href="" class="author">
-                <font-awesome-icon icon="fa-regular fa-thumbs-up" />
-                220
-              </a>
-              <spam class="date"
-                ><font-awesome-icon icon="fa-solid fa-clock" /> March 30,
-                2020</spam
-              >
-            </div>
-          </div>
-          <div class="post-data">
-            <h1 class="title">
-              Top 3 Reasons Why Royal Villas Offers the Best Spa Procedures
-            </h1>
-            <div class="cta">
-              <a href="#">Read more &rarr;</a>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="image-data">
-            <div class="background-image">
-              <img src="@/public/image/blog-02-460x369.jpg" alt="" />
-            </div>
-            <div class="publication-details">
-              <a href="" class="author">
-                <font-awesome-icon icon="fa-regular fa-thumbs-up" />
-                40
-              </a>
-              <spam class="date"
-                ><font-awesome-icon icon="fa-solid fa-clock" /> October 26,
-                2017</spam
-              >
-            </div>
-          </div>
-          <div class="post-data">
-            <h1 class="title">
-              Featured Therapies and Activities at Royal Villas Spa Resort and
-              Hotel
-            </h1>
-            <div class="cta">
-              <a href="#">Read more &rarr;</a>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="image-data">
-            <div class="background-image">
-              <img src="@/public/image/blog-03-460x369.jpg" alt="" />
-            </div>
-            <div class="publication-details">
-              <a href="" class="author">
-                <font-awesome-icon icon="fa-regular fa-thumbs-up" />
-                15
-              </a>
-              <spam class="date"
-                ><font-awesome-icon icon="fa-solid fa-clock" /> August 23,
-                2017</spam
-              >
-            </div>
-          </div>
-          <div class="post-data">
-            <h1 class="title">Why Your Relaxing Getaway Starts Here</h1>
-            <div class="cta">
-              <a href="#">Read more &rarr;</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
 </template>
 <script setup>
 // import CardProduct from "~~/components/generals/cardProduct.vue";
@@ -398,7 +374,28 @@ import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import CDatePicker from "@/components/elements/CDatePicker.vue";
 
-
+const data = [
+  {
+    id: 1,
+    name: "HD Video Player",
+  },
+  {
+    id: 2,
+    name: "SuperHD Video Player",
+  },
+  {
+    id: 3,
+    name: "SuperPlasma 50",
+  },
+  {
+    id: 4,
+    name: "SuperLED 50",
+  },
+  {
+    id: 5,
+    name: "SuperLED 42",
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -544,8 +541,11 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
               font-size: 14px;
             }
           }
-          @media not screen and (min-width: 1280px) {
-            dd {
+          dd {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            @media not screen and (min-width: 1280px) {
               font-size: 14px;
             }
           }
@@ -716,7 +716,6 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
       margin-right: 30px;
       width: calc(100% / 3);
       .image-data {
-        height: 25rem;
         position: relative;
         z-index: 1;
         overflow: hidden;
@@ -726,7 +725,6 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
           position: absolute;
           top: 0;
           left: 0;
-          // background: url('~/public/image/blog-01-460x369.jpg') center no-repeat;
           background-size: cover;
           z-index: -1;
           transition: transform 5s;
@@ -736,7 +734,7 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
           width: 100%;
           height: 100%;
           background: #8f859e;
-          font-size: 1.4rem;
+          font-size: 1rem;
           color: white;
           font-weight: bold;
           position: absolute;
@@ -772,22 +770,26 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
           transition: transform 0.5s;
         }
 
-        flex-basis: 45%;
+        flex-basis: 40%;
         height: unset;
       }
       .post-data {
         background-color: white;
-        padding: 2rem 3rem;
+        padding: -1rem 3rem;
         position: relative;
         .title {
           color: #000;
-          font-size: 24px;
+          font-size: 18px;
           line-height: 1;
+          padding-left: 15px;
+          padding-top: 10px;
+          height: 80px;
         }
         .cta {
           text-align: right;
           font-weight: bold;
-          margin-top: 1rem;
+          margin-top: 10px;
+          padding-bottom: 10px;
           a {
             background: #8f859e;
             -webkit-background-clip: text;
@@ -814,7 +816,7 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
         }
         &:before {
           content: "";
-          width: 3.5rem;
+          width: 2rem;
           height: 100%;
           background-color: white;
           position: absolute;
@@ -852,10 +854,7 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
 .list-desc {
   display: flex;
   dd {
-    margin-inline-start: 10px;
-    @media not screen and (min-width: 1280px) {
-      margin-inline-start: 5px;
-    }
+    margin-inline-start: 5px;
   }
 }
 .btn-wrapper {

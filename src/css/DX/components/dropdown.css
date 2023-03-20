@@ -1,0 +1,109 @@
+#msp-dropdown-container .dx-dropdowneditor-button {
+    display: flex;
+    align-items: center;
+}
+
+.dx-selectbox-popup-wrapper .dx-list-item-selected {
+    background-color: var(--primary-bg)!important;
+    color: var(--primary)!important;
+    font-weight: 500 !important;
+}
+
+.dx-selectbox-popup-wrapper .dx-list-item {
+    font-weight: 400;
+    overflow: unset;
+}
+
+#msp-dropdown-container .dx-state-hover,#msp-dropdown-container .dx-state-focused {
+    border-color: var(--input-hover-border-color) !important;
+}
+
+#msp-dropdown-container .dx-texteditor-input {
+    font-weight: 400;
+    text-overflow: ellipsis !important;
+}
+
+.dx-selectbox-popup-wrapper .dx-list-item-content {
+    overflow: unset;
+}
+
+.dx-dropdownlist-popup-wrapper .dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item-content {
+    padding: 7px 9px;
+}
+
+.dx-selectbox-popup-wrapper .dx-list-item {
+    border-radius: 4px;
+}
+
+.dx-selectbox-popup-wrapper .dx-popup-content {
+    padding: 8px 6px;
+}
+
+.dx-selectbox-popup-wrapper .dx-scrollable-container {
+    overflow: unset;
+}
+
+.dx-selectbox-popup-wrapper .dx-overlay-content {
+    overflow: unset;
+}
+
+.dx-selectbox-popup-wrapper .msp-dropdown-item-custom-dx {
+    position: relative;
+}
+
+.dx-selectbox-popup-wrapper .msp-dropdown-item-custom-dx:hover {
+    background-color: var(--primary-bg)!important;
+    color: var(--primary)!important;
+}
+
+.dx-selectbox-popup-wrapper .msp-dropdown-item-custom-tooltip {
+    position: absolute;
+    background-color: rgb(70, 70, 70);
+    top: -24px;
+    color:#fff;
+    padding: 2px 4px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.dx-selectbox-popup-wrapper .msp-dropdown-item-custom-tooltip::after {
+    content: "";
+    position: absolute;
+    border: 5px solid transparent;
+    border-top-color: rgb(70, 70, 70);
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dx-selectbox-popup-wrapper .msp-dropdown-item-custom-dx:hover .msp-dropdown-item-custom-tooltip {
+    display: block;
+}
+
+.msp-dropdown-item-icon {
+    display: none;
+}
+
+.dx-list-item-selected .msp-dropdown-item-icon {
+    display: block;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-focused {
+    background-color: var(--primary-bg)!important;
+    color: #000;
+}
+
+.msp-border-field-error .dx-texteditor.dx-editor-outlined {
+    border-color: #e61d1d;
+}
+
+#msp-dropdown-container:focus-visible {
+    outline: none;
+}
+
+#msp-dropdown-container:focus-visible .dx-texteditor.dx-editor-outlined {
+    border-color: var(--input-hover-border-color) !important;
+}
