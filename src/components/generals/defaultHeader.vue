@@ -52,6 +52,10 @@ const headerList = [
     text: "Blog",
     to: "Blog",
   },
+  {
+    text: "Hotel",
+    to: "Hotel",
+  },
 ];
 </script>
 

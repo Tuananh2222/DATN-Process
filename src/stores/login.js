@@ -13,7 +13,7 @@ import {
 import _ from 'lodash'
 import { useValidate } from '@/composables/useValidate'
 import { defineStore } from 'pinia'
-import useApiCommon from '@/composables/useApiCommon'
+import router from '@/router'
 
 const defaultState = {
   hasErrors: {
@@ -29,7 +29,6 @@ const defaultState = {
 }
 
 export const useAuthenStore = defineStore('authen', () => {
-  const { handleAPICommon } = useApiCommon()
   const auth = getAuth()
   const provider = new GoogleAuthProvider()
 
@@ -66,17 +65,11 @@ export const useAuthenStore = defineStore('authen', () => {
     isValidForm.value = false
   }
 
-  const handleSignUp = async () => {
-    await handleAPICommon(handleSignUpProcess)
-  }
-  const handleSignIn = async () => {
-    await handleAPICommon(handleSignInProcess)
-  }
 
-  const handleSignUpProcess = async () => {
+
+  const handleSignUp = async () => {
     createUserWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
-        debugger
         // Signed in
         const user = userCredential.user
         console.log(user)
@@ -103,21 +96,30 @@ export const useAuthenStore = defineStore('authen', () => {
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
+        console.log(errorCode, errorMessage)
         // ..
       })
   }
 
-  const handleSignInProcess = async () => {
+  const handleSignIn = async () => {
     signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user
-        // navigateTo('/')
+        console.log(user)
+
+        router.push({
+          path: "/",
+          name: "Home",
+          component: () => import("@/pages/homeScreen.vue"),
+        })
         // ...
       })
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
+        console.log(errorCode, errorMessage)
+
       })
   }
 
@@ -126,9 +128,11 @@ export const useAuthenStore = defineStore('authen', () => {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result)
-        // const token = credential.accessToken
+        const token = credential.accessToken
+        console.log(token)
         // The signed-in user info.
         const user = result.user
+        console.log(user)
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
@@ -140,6 +144,7 @@ export const useAuthenStore = defineStore('authen', () => {
         const email = error.customData.email
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error)
+        console.log(errorCode, errorMessage, credential, email)
         // ...
       })
   }
@@ -147,13 +152,13 @@ export const useAuthenStore = defineStore('authen', () => {
   return {
     state,
     handleSignUp,
-    handleSignUpProcess,
     checkField,
     $v,
     checkAllField,
     isValidForm,
     resetStateToDefault,
     handleSignIn,
+    handleSignInWithGoogle
   }
 })
 export default useAuthenStore

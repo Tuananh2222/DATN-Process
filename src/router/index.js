@@ -23,6 +23,21 @@ const router = createRouter({
       name: "Blog",
       component: () => import("@/pages/BlogScreen.vue"),
     },
+    {
+      path: "/hotel",
+      name: "Hotel",
+      component: () => import("@/pages/HotelScreen.vue"),
+    },
+    {
+      path: "/hotel-item",
+      name: "Hotel Item",
+      component: () => import("@/pages/HotelItem.vue"),
+    },
+    {
+      path: "/login",
+      name: "Login",
+      component: () => import("@/pages/LoginScreen.vue"),
+    }
   ],
 });
 

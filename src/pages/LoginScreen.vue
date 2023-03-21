@@ -1,11 +1,18 @@
 <template>
-  <div :class="['container', rotateScreen ? 'right-panel-active' : '']" id="container">
+  <div
+    :class="['container', rotateScreen ? 'right-panel-active' : '']"
+    id="container"
+  >
     <div class="form-container sign-up-container">
       <div class="form">
         <h1>Create Account</h1>
         <div class="social-container">
-          <a href="#" class="social"><font-awesome-icon icon="fa-brands fa-facebook-f" /></a>
-          <a href="#" class="social"><font-awesome-icon icon="fa-brands fa-google-plus-g" /></a>
+          <a href="#" class="social"
+            ><font-awesome-icon icon="fa-brands fa-facebook-f"
+          /></a>
+          <a href="#" class="social"
+            ><font-awesome-icon icon="fa-brands fa-google-plus-g"
+          /></a>
         </div>
         <span>or use your email for registration</span>
         <TextBox
@@ -29,21 +36,29 @@
           type="password"
           @focusOut="loginStore.checkField('confirmPassword')"
         />
-        <button @click="submitSignup" :class="isValidForm ? '' : 'disable'">Sign Up</button>
+        <button @click="submitSignup" :class="isValidForm ? '' : 'disable'">
+          Sign Up
+        </button>
       </div>
     </div>
     <div class="form-container sign-in-container">
       <div class="form">
         <h1>Sign in</h1>
         <div class="social-container">
-          <a href="#" class="social"><font-awesome-icon icon="fa-brands fa-facebook-f" /></a>
-          <a href="#" class="social"><font-awesome-icon icon="fa-brands fa-google-plus-g" /></a>
+          <a href="#" class="social"
+            ><font-awesome-icon icon="fa-brands fa-facebook-f"
+          /></a>
+          <a href="#" class="social"
+            ><font-awesome-icon icon="fa-brands fa-google-plus-g"
+          /></a>
         </div>
         <span>or use your account</span>
         <input type="email" placeholder="Email" />
         <input type="password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button @click="submitSignIn" :class="isValidForm ? '' : 'disable'">Sign In</button>
+        <button @click="submitSignIn" :class="isValidForm ? '' : 'disable'">
+          Sign In
+        </button>
       </div>
     </div>
     <div class="overlay-container">
@@ -51,39 +66,43 @@
         <div class="overlay-panel overlay-left">
           <h1>Welcome Back!</h1>
           <p>To keep connected with us please login with your personal info</p>
-          <button @click="handleChangeScreen" class="ghost" id="signIn">Sign In</button>
+          <button @click="handleChangeScreen" class="ghost" id="signIn">
+            Sign In
+          </button>
         </div>
         <div class="overlay-panel overlay-right">
           <h1>Hello, Friend!</h1>
           <p>Enter your personal details and start journey with us</p>
-          <button @click="handleChangeScreen" class="ghost" id="signUp">Sign Up</button>
+          <button @click="handleChangeScreen" class="ghost" id="signUp">
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import useAuthenStore from '@/stores/login';
-import { storeToRefs } from 'pinia'
-import { ref } from 'vue';
+<script setup>
+import useAuthenStore from "@/stores/login";
+import { storeToRefs } from "pinia";
+import { ref } from "vue";
 
-const rotateScreen = ref(false)
-const loginStore = useAuthenStore()
-const { state, handleSignUp, resetStateToDefault, handleSignIn } = loginStore
-const { isValidForm } = storeToRefs(loginStore)
+const rotateScreen = ref(false);
+const loginStore = useAuthenStore();
+const { state, handleSignUp, resetStateToDefault, handleSignIn } = loginStore;
+const { isValidForm } = storeToRefs(loginStore);
 const handleChangeScreen = () => {
-  rotateScreen.value = !rotateScreen.value
-}
+  rotateScreen.value = !rotateScreen.value;
+};
 
 const submitSignup = () => {
-  handleSignUp()
-  resetStateToDefault()
-  rotateScreen.value = false
-}
+  handleSignUp();
+  resetStateToDefault();
+  rotateScreen.value = false;
+};
 const submitSignIn = () => {
-  handleSignIn()
-}
+  handleSignIn();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -140,7 +159,7 @@ button.ghost {
 }
 
 button.disable {
-  background: $disable !important;
+  background: #bbb;
   color: #ccc;
   pointer-events: none;
   border: 1px solid #ccc;
