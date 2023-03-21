@@ -14,7 +14,7 @@
       >
     </div>
     <div class="header-icons">
-      <div class="icon">
+      <div class="icon" @click="handleUser">
         <font-awesome-icon icon="fa-user" />
       </div>
       <div class="icon">
@@ -34,6 +34,16 @@
 // import SearchBox from '~~/components/generals/SearchBox.vue'
 // const { state, init } = useHeaderStore()
 // const emits = defineEmits(["nextTo"]);
+
+import router from "@/router";
+
+const handleUser = () => {
+  router.push({
+    path: "/login",
+    name: "Login",
+    component: () => import("@/pages/LoginScreen.vue"),
+  });
+};
 
 const headerList = [
   {

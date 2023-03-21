@@ -111,7 +111,7 @@ export const useAuthenStore = defineStore('authen', () => {
         router.push({
           path: "/",
           name: "Home",
-          component: () => import("@/pages/homeScreen.vue"),
+          component: () => import("@/pages/HomeScreen.vue"),
         })
         // ...
       })

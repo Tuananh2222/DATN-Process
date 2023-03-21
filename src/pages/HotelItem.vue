@@ -113,7 +113,7 @@
             </p>
           </div>
           <div class="desc-actions">
-            <button class="btn-book">Book Now</button>
+            <CButton :label="'Book Now'" :class-name="'button-primary button-square button-block button-effect-ujara'"/>
             <div class="add-favourite">
               <input type="checkbox" id="favourite" />
               <label for="favourite">
@@ -273,51 +273,397 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-close" onclick="closeM()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="feather feather-x"
-        >
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </button>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import CButton from '@/components/elements/CButton.vue';
+
+</script>
 
 <style lang="scss" scoped>
-.main-modal {
-  flex-direction: column;
-  overflow-y: auto;
-  height: 100%;
-  width: 100%;
+a {
+  text-decoration: none;
 }
 
-#modal-window {
-  padding: 0;
+button,
+a {
+  cursor: pointer;
+}
+
+
+
+.btn-icon {
+  width: 16px;
+}
+
+.app-main-right {
+  flex: 2;
+  margin-left: 24px;
+  max-width: 400px;
+
+
+  .card {
+    height: 160px;
+  }
+}
+
+.card-wrapper {
+  width: 33.3%;
+  height: auto;
+  padding: 8px;
+}
+
+.card {
+  background-color: var(--cards-bg);
+  border: 3px solid var(--cards-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  display: block;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.app-main-right-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  color: var(--main-font-color);
+  background-color: var(--cards-area-bg);
+
+  span {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+  }
+
+  a {
+    font-size: 14px;
+    color: #8f859e;
+    font-weight: 600;
+  }
+}
+
+
+
+.main-modal {
+  width: 100%;
+  height: 90%;
+  background: var(--app-bg);
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  padding: 0 32px;
+}
+
+@keyframes hide {
+  from {
+    z-index: 2;
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    z-index: -1;
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes show {
+  from {
+    transform: scale(0);
+    opacity: 0;
+    z-index: -1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 2;
+  }
+}
+
+.modal-image-wrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  max-height: 50%;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.modal-left {
+  flex: 5;
+  overflow-y: auto;
+}
+
+.modal-image-wrapper {
+  margin-bottom: 24px;
+}
+
+.modal-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.left-side {
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--main-font-color);
+  }
+
+  p {
+    color: var(--light-font-color);
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.right-side {
+  color: var(--main-font-color);
+
+  span {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 32px;
+  }
+}
+
+.info-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  span {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--main-font-color);
+  }
+}
+
+.info-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-icon {
+  background-color: #979797;
+  border-radius: 50%;
+  color: purple;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.desc-wrapper {
+  .modal-info-header {
+    margin-top: 24px;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin: 0;
+    line-height: 32px;
+    color: var(--main-font-color);
+  }
+
+  p {
+    color: var(--light-font-color);
+  }
+}
+
+.desc-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
+}
+
+:deep(.button-primary) {
+  border-radius: 6px;
+  font-size: 16px;
+  margin-right: 32px;
+  padding: 10px;
+  font-size: 14px;
+  width: 120px;
+}
+
+.add-favourite {
+  display: flex;
+  align-items: center;
+}
+
+.add-favourite input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+
+  &:checked + label {
+    color: var(--buttons-color-primary);
+
+    .btn-icon {
+      transition: 0.2s;
+      color: var(--buttons-color-primary);
+      fill: var(--buttons-color-primary);
+    }
+  }
+}
+
+.add-favourite label {
+  cursor: pointer;
+  color: var(--light-font-color);
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+
+  span {
+    display: flex;
+    margin-right: 4px;
+  }
 }
 
 .modal-right {
-  width: 100%;
-  max-width: 100%;
-  margin-left: 0;
-  margin-top: 16px;
-  overflow-y: visible;
+  background-color: var(--cards-area-bg);
+  height: 100%;
+  overflow-y: auto;
+  border-radius: 20px;
+  padding: 0 16px;
+  flex: 3;
+  max-width: 320px;
+  margin-left: 16px;
+
+  .card-wrapper {
+    width: 100%;
+    padding: 8px 0;
+  }
+
+  .card > p {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--light-font-color);
+    margin: 0;
+  }
+
+  .card {
+    padding: 8px;
+
+    &:hover {
+      transform: scale(1);
+    }
+
+    .profile-info-wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+
+      p {
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--main-font-color);
+        margin: 0;
+        font-weight: 600;
+      }
+    }
+  }
 }
 
-.btn-close {
-  right: 0;
-  top: 0;
+.profile-img-wrapper {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-right: 12px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .app-main-left .card-wrapper {
+    width: 50%;
+  }
+
+  .app-main-right-header span {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+
+  .modal-left {
+    flex-shrink: 0;
+    flex-basis: auto;
+  }
+
+  h1,
+  .modal-left h1 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .info-wrapper span {
+    font-size: 12px;
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+
+  .main-modal {
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+  }
+
+  #modal-window {
+    padding: 0;
+  }
+
+  .modal-right {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 16px;
+    overflow-y: visible;
+  }
+
+  .btn-close {
+    right: 0;
+    top: 0;
+  }
+}
+
+
+@media screen and (max-width: 520px) {
+
+  .modal-right {
+    flex: unset;
+  }
+
+  .card:hover {
+    transform: scale(1);
+  }
 }
 </style>

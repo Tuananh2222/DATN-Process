@@ -603,4 +603,7 @@ const props = defineProps({
   font: 700 16px "Poppins", Helvetica, Arial, sans-serif;
   color: #dcd1d5;
 }
+.button-border{
+  border-radius: 6px;
+}
 </style>
