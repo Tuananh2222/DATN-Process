@@ -1,38 +1,41 @@
 <template>
   <div class="app-container">
     <section class="app-actions">
-      <div class="app-actions-line filter-line">
+      <div class="app-actions-line">
         <div class="filter-action-buttons">
-          <CDatePicker />
-          <CDropdown :data="data" fieldDisplay="name" fieldName="id" />
-          <CDropdown :data="data" fieldDisplay="name" fieldName="id" />
-          <CDropdown :data="data" fieldDisplay="name" fieldName="id" />
+          <CDropdown
+            :data="data"
+            fieldDisplay="name"
+            fieldName="id"
+            :placeholder="'-People-'"
+          />
+          <CDropdown
+            :data="data"
+            fieldDisplay="name"
+            fieldName="id"
+            :placeholder="'-Room Size-'"
+          />
+          <CDropdown
+            :data="data"
+            fieldDisplay="name"
+            fieldName="id"
+            :placeholder="'-Bed Type-'"
+          />
+          <CDropdown
+            :data="data"
+            fieldDisplay="name"
+            fieldName="id"
+            :placeholder="'-Bathroom-'"
+          />
         </div>
       </div>
       <div class="app-actions-line">
-        <div class="search-wrapper">
-          <button class="loaction-btn">
-            <svg
-              class="btn-icon feather feather-map-pin"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              viewBox="0 0 24 24"
-            >
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-          </button>
-          <input
-            type="text"
-            class="search-input"
-          />
-          <CButton :label="'Find Room'" :class-name="'button-primary button-square button-block button-effect-ujarak'"/>
-        </div>
+        <TextBox />
       </div>
+      <CButton
+        :label="'Find Room'"
+        :class-name="'button-primary button-square button-block button-effect-ujarak'"
+      />
     </section>
     <section class="app-main">
       <div class="app-main-left cards-area">
@@ -48,10 +51,23 @@
               <div class="card-text big cardText-js">
                 The Grand Budapest Hotel
               </div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1000</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -68,10 +84,23 @@
               <div class="card-text big cardText-js">
                 The Grand Canyon Hotel
               </div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1500</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -86,10 +115,23 @@
             </div>
             <div class="card-info">
               <div class="card-text big cardText-js">The Beakman Spa Hotel</div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1300</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -104,10 +146,23 @@
             </div>
             <div class="card-info">
               <div class="card-text big cardText-js">Paloma Hotel & Spa</div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $700</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -124,10 +179,23 @@
               <div class="card-text big cardText-js">
                 The Golden Hours Hotel
               </div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $700</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -144,10 +212,23 @@
               <div class="card-text big cardText-js">
                 The Daydream Hotel & Spa
               </div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1250</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -162,10 +243,23 @@
             </div>
             <div class="card-info">
               <div class="card-text big cardText-js">The Harmony Hotel</div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $500</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -182,10 +276,23 @@
               <div class="card-text big cardText-js">
                 The Hotel Star Pasific
               </div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1400</span>
+                Max People:
+                <span class="card-price">2</span>
+              </div>
+              <div class="card-text small">
+                Room Size:
+                <span class="card-price">18m<sup>2</sup></span>
+              </div>
+              <div class="card-text small">
+                Bed Type:
+                <span class="card-price">
+                  2 Single beds or 1 Large double bed</span
+                >
+              </div>
+              <div class="card-text small">
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -200,122 +307,21 @@
             </div>
             <div class="card-info">
               <div class="card-text big cardText-js">Hotel Roller Coaster</div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1800</span>
+                Max People:
+                <span class="card-price">2</span>
               </div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="app-main-right cards-area">
-        <div class="app-main-right-header">
-          <span>Latest Deals</span>
-          <a href="#">See More</a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?hotel-room,interior"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">Hotel Conrad</div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1000</span>
+                Room Size:
+                <span class="card-price">30m<sup>2</sup></span>
               </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?interior,hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">The Hotel Riviera</div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $300</span>
+                Bed Type:
+                <span class="card-price"> 2 Single beds </span>
               </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?architecture,modern"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">
-                The Hotel Star Pasific
-              </div>
-              <div class="card-text small">Stockton Street</div>
               <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1400</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?hotel,modern"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">Hotel Instant Destiny</div>
-              <div class="card-text small">Stockton Street</div>
-              <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1800</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?architecture,modern"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">The White Roses Hotel</div>
-              <div class="card-text small">Stockton Street</div>
-              <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $700</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?hotel,modern"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">Hotel Tom's Dinner</div>
-              <div class="card-text small">Stockton Street</div>
-              <div class="card-text small">
-                Starts from:
-                <span class="card-price"> $1500</span>
+                Bathroom:
+                <span class="card-price">Standing shower</span>
               </div>
             </div>
           </a>
@@ -327,8 +333,8 @@
 
 <script setup>
 import CButton from "@/components/elements/CButton.vue";
-import CDatePicker from "@/components/elements/CDatePicker.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
+import TextBox from "@/components/elements/textBox.vue";
 import router from "@/router";
 import HotelItem from "./HotelItem.vue";
 
@@ -381,45 +387,21 @@ a {
 }
 
 section.app-actions {
-  padding: 0 40px 0 40px;
+  padding: 0 40px 40px 40px;
+  background-color: #f0ede8;
 }
 
-.btn-icon {
-  width: 16px;
+:deep(.container-input) {
+  width: 69%;
+  margin: 0 auto;
 }
 
-.search-wrapper {
-  border: none;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 6px;
-  max-width: 420px;
-  width: 100%;
-  overflow: hidden;
+:deep(.sub-container) {
+  margin-top: 0;
+}
+:deep(.input-border) {
   height: 40px;
-}
-
-.search-input {
   border-radius: 0;
-  appearance: none;
-  box-shadow: none;
-  border-left: none;
-  border-right: none;
-  background-color: var(--search-bg);
-  flex: 1;
-  border: 1px solid var(--main-border-color);
-  padding: 0 8px;
-  font-size: 16px;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-
-  .dark & {
-    border-color: var(--search-bg);
-    color: #fff;
-  }
 }
 
 .loaction-btn {
@@ -430,111 +412,20 @@ section.app-actions {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .dark & {
-    border: none;
-    background-color: var(--search-bg);
-  }
-}
-
-.dark .loaction-btn .btn-icon {
-  color: #fff;
 }
 
 :deep(.button-primary) {
   border: 1px solid #979797;
   padding: 10px 16px;
   font-size: 14px;
-  width: 103px;
+  width: 69%;
+  margin: 0 auto;
 }
 
 .app-actions-line {
   display: flex;
   align-items: center;
   margin: 32px 0;
-}
-
-.contact-actions {
-  display: flex;
-  align-items: center;
-  margin-left: 32px;
-
-  span {
-    display: block;
-    font-size: 14px;
-    line-height: 16px;
-    font-weight: 500;
-    margin-right: 8px;
-
-    .dark & {
-      color: #fff;
-    }
-  }
-
-  &.socials .contact-link {
-    color: #b9b9b9;
-  }
-}
-
-.contact-link {
-  border: 1px solid var(--main-border-color);
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--buttons-color-primary);
-  margin: 0 4px;
-  flex-shrink: 0;
-}
-
-.filter-text {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 200px;
-  padding: 0 24px 0 8px;
-  position: relative;
-
-  &:before {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    right: 0;
-    top: 50%;
-    transform: translatey(-50%);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-
-  .dark & {
-    &:before {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    }
-  }
-}
-
-.filter-icon {
-  background-color: var(--buttons-color-secondary);
-  border-radius: 50%;
-  color: var(--buttons-color-primary);
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.filter-line-text {
-  font-size: 14px;
-  font-weight: 600;
-  margin-right: 32px;
-  color: var(--main-font-color);
 }
 
 .app-main {
@@ -557,26 +448,6 @@ section.app-actions {
   flex: 4;
   display: flex;
   flex-wrap: wrap;
-}
-
-.app-main-right {
-  flex: 2;
-  margin-left: 24px;
-  max-width: 400px;
-
-  .card-image-wrapper {
-    max-height: 100%;
-    padding: 0;
-    height: 100%;
-  }
-
-  .card {
-    height: 160px;
-  }
-
-  .card-image-wrapper img {
-    margin: 0;
-  }
 }
 
 .card-wrapper {
@@ -649,50 +520,6 @@ section.app-actions {
   }
 }
 
-.app-main-right-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  color: var(--main-font-color);
-  background-color: var(--cards-area-bg);
-
-  span {
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: 600;
-  }
-
-  a {
-    font-size: 14px;
-    color: var(--buttons-color-primary);
-    font-weight: 600;
-  }
-}
-
-.app-main-right {
-  position: relative;
-  padding-top: 0;
-
-  .card-wrapper {
-    width: 100%;
-    padding: 8px 0;
-  }
-
-  .card {
-    display: flex;
-  }
-
-  .card-image-wrapper {
-    flex-basis: 40%;
-    flex-shrink: 0;
-
-    img {
-      height: 100%;
-    }
-  }
-}
-
 @keyframes hide {
   from {
     z-index: 2;
@@ -722,40 +549,27 @@ section.app-actions {
 
 .filter-action-buttons {
   display: flex;
+  justify-content: space-around;
   overflow-x: auto;
   position: relative;
+  margin: 0 auto;
+  width: 70%;
 
   button {
     margin-bottom: 4px;
   }
 }
 
-.filter-line {
-  align-items: flex-start;
-}
-
 @media screen and (max-width: 1020px) {
   .app-main-left .card-wrapper {
     width: 50%;
   }
-
-  .app-main-right-header span {
-    font-size: 14px;
-  }
 }
 
 @media screen and (max-width: 990px) {
-  .app-main-right {
-    display: none;
-  }
 }
 
 @media screen and (max-width: 780px) {
-  .app-actions-line:not(.filter-line) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .app-actions-line {
     margin: 16px 0;
   }
@@ -775,12 +589,6 @@ section.app-actions {
 
   section.app-actions {
     padding: 0 24px;
-  }
-
-  h1,
-  .modal-left h1 {
-    font-size: 16px;
-    line-height: 24px;
   }
 }
 

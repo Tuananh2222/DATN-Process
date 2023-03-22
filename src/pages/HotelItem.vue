@@ -113,7 +113,10 @@
             </p>
           </div>
           <div class="desc-actions">
-            <CButton :label="'Book Now'" :class-name="'button-primary button-square button-block button-effect-ujara'"/>
+            <CButton
+              :label="'Book Now'"
+              :class-name="'button-primary button-square button-block button-effect-ujara'"
+            />
             <div class="add-favourite">
               <input type="checkbox" id="favourite" />
               <label for="favourite">
@@ -278,8 +281,7 @@
 </template>
 
 <script setup>
-import CButton from '@/components/elements/CButton.vue';
-
+import CButton from "@/components/elements/CButton.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -292,8 +294,6 @@ a {
   cursor: pointer;
 }
 
-
-
 .btn-icon {
   width: 16px;
 }
@@ -302,7 +302,6 @@ a {
   flex: 2;
   margin-left: 24px;
   max-width: 400px;
-
 
   .card {
     height: 160px;
@@ -344,12 +343,10 @@ a {
 
   a {
     font-size: 14px;
-    color: #8f859e;
+    color: #d84851;
     font-weight: 600;
   }
 }
-
-
 
 .main-modal {
   width: 100%;
@@ -460,9 +457,9 @@ a {
 }
 
 .info-icon {
-  background-color: #979797;
+  background-color: #f8e4e5;
   border-radius: 50%;
-  color: purple;
+  color: #d84851;
   width: 32px;
   height: 32px;
   display: flex;
@@ -613,7 +610,6 @@ a {
 }
 
 @media screen and (max-width: 780px) {
-
   .modal-left {
     flex-shrink: 0;
     flex-basis: auto;
@@ -655,9 +651,7 @@ a {
   }
 }
 
-
 @media screen and (max-width: 520px) {
-
   .modal-right {
     flex: unset;
   }

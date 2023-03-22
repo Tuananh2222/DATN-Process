@@ -77,7 +77,7 @@ const emits = defineEmits([
   "focusOut",
   "search",
 ]);
-const modelValue = useProps(props, 'modelValue', emits);
+const modelValue = useProps(props, "modelValue", emits);
 const placeholderStyle = "placeholder";
 
 const isFocusing = ref(false);

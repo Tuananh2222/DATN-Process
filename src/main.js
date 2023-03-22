@@ -10,14 +10,25 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import router from './router'
 import 'devextreme/dist/css/dx.light.css';
 import '@/css/common.css'
-
+import firebase from 'firebase'
+import { firebaseApp } from './firebaseConfig'
 
 const pinia = createPinia()
 const app = createApp(App)
 library.add(fas)
 library.add(fab)
 library.add(far)
-
 app.use(pinia)
 app.use(router)
+
+app
+    .use(VueFire, {
+        // imported above but could also just be created here
+        firebaseApp,
+        modules: [
+            // we will see other modules later on
+            VueFireAuth(),
+        ],
+    })
+firebase.initializeApp(firebaseConfig)
 app.component("font-awesome-icon", FontAwesomeIcon).mount('#app')
