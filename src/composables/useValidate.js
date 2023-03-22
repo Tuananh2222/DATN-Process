@@ -6,7 +6,7 @@ const { isEmpty } = lodash
 export const useValidate = (rules, state) => {
   const $v = useVuelidate(rules, state)
 
-  const isValidForm = ref(false)
+  const isValidForm = ref(true)
 
   const checkField = async (name) => {
     const formKeys = Object.keys(rules)
@@ -14,12 +14,12 @@ export const useValidate = (rules, state) => {
       await $v.value[name].$validate()
       if (!isEmpty($v.value[name].$errors)) {
         state.hasErrors[name] = $v.value[name].$errors[0].$message
-        console.log($v.value[name].$errors[0].$message)
       } else {
         state.hasErrors[name] = ''
       }
     }
     isValidForm.value = await $v.value.$validate()
+    console.log(isValidForm.value)
   }
 
   const checkAllField = async () => {

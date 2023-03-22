@@ -3,9 +3,8 @@ import { email, helpers, required, minLength } from "@vuelidate/validators";
 import { passwordValidate } from "@/utils/constant/validate";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
 } from "firebase/auth";
 
 import _ from "lodash";
@@ -17,15 +16,16 @@ const defaultState = {
   hasErrors: {
     email: "",
     password: "",
+    confirmPassword: "",
   },
   email: "",
   password: "",
+  confirmPassword: "",
   isAuthenticated: false,
 };
 
-export const useLoginStore = defineStore("login", () => {
+export const useAuthenStore = defineStore("authen", () => {
   const auth = getAuth();
-  const provider = new GoogleAuthProvider();
 
   const state = reactive({
     ..._.cloneDeep(defaultState),
@@ -67,63 +67,52 @@ export const useLoginStore = defineStore("login", () => {
     state
   );
 
+  const resetStateToDefault = () => {
+    Object.assign(state, _.cloneDeep(defaultState));
+    isValidForm.value = false;
+  };
 
-
-  const handleSignIn = async () => {
-    signInWithEmailAndPassword(auth, state.email, state.password)
+  const handleSignUp = async () => {
+    createUserWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
-
-        router.push({
-          path: "/",
-          name: "Home",
-          component: () => import("@/pages/HomeScreen.vue"),
-        });
-        // ...
+        for (let item of user.providerData) {
+          if (item.providerId == "password") {
+            sendEmailVerification(user)
+              .then(() => {
+                // Email verification sent
+                state.isAuthenticated = true;
+                router.push({
+                  path: "/login",
+                  name: "Login",
+                  component: () => import("@/pages/LoginScreen.vue"),
+                });
+              })
+              .catch((error) => {
+                // Handle errors
+                console.log(error);
+              });
+          }
+        }
+        resetStateToDefault();
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-      });
-  };
-
-  const handleSignInWithGoogle = async () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        console.log(token);
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode, errorMessage, credential, email);
-        // ...
+        // ..
       });
   };
 
   return {
     state,
+    handleSignUp,
     checkField,
     $v,
     checkAllField,
     isValidForm,
-    handleSignIn,
-    handleSignInWithGoogle,
+    resetStateToDefault,
   };
 });
-export default useLoginStore;
+export default useAuthenStore;
