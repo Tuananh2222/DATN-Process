@@ -6,7 +6,7 @@ const { isEmpty } = lodash
 export const useValidate = (rules, state) => {
   const $v = useVuelidate(rules, state)
 
-  const isValidForm = ref(true)
+  const isValidForm = ref(false)
 
   const checkField = async (name) => {
     const formKeys = Object.keys(rules)
@@ -19,7 +19,6 @@ export const useValidate = (rules, state) => {
       }
     }
     isValidForm.value = await $v.value.$validate()
-    console.log(isValidForm.value)
   }
 
   const checkAllField = async () => {
@@ -31,7 +30,6 @@ export const useValidate = (rules, state) => {
       })
     }
     isValidForm.value = true
-    return isValid
   }
   return { checkField, $v, checkAllField, isValidForm }
 }

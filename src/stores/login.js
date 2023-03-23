@@ -8,31 +8,24 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
-import _ from "lodash";
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";
 import router from "@/router";
-
-const defaultState = {
-  hasErrors: {
-    email: "",
-    password: "",
-  },
-  email: "",
-  password: "",
-  isAuthenticated: false,
-};
 
 export const useLoginStore = defineStore("login", () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 
   const state = reactive({
-    ..._.cloneDeep(defaultState),
+    hasErrors: {
+      email: "",
+      password: "",
+    },
+    email: "",
+    password: "",
+    isAuthenticate: false,
+    isLogin: null
   });
-  const confirmPasswordRegex = (value) => {
-    return state.password === value;
-  };
 
   const ruleList = {
     email: {
@@ -50,16 +43,6 @@ export const useLoginStore = defineStore("login", () => {
         passwordValidate
       ),
     },
-    confirmPassword: {
-      required: helpers.withMessage(
-        "Vui lòng nhập xác nhận mật khẩu!",
-        required
-      ),
-      confirmPasswordRegex: helpers.withMessage(
-        "Xác nhận mật khẩu đang khac với mật khẩu",
-        confirmPasswordRegex
-      ),
-    },
   };
 
   const { checkField, $v, checkAllField, isValidForm } = useValidate(
@@ -74,13 +57,20 @@ export const useLoginStore = defineStore("login", () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
 
-        router.push({
-          path: "/",
-          name: "Home",
-          component: () => import("@/pages/HomeScreen.vue"),
-        });
+        if (user.emailVerified) {
+          router.push({
+            path: "/",
+            name: "Home",
+            component: () => import("@/pages/HomeScreen.vue"),
+          });
+          state.isAuthenticate = false
+          state.isLogin = user
+        }
+        else {
+          state.isAuthenticate = true
+        }
+
         // ...
       })
       .catch((error) => {

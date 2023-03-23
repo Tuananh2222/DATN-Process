@@ -14,16 +14,16 @@
 </template>
 
 <script lang="ts" setup>
-import TextBox from '../elements/textBox.vue'
+import { ref } from "vue";
+import TextBox from "../elements/textBox.vue";
 
-const emits = defineEmits(['closeSearch', 'search'])
+const emits = defineEmits(["closeSearch", "search"]);
 
 const searchKey = ref<string>("");
 
 const handleHideSearch = () => {
-  emits('closeSearch')
-}
-
+  emits("closeSearch");
+};
 </script>
 
 <style lang="scss" scoped>

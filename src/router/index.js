@@ -42,7 +42,12 @@ const router = createRouter({
       path: "/sign-up",
       name: "Sign Up",
       component: () => import("@/pages/SignupScreen.vue"),
-    }
+    },
+    {
+      path: "/user-info",
+      name: "User Information",
+      component: () => import("@/pages/UserInfoScreen.vue"),
+    },
   ],
 });
 

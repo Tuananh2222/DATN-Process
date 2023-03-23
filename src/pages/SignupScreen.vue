@@ -1,9 +1,15 @@
 <template>
+  <CPopupConfirm
+    v-if="isShowPopup"
+    @close-popup="handleHidePopup"
+    :text-title="'Xác nhận Email'"
+    :description="'Bạn đã tạo tài khoản thành công! Vui lòng xác nhận email!'"
+  />
   <div class="wrapper">
     <div class="card">
       <section>
         <div class="card-left">
-          <div class="title">Log In</div>
+          <div class="title">Sign up</div>
           <TextBox
             v-model.trim="state.email"
             :err-msg="state.hasErrors.email"
@@ -31,7 +37,7 @@
               @click="submitSignup()"
               :class="isValidForm ? '' : 'disable'"
             >
-              Log In
+              Sign Up
             </button>
           </div>
           <div class="sign-up">
@@ -44,16 +50,21 @@
 </template>
 
 <script setup>
+import CPopupConfirm from "@/components/elements/CPopupConfirm.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import router from "@/router";
-import useAuthenStore from "@/stores/signup";
+import { useAuthenStore } from "@/stores/signup";
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 
+let isShowPopup = ref(false);
+
 const authenStore = useAuthenStore();
-const { state } = authenStore;
-const { isValidForm, handleSignUp } = storeToRefs(authenStore);
+const { state, handleSignUp } = authenStore;
+const { isValidForm } = storeToRefs(authenStore);
 const submitSignup = () => {
-    handleSignUp();
+  handleSignUp();
+  isShowPopup.value = true;
 };
 const handleSignin = () => {
   router.push({
@@ -61,6 +72,10 @@ const handleSignin = () => {
     name: "Login",
     component: () => import("@/pages/LoginScreen.vue"),
   });
+};
+
+const handleHidePopup = () => {
+  isShowPopup.value = false;
 };
 </script>
 
@@ -75,7 +90,6 @@ const handleSignin = () => {
 }
 
 .card {
-
   //Sizing
   width: 30%;
   height: 100%;

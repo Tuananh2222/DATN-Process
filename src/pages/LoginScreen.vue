@@ -1,4 +1,10 @@
 <template>
+  <CPopupConfirm
+    v-if="state.isAuthenticate"
+    @close-popup="handleHidePopup"
+    :text-title="'Xác nhận Email'"
+    :description="'Bạn chưa xác nhận email! Vui lòng hãy xác nhận email của bạn!'"
+  />
   <div class="wrapper">
     <div class="card">
       <section>
@@ -112,16 +118,17 @@
 </template>
 
 <script setup>
+import CPopupConfirm from "@/components/elements/CPopupConfirm.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import router from "@/router";
 import useLoginStore from "@/stores/login";
 import { storeToRefs } from "pinia";
 
 const loginStore = useLoginStore();
-const { state } = loginStore;
-const { isValidForm, handleSignIn } = storeToRefs(loginStore);
-const submitSignIn = () => {
-  handleSignIn();
+const { state, handleSignIn } = loginStore;
+const { isValidForm } = storeToRefs(loginStore);
+const submitSignIn = async () => {
+  await handleSignIn();
 };
 const handleSignup = () => {
   router.push({
@@ -129,6 +136,9 @@ const handleSignup = () => {
     name: "Sign Up",
     component: () => import("@/pages/SignupScreen.vue"),
   });
+};
+const handleHidePopup = () => {
+  state.isAuthenticate = false;
 };
 </script>
 
@@ -255,7 +265,7 @@ const handleSignup = () => {
   cursor: pointer;
   opacity: 0.8;
 }
-.btn-wrapper{
+.btn-wrapper {
   display: flex;
   justify-content: center;
   width: 100%;

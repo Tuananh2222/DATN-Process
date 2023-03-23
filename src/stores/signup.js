@@ -28,7 +28,15 @@ export const useAuthenStore = defineStore("authen", () => {
   const auth = getAuth();
 
   const state = reactive({
-    ..._.cloneDeep(defaultState),
+    hasErrors: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    email: "",
+    password: "",
+    confirmPassword: "",
+    isAuthenticated: false,
   });
   const confirmPasswordRegex = (value) => {
     return state.password === value;
@@ -82,12 +90,14 @@ export const useAuthenStore = defineStore("authen", () => {
             sendEmailVerification(user)
               .then(() => {
                 // Email verification sent
-                state.isAuthenticated = true;
-                router.push({
-                  path: "/login",
-                  name: "Login",
-                  component: () => import("@/pages/LoginScreen.vue"),
-                });
+                setTimeout(() => {
+                  router.push({
+                    path: "/login",
+                    name: "Login",
+                    component: () => import("@/pages/LoginScreen.vue"),
+                  });
+                }, 5000)
+
               })
               .catch((error) => {
                 // Handle errors

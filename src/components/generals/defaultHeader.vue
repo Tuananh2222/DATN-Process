@@ -31,18 +31,30 @@
 </template>
 
 <script setup>
-// import SearchBox from '~~/components/generals/SearchBox.vue'
-// const { state, init } = useHeaderStore()
-// const emits = defineEmits(["nextTo"]);
-
 import router from "@/router";
+import { onMounted } from "vue";
+import useLoginStore from "@/stores/login";
+
+const loginStore = useLoginStore();
+const { state } = loginStore;
+onMounted(() => {
+  console.log(state.isLogin);
+});
 
 const handleUser = () => {
-  router.push({
-    path: "/login",
-    name: "Login",
-    component: () => import("@/pages/LoginScreen.vue"),
-  });
+  if (state.isLogin) {
+    router.push({
+      path: "/user-info",
+      name: "User Information",
+      component: () => import("@/pages/UserInfoScreen.vue"),
+    });
+  } else {
+    router.push({
+      path: "/login",
+      name: "Login",
+      component: () => import("@/pages/LoginScreen.vue"),
+    });
+  }
 };
 
 const headerList = [
