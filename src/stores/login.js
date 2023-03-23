@@ -15,7 +15,6 @@ import router from "@/router";
 export const useLoginStore = defineStore("login", () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
-
   const state = reactive({
     hasErrors: {
       email: "",
@@ -24,7 +23,6 @@ export const useLoginStore = defineStore("login", () => {
     email: "",
     password: "",
     isAuthenticate: false,
-    isLogin: null
   });
 
   const ruleList = {
@@ -65,7 +63,6 @@ export const useLoginStore = defineStore("login", () => {
             component: () => import("@/pages/HomeScreen.vue"),
           });
           state.isAuthenticate = false
-          state.isLogin = user
         }
         else {
           state.isAuthenticate = true

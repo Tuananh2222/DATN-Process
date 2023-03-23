@@ -1,5 +1,4 @@
 <template>
-  <!-- <SearchBox v-if="isShowSearch" @close-search="handleHideSearch" /> -->
   <div class="header">
     <div class="img-logo">
       <div class="main-logo"></div>
@@ -18,13 +17,10 @@
         <font-awesome-icon icon="fa-user" />
       </div>
       <div class="icon">
-        <font-awesome-icon icon="fa-clipboard" />
+        <font-awesome-icon icon="fa-clipboard" @click="handleCartBooking" />
       </div>
       <div class="icon">
-        <font-awesome-icon icon="fa-heart" />
-      </div>
-      <div class="icon">
-        <font-awesome-icon icon="fa-search" />
+        <font-awesome-icon icon="fa-heart" @click="handleFavorite" />
       </div>
     </div>
   </div>
@@ -32,29 +28,45 @@
 
 <script setup>
 import router from "@/router";
-import { onMounted } from "vue";
-import useLoginStore from "@/stores/login";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const loginStore = useLoginStore();
-const { state } = loginStore;
-onMounted(() => {
-  console.log(state.isLogin);
-});
+const auth = getAuth();
 
 const handleUser = () => {
-  if (state.isLogin) {
-    router.push({
-      path: "/user-info",
-      name: "User Information",
-      component: () => import("@/pages/UserInfoScreen.vue"),
-    });
-  } else {
-    router.push({
-      path: "/login",
-      name: "Login",
-      component: () => import("@/pages/LoginScreen.vue"),
-    });
-  }
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      const uid = user.uid;
+      console.log(uid);
+      router.push({
+        path: "/user-info",
+        name: "User Information",
+        component: () => import("@/pages/UserInfoScreen.vue"),
+      });
+    } else {
+      router.push({
+        path: "/login",
+        name: "Login",
+        component: () => import("@/pages/LoginScreen.vue"),
+      });
+    }
+  });
+};
+
+const handleCartBooking = () => {
+  router.push({
+    path: "/cart",
+    name: "Cart",
+    component: () => import("@/pages/CartScreen.vue"),
+  });
+};
+
+const handleFavorite = () => {
+  router.push({
+    path: "/favorite",
+    name: "Favorite",
+    component: () => import("@/pages/FavoriteScreen.vue"),
+  });
 };
 
 const headerList = [

@@ -48,6 +48,16 @@ const router = createRouter({
       name: "User Information",
       component: () => import("@/pages/UserInfoScreen.vue"),
     },
+    {
+      path: "/cart",
+      name: "Cart",
+      component: () => import("@/pages/CartScreen.vue"),
+    },
+    {
+      path: "/favorite",
+      name: "Favorite",
+      component: () => import("@/pages/FavoriteScreen.vue"),
+    },
   ],
 });
 
