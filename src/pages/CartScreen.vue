@@ -3,111 +3,42 @@
     <section class="cart_wrapper">
       <div class="cart_lists">
         <div class="cart_title">
-            <span><font-awesome-icon :icon="['fas', 'heart']" size="xl" /></span>
-            Your Room Favorite</div>
+          <span
+            ><font-awesome-icon :icon="['fas', 'calendar-days']" size="xl"
+          /></span>
+          Your Room Booking
+        </div>
 
         <div class="cart_list_wrap">
-          <div class="cart_responsive">
-            <CCartItem/>
-
-            <div class="tr_item">
-              <div class="td_item item_img">
-                <img
-                  src="https://i.ibb.co/R6rN96C/b5e11480e047426019842f1ebc019d52.jpg"
-                />
-              </div>
-              <div class="td_item item_name">
-                <label class="main">Denim Pant</label>
-                <label class="sub">Ref. 007891987</label>
-              </div>
-              <div class="td_item item_color">
-                <label>Blue</label>
-              </div>
-              <div class="td_item item_qty">
-                <select>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="more">More</option>
-                </select>
-              </div>
-              <div class="td_item item_price">
-                <label>$ 260.00</label>
-              </div>
-              <div class="td_item item_remove">
-                <span class="material-icons-outlined">close</span>
-              </div>
-            </div>
-
-            <div class="tr_item">
-              <div class="td_item item_img">
-                <img
-                  src="https://i.ibb.co/XYx3YTH/6cd360618204b6d2fe6e3dc75d3f6f9e.jpg"
-                />
-              </div>
-              <div class="td_item item_name">
-                <label class="main">Denim Jacket Men</label>
-                <label class="sub">Ref. 007891987</label>
-              </div>
-              <div class="td_item item_color">
-                <label>Blue</label>
-              </div>
-              <div class="td_item item_qty">
-                <select>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="more">More</option>
-                </select>
-              </div>
-              <div class="td_item item_price">
-                <label>$ 260.00</label>
-              </div>
-              <div class="td_item item_remove">
-                <span class="material-icons-outlined">close</span>
-              </div>
-            </div>
-
-            <div class="tr_item">
-              <div class="td_item item_img">
-                <img
-                  src="https://i.ibb.co/R6rN96C/b5e11480e047426019842f1ebc019d52.jpg"
-                />
-              </div>
-              <div class="td_item item_name">
-                <label class="main">Denim Pant</label>
-                <label class="sub">Ref. 007891987</label>
-              </div>
-              <div class="td_item item_color">
-                <label>Blue</label>
-              </div>
-              <div class="td_item item_qty">
-                <select>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="more">More</option>
-                </select>
-              </div>
-              <div class="td_item item_price">
-                <label>$ 260.00</label>
-              </div>
-              <div class="td_item item_remove">
-                <span class="material-icons-outlined">close</span>
-              </div>
+          <div class="cart_overflow">
+            <div
+              class="cart_responsive"
+              v-for="(item, index) in state.listFavarite"
+              :key="index"
+            >
+              <CCartItem
+                :title="item.title"
+                :view_detail="item.view"
+                :img_url="item.img_url"
+                @move-detail="handleMoveItem(index)"
+              >
+                <div class="td_item item_color">
+                  <label>Arrival: {{ item.arrival }}</label>
+                </div>
+                <div class="td_item item_qty">
+                  Deperature: {{ item.deperature }}
+                </div>
+                <div class="td_item item_price">
+                  <label>Price: {{ item.price }}$</label>
+                </div>
+              </CCartItem>
             </div>
           </div>
           <div class="footer">
             <div class="back_cart">
               <a href="#back">
                 <font-awesome-icon :icon="['fas', 'arrow-left']" />
-                Back to Shop
+                Back
               </a>
             </div>
             <div class="subtotal">
@@ -122,8 +53,15 @@
 </template>
 
 <script setup>
-import CCartItem from '@/components/elements/CCartItem.vue';
+import CCartItem from "@/components/elements/CCartItem.vue";
+import { onMounted } from "vue";
+import useCartStore from "@/stores/cart";
 
+const { state, initProcess } = useCartStore();
+
+onMounted(() => {
+  initProcess();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -213,25 +151,185 @@ import CCartItem from '@/components/elements/CCartItem.vue';
         padding-left: 0px;
         padding-right: 0px;
       }
-      .cart_responsive {
+      .cart_overflow {
         overflow-x: auto;
         overflow-y: auto;
         max-height: 380px;
-        @include size(md-device) {
-          max-height: 380px;
-        }
-        @include size(sm-device) {
-          // max-height: 800px;
-        }
-        &::-webkit-scrollbar {
-          width: 4px;
-          height: 4px;
-        }
-        &::-webkit-scrollbar-thumb {
-          background-color: #ddd;
-        }
-        &::-webkit-scrollbar-track {
-          background-color: #eee;
+        .cart_responsive {
+          .tr_item {
+            display: grid;
+            grid-template-columns: 80px 1fr 0.8fr 0.8fr 150px 50px 50px;
+            margin-bottom: 15px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform: scale(0.995);
+            @for $i from 1 through 50 {
+              &:nth-last-child(#{$i}) {
+                animation: listshow linear;
+                animation-duration: 1000ms - 180ms * $i;
+                transform-origin: top;
+                @keyframes listshow {
+                  0% {
+                    opacity: 0;
+                    transform: scaleY(0);
+                    transform-origin: top;
+                  }
+                  50% {
+                    transform: scaleY(0);
+                  }
+                  100% {
+                    opacity: 1;
+                    transform: scaleY(1);
+                  }
+                }
+              }
+            }
+
+            @include size(sm-device) {
+              grid-template-columns: 80px auto 80px auto;
+            }
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: 0px;
+              bottom: 0px;
+              height: 2px;
+              background-color: #d9d9d9;
+              width: 0px;
+              margin: auto;
+            }
+            @keyframes line {
+              0% {
+                width: 0px;
+              }
+              100% {
+                width: calc(100% - 50px);
+              }
+            }
+            &:hover {
+              transform: scale(1);
+              &::after {
+                width: calc(100% - 50px);
+                animation: line 0.5s linear;
+              }
+            }
+            .td_item {
+              padding: 10px;
+              background-color: #e5e9ea;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-weight: 400;
+              font-size: 16px;
+              color: #666;
+              transition: all 0.3s linear;
+              @include size(sm-device) {
+                padding: 5px;
+              }
+              &.item_img {
+                @include size(sm-device) {
+                  grid-row-start: 1;
+                  grid-row-end: 3;
+                }
+                img {
+                  height: 60px;
+                  width: 60px;
+                  overflow: hidden;
+                  border-radius: 100px;
+                  max-width: 100%;
+                }
+              }
+              &.item_name {
+                @include size(sm-device) {
+                  grid-row-start: 1;
+                  grid-row-end: 2;
+                  grid-column-start: 2;
+                  grid-column-end: 5;
+                  width: 100%;
+                }
+                .main {
+                  font-size: 16px;
+                  font-weight: 400;
+                  color: #666;
+                }
+                .sub {
+                  font-size: 12px;
+                  color: #666;
+                }
+              }
+              &.item_qty {
+                select {
+                  height: 30px;
+                  background-color: transparent;
+                  border-color: transparent;
+                  border-width: 2px;
+                  outline: none;
+                  color: #666;
+                  font-weight: 400;
+                  font-size: 16px;
+                  transition: all 0.3s linear;
+                  &:focus {
+                    background-color: #e2e2e2;
+                  }
+                  &:hover {
+                    border-bottom: solid 2px #e2e2e2;
+                  }
+                }
+              }
+              &.item_price {
+                label {
+                  margin: auto;
+                }
+              }
+              &.item_detail {
+                cursor: pointer;
+                background-color: transparent;
+                padding: 0;
+              }
+              &.item_detail:hover {
+                color: #bbb;
+                padding: 0;
+              }
+
+              &.item_remove {
+                cursor: pointer;
+                font-size: 18px;
+                opacity: 0.6;
+                padding: 5px;
+                cursor: pointer;
+                transition: all 0.2s linear;
+                padding-left: 10px;
+                &:hover {
+                  opacity: 1;
+                  transform: scale(1.1);
+                }
+                background-color: transparent;
+                @include size(sm-device) {
+                  position: absolute;
+                  right: 0px;
+                  top: 0px;
+                }
+              }
+            }
+          }
+          @include size(md-device) {
+            max-height: 380px;
+          }
+          @include size(sm-device) {
+            // max-height: 800px;
+          }
+          &::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: #ddd;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: #eee;
+          }
         }
       }
       .footer {
@@ -292,7 +390,5 @@ import CCartItem from '@/components/elements/CCartItem.vue';
       }
     }
   }
-
-
 }
 </style>

@@ -7,17 +7,9 @@
       <label class="main">{{ props.title }}</label>
       <label class="sub">View: {{ props.view_detail }}</label>
     </div>
-    <div class="td_item item_color">
-      <label>Max People: {{ props.people }}</label>
-    </div>
-    <div class="td_item item_qty">Bed Type: {{ props.bed_type }}</div>
-    <div class="td_item item_price">
-      <label>Room Size: {{ props.room_size }}<sup>2</sup></label>
-    </div>
+    <slot />
+
     <div class="td_item item_detail" @click="handleDetailItem">Detail</div>
-    <div class="td_item item_remove" @click="handleRemoveItem">
-      <font-awesome-icon :icon="['fas', 'xmark']" />
-    </div>
   </div>
 </template>
 
@@ -50,11 +42,8 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(["removeItem", "move-detail"]);
+const emits = defineEmits(["move-detail"]);
 
-const handleRemoveItem = (index) => {
-  emits("removeItem", index);
-};
 const handleDetailItem = () => {
   emits("move-detail");
 };
@@ -139,7 +128,6 @@ const handleDetailItem = () => {
     background-color: #e5e9ea;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     font-weight: 400;
     font-size: 16px;

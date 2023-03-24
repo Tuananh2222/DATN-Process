@@ -11,19 +11,31 @@
           <div class="cart_overflow">
             <div
               class="cart_responsive"
-              v-for="(item, index) in data"
+              v-for="(item, index) in state.listFavarite"
               :key="index"
             >
               <CCartItem
                 :title="item.title"
-                :bed_type="item.bed_type"
                 :view_detail="item.view"
-                :people="item.people"
-                :room_size="item.room_size"
                 :img_url="item.img_url"
-                @remove-item="handleRemove(index)"
                 @move-detail="handleMoveItem(index)"
-              />
+              >
+                <div class="td_item item_color">
+                  <label>Max People: {{ item.people }}</label>
+                </div>
+                <div class="td_item item_qty">
+                  Bed Type: {{ item.bed_type }}
+                </div>
+                <div class="td_item item_price">
+                  <label>Room Size: {{ item.room_size }}<sup>2</sup></label>
+                </div>
+                <div
+                  class="td_item item_remove"
+                  @click="handleRemoveItem(index)"
+                >
+                  <font-awesome-icon :icon="['fas', 'xmark']" />
+                </div>
+              </CCartItem>
             </div>
           </div>
           <div class="footer">
@@ -43,48 +55,18 @@
 <script setup>
 import CCartItem from "@/components/elements/CCartItem.vue";
 import router from "@/router";
+import { onMounted } from "vue";
+import useCartStore from "@/stores/cart";
 
-const data = [
-  {
-    title: "Solaria Balcony Double/Twin Room",
-    view: "Inland views. Higher floor might on offer clear view",
-    people: "2",
-    bed_type: "Double bed & Twin beds",
-    room_size: "32m",
-    img_url:
-      "https://solariahotel.com/UploadFile/Gallery/Rooms/Solaria-balcony-double-twin-room/2.jpg",
-  },
-  {
-    title: "Solaria Balcony Double/Twin Room",
-    view: "Inland views. Higher floor might on offer clear view",
-    people: "2",
-    bed_type: "Double bed & Twin beds",
-    room_size: "32m",
-    img_url:
-      "https://solariahotel.com/UploadFile/Gallery/Rooms/Solaria-balcony-double-twin-room/2.jpg",
-  },
-  {
-    title: "Solaria Balcony Double/Twin Room",
-    view: "Inland views. Higher floor might on offer clear view",
-    people: "2",
-    bed_type: "Double bed & Twin beds",
-    room_size: "32m",
-    img_url:
-      "https://solariahotel.com/UploadFile/Gallery/Rooms/Solaria-balcony-double-twin-room/2.jpg",
-  },
-  {
-    title: "Solaria Balcony Double/Twin Room",
-    view: "Inland views. Higher floor might on offer clear view",
-    people: "2",
-    bed_type: "Double bed & Twin beds",
-    room_size: "32m",
-    img_url:
-      "https://solariahotel.com/UploadFile/Gallery/Rooms/Solaria-balcony-double-twin-room/2.jpg",
-  },
-];
+const { state, initProcess } = useCartStore();
 
-const handleRemove = (index) => {
-  data.splice(index, 1);
+onMounted(() => {
+  initProcess();
+});
+
+const handleRemoveItem = (index) => {
+  console.log(index);
+  state.listFavarite.splice(index, 1);
 };
 
 const handleMoveItem = () => {
@@ -203,6 +185,164 @@ const handleMoveItem = () => {
           }
           &::-webkit-scrollbar-track {
             background-color: #eee;
+          }
+          .tr_item {
+            display: grid;
+            grid-template-columns: 80px 1fr 125px 1fr 150px 50px 50px;
+            margin-bottom: 15px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform: scale(0.995);
+            @for $i from 1 through 50 {
+              &:nth-last-child(#{$i}) {
+                animation: listshow linear;
+                animation-duration: 1000ms - 180ms * $i;
+                transform-origin: top;
+                @keyframes listshow {
+                  0% {
+                    opacity: 0;
+                    transform: scaleY(0);
+                    transform-origin: top;
+                  }
+                  50% {
+                    transform: scaleY(0);
+                  }
+                  100% {
+                    opacity: 1;
+                    transform: scaleY(1);
+                  }
+                }
+              }
+            }
+
+            @include size(sm-device) {
+              grid-template-columns: 80px auto 80px auto;
+            }
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: 0px;
+              bottom: 0px;
+              height: 2px;
+              background-color: #d9d9d9;
+              width: 0px;
+              margin: auto;
+            }
+            @keyframes line {
+              0% {
+                width: 0px;
+              }
+              100% {
+                width: calc(100% - 50px);
+              }
+            }
+            &:hover {
+              transform: scale(1);
+              &::after {
+                width: calc(100% - 50px);
+                animation: line 0.5s linear;
+              }
+            }
+            .td_item {
+              padding: 10px;
+              background-color: #e5e9ea;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-weight: 400;
+              font-size: 16px;
+              color: #666;
+              transition: all 0.3s linear;
+              @include size(sm-device) {
+                padding: 5px;
+              }
+              &.item_img {
+                @include size(sm-device) {
+                  grid-row-start: 1;
+                  grid-row-end: 3;
+                }
+                img {
+                  height: 60px;
+                  width: 60px;
+                  overflow: hidden;
+                  border-radius: 100px;
+                  max-width: 100%;
+                }
+              }
+              &.item_name {
+                @include size(sm-device) {
+                  grid-row-start: 1;
+                  grid-row-end: 2;
+                  grid-column-start: 2;
+                  grid-column-end: 5;
+                  width: 100%;
+                }
+                .main {
+                  font-size: 16px;
+                  font-weight: 400;
+                  color: #666;
+                }
+                .sub {
+                  font-size: 12px;
+                  color: #666;
+                }
+              }
+              &.item_qty {
+                select {
+                  height: 30px;
+                  background-color: transparent;
+                  border-color: transparent;
+                  border-width: 2px;
+                  outline: none;
+                  color: #666;
+                  font-weight: 400;
+                  font-size: 16px;
+                  transition: all 0.3s linear;
+                  &:focus {
+                    background-color: #e2e2e2;
+                  }
+                  &:hover {
+                    border-bottom: solid 2px #e2e2e2;
+                  }
+                }
+              }
+              &.item_price {
+                label {
+                  margin: auto;
+                }
+              }
+              &.item_detail {
+                cursor: pointer;
+                background-color: transparent;
+                padding: 0;
+              }
+              &.item_detail:hover {
+                color: #bbb;
+                padding: 0;
+              }
+
+              &.item_remove {
+                cursor: pointer;
+                font-size: 18px;
+                opacity: 0.6;
+                padding: 5px;
+                cursor: pointer;
+                transition: all 0.2s linear;
+                padding-left: 10px;
+                &:hover {
+                  opacity: 1;
+                  transform: scale(1.1);
+                }
+                background-color: transparent;
+                @include size(sm-device) {
+                  position: absolute;
+                  right: 0px;
+                  top: 0px;
+                }
+              }
+            }
           }
         }
       }

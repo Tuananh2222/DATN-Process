@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Solaria Balcony Double/Twin Room",
+    "view": "Inland views. Higher floor might on offer clear view",
+    "people": "2",
+    "bed_type": "Double bed & Twin beds",
+    "room_size": "32m",
+    "img_url": "https://solariahotel.com/UploadFile/Gallery/Rooms/Solaria-balcony-double-twin-room/2.jpg",
+    "arrival": "03/23/2023",
+    "deperature": "03/25/2023",
+    "price": 200
+  },
+  {
+    "title": "Solaria Balcony Double/Twin Room",
+    "view": "Inland views. Higher floor might on offer clear view",
+    "people": "3",
+    "bed_type": "Double bed ",
+    "room_size": "40m",
+    "img_url": "https://i.ibb.co/R6rN96C/b5e11480e047426019842f1ebc019d52.jpg",
+    "arrival": "03/24/2023",
+    "deperature": "03/26/2023",
+    "price": 200
+  },
+  {
+    "title": "Solaria Balcony Double/Twin Room",
+    "view": "Inland views. Higher floor might on offer clear view",
+    "people": "2",
+    "bed_type": "Double bed & Twin beds",
+    "room_size": "32m",
+    "img_url": "https://i.ibb.co/XYx3YTH/6cd360618204b6d2fe6e3dc75d3f6f9e.jpg",
+    "arrival": "03/22/2023",
+    "deperature": "03/26/2023",
+    "price": 300
+  },
+  {
+    "title": "Solaria Balcony Double/Twin Room",
+    "view": "Inland views. Higher floor might on offer clear view",
+    "people": "3",
+    "bed_type": "Double bed ",
+    "room_size": "40m",
+    "img_url": "https://i.ibb.co/R6rN96C/b5e11480e047426019842f1ebc019d52.jpg",
+    "arrival": "03/27/2023",
+    "deperature": "03/31/2023",
+    "price": 300
+  }
+]
