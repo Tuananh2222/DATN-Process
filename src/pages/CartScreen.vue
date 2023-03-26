@@ -56,12 +56,22 @@
 import CCartItem from "@/components/elements/CCartItem.vue";
 import { onMounted } from "vue";
 import useCartStore from "@/stores/cart";
+import router from "@/router";
 
 const { state, initProcess } = useCartStore();
 
 onMounted(() => {
   initProcess();
 });
+const handleMoveItem = (index) => {
+  console.log(index)
+  router.push({
+    // path: `/hotel-item/{index}`
+    path: "/hotel-item",
+    name: "Hotel Item",
+    component: () => import("@/pages/HotelItem.vue"),
+  });
+};
 </script>
 
 <style lang="scss" scoped>
