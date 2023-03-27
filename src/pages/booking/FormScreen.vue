@@ -16,7 +16,7 @@
             />
           </div>
           <div class="description-room">
-            <div class="title-description">Solaria King room</div>
+            <div class="title-description">Lexington King room</div>
             <div class="text-description">
               Relax and enjoy your stay in a space designed to feel just like
               home. Exquisitely prepared bed linen, an interior bathed in warm
@@ -44,8 +44,19 @@
               </div>
             </div>
             <div class="size-description-room">
-              <div class="bed-room">Bed size:  1 king bed</div>
-              <div class="size-room">Room size 18 m <sup>2</sup> </div>
+              <div class="bed-room">Bed size: 1 king bed</div>
+              <div class="size-room">Room size 18 m <sup>2</sup></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-booking">
+          <div class="booking-item">
+            <div class="title-room">Sol Double/Twin Room</div>
+            <div class="count-people">
+              <div class="icon">
+                <font-awesome-icon :icon="['fas', 'user-group']" size="lg" />
+              </div>
+              2 Adult
             </div>
           </div>
         </div>
@@ -113,17 +124,26 @@ import CDropdown from "@/components/elements/CDropdown.vue";
               line-height: 30px;
             }
           }
-          .size-description-room{
+          .size-description-room {
             display: flex;
             align-items: center;
             font-size: 12px;
             margin-top: 10px;
-             .bed-room {
+            .bed-room {
               margin-right: 10px;
-             }
-             .size-room{
+            }
+            .size-room {
               text-align: center;
-             }
+            }
+          }
+        }
+      }
+      .form-booking {
+        .booking-item {
+          display: grid;
+          grid-template-columns: 1fr 1fr 125px 1fr;
+          .count-people {
+            text-align: center;
           }
         }
       }
