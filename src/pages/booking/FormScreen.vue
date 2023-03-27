@@ -51,12 +51,114 @@
         </div>
         <div class="form-booking">
           <div class="booking-item">
-            <div class="title-room">Sol Double/Twin Room</div>
+            <div class="title-room">
+              <div class="main">Sol Double/Twin Room</div>
+              <div class="discount">
+                Early deal 65
+                <div class="icon">
+                  <font-awesome-icon
+                    :icon="['fas', 'dollar-sign']"
+                    size="xs"
+                    style="color: #fff"
+                  />
+                </div>
+              </div>
+              <div class="cancel">Flexible cancellation</div>
+              <div class="breakfast">
+                Breakfast included
+                <div class="icon">
+                  <font-awesome-icon :icon="['fas', 'utensils']" size="xs" />
+                </div>
+              </div>
+            </div>
             <div class="count-people">
               <div class="icon">
                 <font-awesome-icon :icon="['fas', 'user-group']" size="lg" />
               </div>
               2 Adult
+            </div>
+            <div class="price">
+              <div class="count-room">1 room left</div>
+              <div class="price-discount-room">VND 2.500.000</div>
+              <div class="price-room"><del>VND 6.000.000</del></div>
+              <div class="text">per night</div>
+            </div>
+            <div class="room">
+              <CDropdown />
+            </div>
+          </div>
+          <div class="booking-item">
+            <div class="title-room">
+              <div class="main">Sol Double/Twin Room</div>
+              <div class="discount">
+                Early deal 65
+                <div class="icon">
+                  <font-awesome-icon
+                    :icon="['fas', 'dollar-sign']"
+                    size="xs"
+                    style="color: #fff"
+                  />
+                </div>
+              </div>
+              <div class="cancel">Flexible cancellation</div>
+              <div class="breakfast">
+                Breakfast included
+                <div class="icon">
+                  <font-awesome-icon :icon="['fas', 'utensils']" size="xs" />
+                </div>
+              </div>
+            </div>
+            <div class="count-people">
+              <div class="icon">
+                <font-awesome-icon :icon="['fas', 'user-group']" size="lg" />
+              </div>
+              2 Adult
+            </div>
+            <div class="price">
+              <div class="count-room">1 room left</div>
+              <div class="price-discount-room">VND 2.500.000</div>
+              <div class="price-room"><del>VND 6.000.000</del></div>
+              <div class="text">per night</div>
+            </div>
+            <div class="room">
+              <CDropdown />
+            </div>
+          </div>
+          <div class="booking-item">
+            <div class="title-room">
+              <div class="main">Sol Double/Twin Room</div>
+              <div class="discount">
+                Early deal 65
+                <div class="icon">
+                  <font-awesome-icon
+                    :icon="['fas', 'dollar-sign']"
+                    size="xs"
+                    style="color: #fff"
+                  />
+                </div>
+              </div>
+              <div class="cancel">Flexible cancellation</div>
+              <div class="breakfast">
+                Breakfast included
+                <div class="icon">
+                  <font-awesome-icon :icon="['fas', 'utensils']" size="xs" />
+                </div>
+              </div>
+            </div>
+            <div class="count-people">
+              <div class="icon">
+                <font-awesome-icon :icon="['fas', 'user-group']" size="lg" />
+              </div>
+              2 Adult
+            </div>
+            <div class="price">
+              <div class="count-room">1 room left</div>
+              <div class="price-discount-room">VND 2.500.000</div>
+              <div class="price-room"><del>VND 6.000.000</del></div>
+              <div class="text">per night</div>
+            </div>
+            <div class="room">
+              <CDropdown />
             </div>
           </div>
         </div>
@@ -139,11 +241,62 @@ import CDropdown from "@/components/elements/CDropdown.vue";
         }
       }
       .form-booking {
+        margin-top: 50px;
         .booking-item {
           display: grid;
           grid-template-columns: 1fr 1fr 125px 1fr;
+          margin-top: 30px;
+          .main {
+            font-size: 13px;
+            line-height: 1;
+            font-weight: 600;
+          }
+          .discount,
+          .cancel,
+          .breakfast {
+            display: flex;
+            margin-top: 5px;
+            .icon {
+              margin-left: 5px;
+            }
+          }
+          .discount {
+            display: flex;
+            align-items: center;
+            .icon {
+              background-color: red;
+              width: 15px;
+              height: 15px;
+              text-align: center;
+              line-height: 17px;
+              border-radius: 50%;
+            }
+          }
+
           .count-people {
             text-align: center;
+          }
+          .price {
+            text-align: center;
+            .count-room {
+              color: red;
+              font-size: 10px;
+            }
+            .price-discount-room {
+              margin-top: 5px;
+              font-size: 18px;
+            }
+            .price-room {
+              font-size: 12px;
+              color: #ccc;
+              margin: 2px 0 5px 0;
+            }
+            .text {
+              font-size: 10px;
+            }
+          }
+          .room {
+            padding-left: 50px;
           }
         }
       }
@@ -152,7 +305,11 @@ import CDropdown from "@/components/elements/CDropdown.vue";
       width: 20%;
       padding: 0 20px;
       text-align: center;
+      .count-room {
+        margin-top: 5px;
+      }
       .price-room {
+        margin: 5px 0;
         font-weight: 300;
         font-size: 19px;
       }

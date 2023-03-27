@@ -99,63 +99,14 @@ a {
   width: 100%;
 }
 
-/* .msp-icon {
-    -webkit-mask-image: url(../assets/images/Icon_Process.svg);
-    -moz-mask-image: url(../assets/images/Icon_Process.svg);
-    -ms-mask-image: url(../assets/images/Icon_Process.svg);
-    -o-mask-image: url(../assets/images/Icon_Process.svg);
-    mask-image: url(../assets/images/Icon_Process.svg);
-    -webkit-mask-repeat: no-repeat;
-    -moz-mask-repeat: no-repeat;
-    -ms-mask-repeat: no-repeat;
-    -o-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+a {
+  text-decoration: none;
+  color: black;
 }
 
-.msp-icon-v2 {
-    -webkit-mask-image: url(../assets/images/Icon_Process_v2.svg);
-    -moz-mask-image: url(../assets/images/Icon_Process_v2.svg);
-    -ms-mask-image: url(../assets/images/Icon_Process_v2.svg);
-    -o-mask-image: url(../assets/images/Icon_Process_v2.svg);
-    mask-image: url(../assets/images/Icon_Process_v2.svg);
-    -webkit-mask-repeat: no-repeat;
-    -moz-mask-repeat: no-repeat;
-    -ms-mask-repeat: no-repeat;
-    -o-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+a:visited {
+  color: black;
 }
-
-.msp-icon-v3 {
-    -webkit-mask-image: url(../assets/images/Icon_Process_v3.svg);
-    -moz-mask-image: url(../assets/images/Icon_Process_v3.svg);
-    -ms-mask-image: url(../assets/images/Icon_Process_v3.svg);
-    -o-mask-image: url(../assets/images/Icon_Process_v3.svg);
-    mask-image: url(../assets/images/Icon_Process_v3.svg);
-    -webkit-mask-repeat: no-repeat;
-    -moz-mask-repeat: no-repeat;
-    -ms-mask-repeat: no-repeat;
-    -o-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-}
-
-.msp-icon-v4 {
-    -webkit-mask-image: url(../assets/images/Icon_Process_v4.svg);
-    -moz-mask-image: url(../assets/images/Icon_Process_v4.svg);
-    -ms-mask-image: url(../assets/images/Icon_Process_v4.svg);
-    -o-mask-image: url(../assets/images/Icon_Process_v4.svg);
-    mask-image: url(../assets/images/Icon_Process_v4.svg);
-    -webkit-mask-repeat: no-repeat;
-    -moz-mask-repeat: no-repeat;
-    -ms-mask-repeat: no-repeat;
-    -o-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-}
-
-.msp-icon-image {
-    background-image: url(../assets/images/Icon_Process_v3.svg);
-    background-repeat: no-repeat;
-} */
-
 .msp-icon-20 {
   width: 20px;
   height: 20px;

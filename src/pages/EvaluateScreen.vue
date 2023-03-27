@@ -1,16 +1,11 @@
 <template>
   <div class="container-wrapper">
     <div class="img-banner">
-      <h2 class="text-white">Contact</h2>
+      <h2 class="text-white">Evaluate</h2>
     </div>
     <div class="about-wrapper">
       <div class="about-content">
-        <div class="header-container">Get in Touch</div>
-        <p>
-          We are available 24/7 by fax, e-mail or by phone. You can also use our
-          quick contact form to ask a question about our services. We would be
-          pleased to answer your questions.
-        </p>
+        <div class="header-container">Get in Evaluate</div>
 
         <div class="box-container">
           <TextBox
@@ -182,6 +177,7 @@ onMounted(() => {});
       padding-inline-start: 0;
       margin-block-start: 0;
       margin-block-end: 0;
+      margin-top: 5px;
       li {
         padding: 0 5px;
         cursor: pointer;
@@ -189,6 +185,7 @@ onMounted(() => {});
     }
     .unit-horizontal {
       display: flex;
+      margin-top: 5px;
       .unit__body {
         padding-top: 0;
         padding-left: 10px;

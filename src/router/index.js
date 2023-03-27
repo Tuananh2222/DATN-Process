@@ -14,9 +14,9 @@ const router = createRouter({
       component: () => import("@/pages/AboutScreen.vue"),
     },
     {
-      path: "/contact",
-      name: "Contact",
-      component: () => import("@/pages/ContactScreen.vue"),
+      path: "/evaluate",
+      name: "Evaluate",
+      component: () => import("@/pages/EvaluateScreen.vue"),
     },
     {
       path: "/blog",
@@ -62,6 +62,11 @@ const router = createRouter({
       path: "/booking/booking-form",
       name: "Booking Form",
       component: () => import("@/pages/booking/FormScreen.vue"),
+    },
+    {
+      path: "/booking/booking-pay",
+      name: "Booking Pay",
+      component: () => import("@/pages/booking/PayScreen.vue"),
     },
   ],
 });
