@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import { useValidate } from "@/composables/useValidate";
@@ -19,8 +20,10 @@ export const useLoginStore = defineStore("login", () => {
     hasErrors: {
       email: "",
       password: "",
+      emailReset: "",
     },
     email: "",
+    emailReset: "",
     password: "",
     isAuthenticate: false,
   });
@@ -29,6 +32,10 @@ export const useLoginStore = defineStore("login", () => {
     email: {
       required: helpers.withMessage("Vui lòng nhập email!", required),
       email: helpers.withMessage("Vui lòng nhập đúng định dạng", email),
+    },
+    emailReset: {
+      required: helpers.withMessage("Vui lòng nhập email!", required),
+      emailReset: helpers.withMessage("Vui lòng nhập đúng định dạng", email),
     },
     password: {
       required: helpers.withMessage("Vui lòng nhập mật khẩu!", required),
@@ -103,6 +110,14 @@ export const useLoginStore = defineStore("login", () => {
       });
   };
 
+  const handleForgotPassword = async () => {
+    sendPasswordResetEmail(state.emailReset).then(() => {
+      // Email đặt lại mật khẩu đã được gửi.
+    }).catch(function (error) {
+      console.log(error)
+    });
+  }
+
   return {
     state,
     checkField,
@@ -111,6 +126,7 @@ export const useLoginStore = defineStore("login", () => {
     isValidForm,
     handleSignIn,
     handleSignInWithGoogle,
+    handleForgotPassword
   };
 });
 export default useLoginStore;

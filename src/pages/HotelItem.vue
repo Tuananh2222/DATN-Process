@@ -10,106 +10,164 @@
         <div class="modal-info-header">
           <div class="left-side">
             <h1 class="modalHeader-js"></h1>
-            <p>Stockton Street</p>
-          </div>
-          <div class="right-side">
-            Starts from:
-            <span class="amount">$1000</span>
+            <p>Solarium Connecting 2 Bed room</p>
           </div>
         </div>
         <div class="info-bar">
           <div class="info-wrapper">
             <div class="info-icon">
               <svg
-                class="btn-icon"
+                width="69"
+                height="69"
+                viewBox="0 0 69 69"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
               >
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path
-                  d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-                ></path>
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M47.698 20.346a8.356 8.356 0 0 1 5.903-2.422c2.27 0 4.39.908 5.904 2.422M38.464 7.63c8.325-8.174 21.797-8.174 29.971 0M43.308 14.14c5.752-5.752 14.985-5.752 20.586 0"
+                    stroke="#f52c53"
+                  ></path>
+                  <path
+                    d="M53.526 23.88a5.643 5.643 0 1 1 0 11.286 5.643 5.643 0 0 1 0-11.286z"
+                    stroke="#1E2B31"
+                  ></path>
+                  <path
+                    d="M53.925 67.876C24.477 67.853.522 43.897.5 14.448c-.002-2.542 2.041-4.623 4.583-4.623h10.694c2.548 0 4.58 2.086 4.583 4.635a33.185 33.185 0 0 0 1.665 10.376 4.616 4.616 0 0 1-1.134 4.675l-3.918 5.204c-.563.747-.648 1.762-.185 2.574C20.382 43.6 24.726 47.94 31.08 51.575a2.356 2.356 0 0 0 2.582-.183l5.363-4.047c1.066-1.088 2.911-1.516 4.531-.96a33.086 33.086 0 0 0 10.361 1.659c2.548.004 4.634 2.035 4.634 4.583V63.29c0 2.544-2.082 4.588-4.626 4.586z"
+                    stroke="#f52c53"
+                  ></path>
+                </g>
               </svg>
             </div>
-            <span>2 Bedrooms</span>
+            <span>Direct Phone & Internet</span>
           </div>
           <div class="info-wrapper">
             <div class="info-icon">
               <svg
-                class="btn-icon feather feather-wind"
+                width="69"
+                height="68"
+                viewBox="0 0 69 68"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
               >
-                <path
-                  d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"
-                />
+                <defs>
+                  <path id="a_cassa" d="M0 67.376h67.881V0H0z"></path>
+                </defs>
+                <g transform="translate(1)" fill="none" fill-rule="evenodd">
+                  <path
+                    d="M.5 3.5v54.05a3 3 0 0 0 3 3h60.882a3 3 0 0 0 3-3V3.5a3 3 0 0 0-3-3H3.5a3 3 0 0 0-3 3z"
+                    stroke="#f52c53"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <mask id="b_cassa" fill="#fff">
+                    <use xlink:href="#a_cassa"></use>
+                  </mask>
+                  <path
+                    stroke="#f52c53"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    mask="url(#b_cassa)"
+                    d="M4.885 55.83h58.11V5.22H4.885zM17.772 66.876H5.882a1 1 0 0 1-1-1v-5.329h13.89v5.329a1 1 0 0 1-1 1zM61.999 66.876h-11.89a1 1 0 0 1-1-1v-5.329h13.89v5.329a1 1 0 0 1-1 1z"
+                  ></path>
+                  <path
+                    stroke="#f52c53"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    mask="url(#b_cassa)"
+                    d="M15.499 50.101h6.548v-6.548h-6.548zM25.611 50.101h6.548v-6.548h-6.548zM35.723 50.101h6.548v-6.548h-6.548zM45.836 50.101h6.548v-6.548h-6.548z"
+                  ></path>
+                  <path
+                    d="M33.935 11.49c-7.866 0-14.245 6.38-14.245 14.245 0 7.866 6.38 14.245 14.245 14.245 7.877 0 14.256-6.379 14.256-14.245S41.812 11.49 33.935 11.49z"
+                    stroke="#1E2B31"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    mask="url(#b_cassa)"
+                  ></path>
+                  <path
+                    d="M31.521 15.736v5.55a5.213 5.213 0 0 0-1.939 1.874H23.98a10.283 10.283 0 0 1 7.542-7.424zM31.521 30.186v5.549a10.303 10.303 0 0 1-7.618-7.747h5.507a5.198 5.198 0 0 0 2.111 2.198zM36.36 21.296v-5.56a10.283 10.283 0 0 1 7.542 7.424H38.29a5.08 5.08 0 0 0-1.93-1.864zM43.977 27.987a10.303 10.303 0 0 1-7.618 7.747v-5.559a4.968 4.968 0 0 0 2.101-2.188h5.517z"
+                    stroke="#1E2B31"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    mask="url(#b_cassa)"
+                  ></path>
+                </g>
               </svg>
             </div>
-            <span>2 Bathrooms</span>
+            <span>Safe & Ninibar</span>
           </div>
           <div class="info-wrapper">
             <div class="info-icon">
               <svg
-                class="btn-icon feather feather-square"
+                width="93"
+                height="68"
+                viewBox="0 0 93 68"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
               >
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    stroke="#1E2B31"
+                    d="M41.134 66.876h9.828v-8.619h-9.828z"
+                  ></path>
+                  <path
+                    stroke="#f52c53"
+                    d="M.5 58.257h91.096V.5H.5zM26.745 66.876H65.35"
+                  ></path>
+                  <path
+                    stroke="#1E2B31"
+                    d="M4.552 55.83h82.991V2.927H4.552z"
+                  ></path>
+                </g>
               </svg>
             </div>
-            <span>1250m2</span>
+            <span>TV LCD</span>
           </div>
           <div class="info-wrapper">
             <div class="info-icon">
               <svg
-                class="btn-icon feather feather-shield"
+                width="117"
+                height="66"
+                viewBox="0 0 117 66"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
               >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M46.897 65.705c2.17-2.769 2.48-6.502.791-9.502-.02-.034-.054-.054-.077-.087-.869-1.62-.686-3.628.496-5.142M55.157 65.705c2.17-2.769 2.48-6.502.791-9.502-.02-.034-.054-.054-.077-.087-.868-1.62-.686-3.628.496-5.142M63.417 65.705c2.17-2.769 2.479-6.502.79-9.502-.02-.034-.052-.054-.076-.087-.868-1.62-.685-3.628.497-5.142M100.426 32.032H15.683a5 5 0 0 0-5 5v5.809h94.743v-5.81a5 5 0 0 0-5-5zM19.1 11.074h77.907"
+                    stroke="#1E2B31"
+                  ></path>
+                  <path
+                    stroke="#f52c53"
+                    d="M115.608.5v29.853L105.425 42.84H10.682L.5 30.353V.5z"
+                  ></path>
+                </g>
               </svg>
             </div>
-            <span>Highly Secured</span>
+            <span>Air Conditioning</span>
           </div>
         </div>
         <div class="desc-wrapper">
           <div class="modal-info-header">
             <h1>Description</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.
+              With a generously appointed 2 bedrooms, an equally sparkling local
+              marble bathroom and fully equiped amenities, the Solarium
+              Connecting guestrooms afford extra space to work or relax in
+              supreme comfort. Suite best for family or group of 4 passenger
+              travelling toghether.
             </p>
           </div>
           <div class="desc-actions">
@@ -140,6 +198,36 @@
                 </span>
                 <span>Add to favourites</span>
               </label>
+            </div>
+          </div>
+          <div class="desc-view">
+            <div class="modal-info-header">
+              <h1>View</h1>
+              <div class="view-main">
+                <div class="view-item">
+                  <font-awesome-icon :icon="['fas', 'check']" />
+                  <div class="text-view">Landmark View</div>
+                </div>
+                <div class="view-item">
+                  <font-awesome-icon :icon="['fas', 'check']" />
+                  <div class="text-view">City View</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="desc-room">
+            <div class="modal-info-header">
+              <h1>Room Facilities</h1>
+              <div class="view-main">
+                <div
+                  class="view-item"
+                  v-for="(item, index) in state.listHotelItem"
+                  :key="index"
+                >
+                  <font-awesome-icon :icon="['fas', 'check']" />
+                  <div class="text-view">{{ item.item }}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -282,6 +370,14 @@
 
 <script setup>
 import CButton from "@/components/elements/CButton.vue";
+import { useHotelItemStore } from "@/stores/hotel-item";
+import { onMounted } from "vue";
+
+const { state, initProcess } = useHotelItemStore();
+
+onMounted(() => {
+  initProcess();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -296,16 +392,6 @@ a {
 
 .btn-icon {
   width: 16px;
-}
-
-.app-main-right {
-  flex: 2;
-  margin-left: 24px;
-  max-width: 400px;
-
-  .card {
-    height: 160px;
-  }
 }
 
 .card-wrapper {
@@ -410,6 +496,29 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 10px;
+  .view-main {
+    margin-top: 10px;
+    display: flex;
+    .view-item {
+      margin-right: 20px;
+      display: flex;
+      .text-view {
+        margin-left: 5px;
+        font-size: 16px;
+      }
+    }
+  }
+}
+.desc-room {
+  .view-main {
+    display: flex;
+    flex-wrap: wrap;
+    .view-item {
+      width: 270px;
+      margin-top: 15px;
+    }
+  }
 }
 
 .left-side {
@@ -417,18 +526,18 @@ a {
     margin: 0;
     font-size: 24px;
     line-height: 32px;
-    color: var(--main-font-color);
+    color: #f3f3f3;
   }
 
   p {
-    color: var(--light-font-color);
-    font-size: 16px;
+    color: #000;
+    font-size: 24px;
     line-height: 24px;
   }
 }
 
 .right-side {
-  color: var(--main-font-color);
+  color: #f3f3f3;
 
   span {
     display: inline-block;
@@ -457,7 +566,6 @@ a {
 }
 
 .info-icon {
-  background-color: #f8e4e5;
   border-radius: 50%;
   color: #d84851;
   width: 32px;

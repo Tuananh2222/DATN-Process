@@ -1,10 +1,11 @@
 <template>
   <CPopupConfirm
     v-if="state.isAuthenticate"
-    @close-popup="handleHidePopup"
+    @close-popup="handleHidePopup(isAuthen)"
     :text-title="'Xác nhận Email'"
     :description="'Bạn chưa xác nhận email! Vui lòng hãy xác nhận email của bạn!'"
   />
+
   <div class="wrapper">
     <div class="card">
       <section>
@@ -109,7 +110,13 @@
             </div>
           </div>
           <div class="sign-up">
-            Don’t have an account yet? <a @click="handleSignup()">Sign up</a>
+            <div>
+              Don’t have an account yet? <a @click="handleSignup()">Sign up</a>
+            </div>
+
+            <a class="forgot" @click="handleForgotPassword()"
+              >Forgot Password?</a
+            >
           </div>
         </div>
       </section>
@@ -127,6 +134,7 @@ import { storeToRefs } from "pinia";
 const loginStore = useLoginStore();
 const { state, handleSignIn } = loginStore;
 const { isValidForm } = storeToRefs(loginStore);
+
 const submitSignIn = async () => {
   await handleSignIn();
 };
@@ -139,6 +147,13 @@ const handleSignup = () => {
 };
 const handleHidePopup = () => {
   state.isAuthenticate = false;
+};
+const handleForgotPassword = () => {
+  router.push({
+    path: "/forgot-password",
+    name: "Forgot Password",
+    component: () => import("@/pages/ForgotScreen.vue"),
+  });
 };
 </script>
 
@@ -160,6 +175,10 @@ const handleHidePopup = () => {
   //Sizing
   width: 30%;
   height: 100%;
+}
+.cart-forgot-password {
+  display: flex;
+  align-items: center;
 }
 
 .title,
@@ -244,7 +263,7 @@ const handleHidePopup = () => {
   padding-top: 20px;
   width: 55%;
   margin: 0 auto;
-
+  text-align: center;
   //Font
   color: #ffffff;
   font-size: 14px;
@@ -256,6 +275,9 @@ const handleHidePopup = () => {
   }
   a:hover {
     color: #046586;
+  }
+  div {
+    margin-bottom: 5px;
   }
 }
 

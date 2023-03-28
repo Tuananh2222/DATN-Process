@@ -2,18 +2,17 @@ import { reactive } from "vue";
 
 // import { User } from '@/utils/types/general'
 import { defineStore } from "pinia";
-import json from '../public/cart-item.json'
+import json from '../public/hotel-item.json'
 
-export const useCartStore = defineStore("cart", () => {
+export const useHotelItemStore = defineStore("hotelItem", () => {
     const state = reactive({
-        listFavarite: []
+        listHotelItem: []
     });
 
     const initProcess = async () => {
-        state.listFavarite = json
+        state.listHotelItem = json
     }
 
 
     return { state, initProcess };
 });
-export default useCartStore;
