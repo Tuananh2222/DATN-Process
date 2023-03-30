@@ -39,289 +39,34 @@
     </section>
     <section class="app-main">
       <div class="app-main-left cards-area">
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
+        <div
+          v-for="(item, index) in state.listHotel.data"
+          :key="index"
+          class="card-wrapper main-card"
+        >
+          <a class="card cardItemjs" @click="openModal(item.roomID)">
             <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?sculpture,hotel"
-                alt="Hotel"
-              />
+              <img :src="item.imgUrl" alt="Hotel" />
             </div>
             <div class="card-info">
               <div class="card-text big cardText-js">
-                The Grand Budapest Hotel
+                {{ item.roomName }}
               </div>
               <div class="card-text small">
                 Max People:
-                <span class="card-price">2</span>
+                <span class="card-price">{{ item.countPeople }}</span>
               </div>
               <div class="card-text small">
                 Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
+                <span class="card-price">{{ item.roomSize }}m<sup>2</sup></span>
               </div>
               <div class="card-text small">
                 Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
+                <span class="card-price"> {{ item.bedType }}</span>
               </div>
               <div class="card-text small">
                 Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?architecture,hotel"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">
-                The Grand Canyon Hotel
-              </div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?hotel-room,hotel"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">The Beakman Spa Hotel</div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?hotel,design"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">Paloma Hotel & Spa</div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?interior,design"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">
-                The Golden Hours Hotel
-              </div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?interior,architecture"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">
-                The Daydream Hotel & Spa
-              </div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?interior,modern"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">The Harmony Hotel</div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?architecture,modern"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">
-                The Hotel Star Pasific
-              </div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">18m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price">
-                  2 Single beds or 1 Large double bed</span
-                >
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="card-wrapper main-card">
-          <a class="card cardItemjs" @click="openModal()">
-            <div class="card-image-wrapper">
-              <img
-                src="https://source.unsplash.com/featured/1200x900/?hotel,modern"
-                alt="Hotel"
-              />
-            </div>
-            <div class="card-info">
-              <div class="card-text big cardText-js">Hotel Roller Coaster</div>
-              <div class="card-text small">
-                Max People:
-                <span class="card-price">2</span>
-              </div>
-              <div class="card-text small">
-                Room Size:
-                <span class="card-price">30m<sup>2</sup></span>
-              </div>
-              <div class="card-text small">
-                Bed Type:
-                <span class="card-price"> 2 Single beds </span>
-              </div>
-              <div class="card-text small">
-                Bathroom:
-                <span class="card-price">Standing shower</span>
+                <span class="card-price">{{ item.bathroom }}</span>
               </div>
             </div>
           </a>
@@ -336,14 +81,16 @@ import CButton from "@/components/elements/CButton.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import router from "@/router";
-import HotelItem from "./HotelItem.vue";
+import { useHotelStore } from "@/stores/hotel";
+import { onMounted } from "vue";
 
-const openModal = () => {
-  router.push({
-    path: "/hotel-item",
-    name: "Hotel Item",
-    component: HotelItem,
-  });
+const { state, initProcess } = useHotelStore();
+onMounted(() => {
+  initProcess();
+});
+
+const openModal = (id) => {
+  router.push("/hotel-item/" + id);
 };
 const data = [
   {
