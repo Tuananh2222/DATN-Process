@@ -64,12 +64,12 @@ onMounted(() => {
   initProcess();
 });
 const handleMoveItem = (index) => {
-  console.log(index)
+  console.log(index);
   router.push({
     // path: `/hotel-item/{index}`
-    path: "/hotel-item",
-    name: "Hotel Item",
-    component: () => import("@/pages/HotelItem.vue"),
+    path: "/hotel-detail/:id",
+    name: "Hotel Detail",
+    component: () => import("@/pages/HotelDetail/[roomID].vue"),
   });
 };
 </script>

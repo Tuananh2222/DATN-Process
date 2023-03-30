@@ -4,13 +4,13 @@
       <div class="modal-left">
         <div class="modal-image-wrapper">
           <img
-            src="https://source.unsplash.com/featured/1200x900/?design,hotel"
+            :src="dataDetail.imgUrl"
           />
         </div>
         <div class="modal-info-header">
           <div class="left-side">
             <h1 class="modalHeader-js"></h1>
-            <p>Solarium Connecting 2 Bed room</p>
+            <p>{{ dataDetail.roomName }}</p>
           </div>
         </div>
         <div class="info-bar">
@@ -163,11 +163,7 @@
           <div class="modal-info-header">
             <h1>Description</h1>
             <p>
-              With a generously appointed 2 bedrooms, an equally sparkling local
-              marble bathroom and fully equiped amenities, the Solarium
-              Connecting guestrooms afford extra space to work or relax in
-              supreme comfort. Suite best for family or group of 4 passenger
-              travelling toghether.
+              {{ dataDetail.description }}
             </p>
           </div>
           <div class="desc-actions">
@@ -206,11 +202,7 @@
               <div class="view-main">
                 <div class="view-item">
                   <font-awesome-icon :icon="['fas', 'check']" />
-                  <div class="text-view">Landmark View</div>
-                </div>
-                <div class="view-item">
-                  <font-awesome-icon :icon="['fas', 'check']" />
-                  <div class="text-view">City View</div>
+                  <div class="text-view">{{ dataDetail.viewRoom }}</div>
                 </div>
               </div>
             </div>
@@ -221,11 +213,11 @@
               <div class="view-main">
                 <div
                   class="view-item"
-                  v-for="(item, index) in state.listHotelItem"
+                  v-for="(item, index) in state.listFacilities"
                   :key="index"
                 >
                   <font-awesome-icon :icon="['fas', 'check']" />
-                  <div class="text-view">{{ item.item }}</div>
+                  <div class="text-view">{{ item.facilitiesName }}</div>
                 </div>
               </div>
             </div>
@@ -369,15 +361,25 @@
 </template>
 
 <script setup>
+import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
 import { useHotelItemStore } from "@/stores/hotel-item";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 const { state, initProcess } = useHotelItemStore();
+const route = useRoute()
 
-onMounted(() => {
+let dataDetail = ref({})
+
+onMounted(async() => {
   initProcess();
+  GetRoomDetails()
 });
+
+const GetRoomDetails = async() => {
+    dataDetail = await (await RoomAPI.geRoomByID(route.params.id)).data
+}
 </script>
 
 <style lang="scss" scoped>

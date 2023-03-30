@@ -8,12 +8,13 @@ export const useHotelStore = defineStore("hotel", () => {
         pageNumber: 1,
         pageSize: 9,
         keyword: '',
-        roomID: ''
+        roomID: '',
+        detailHotel:{}
     });
 
     const initProcess = async () => {
         state.listHotel = await (await RoomAPI.filter(state.pageSize, state.pageNumber, state.keyword, state.roomID)).data
-        console.log(state.listHotel)
+        state.detailHotel = await (await RoomAPI.geRoomByID(state.roomID)).data
     }
 
 

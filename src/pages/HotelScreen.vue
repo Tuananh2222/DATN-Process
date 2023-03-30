@@ -85,12 +85,14 @@ import { useHotelStore } from "@/stores/hotel";
 import { onMounted } from "vue";
 
 const { state, initProcess } = useHotelStore();
+
 onMounted(() => {
   initProcess();
 });
 
 const openModal = (id) => {
-  router.push("/hotel-item/" + id);
+  state.roomID = id
+  router.push("/hotel-detail/" + id);
 };
 const data = [
   {
