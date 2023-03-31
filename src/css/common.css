@@ -288,6 +288,8 @@ a:visited {
   -o-mask-position: -72px -24px;
   mask-position: -72px -24px;
   background-color: var(--icon-deault-color) !important;
+  text-align: center;
+  line-height: 24px;
 }
 
 .msp-icon-arrow-right {
@@ -297,6 +299,8 @@ a:visited {
   -o-mask-position: -96px -24px;
   mask-position: -96px -24px;
   background-color: var(--icon-deault-color) !important;
+  text-align: center;
+  line-height: 24px;
 }
 
 .msp-check {
@@ -462,4 +466,60 @@ input::placeholder {
 
 .msp-border-field-error {
   border-color: var(--input-error-border-color) !important;
+}
+
+.msp-user-paging {
+  height: 56px;
+  box-sizing: border-box;
+  margin: 0px 10px 8px 10px;
+  padding: 8px 0px;
+}
+
+.msp-user-paging-content {
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0px 16px;
+}
+
+.msp-user-paging-arrow-gr {
+  width: 70px;
+  box-sizing: border-box;
+}
+
+.msp-user-paging-arrow-gr > div:hover {
+  background-color: #eff1f6 !important;
+  border-radius: 50%;
+}
+
+.msp-user-paging-info {
+  margin: 0px 24px 0 0;
+}
+
+.msp-user-paging-arrow {
+  position: relative;
+}
+
+.msp-user-paging-arrow-tooltip {
+  position: absolute;
+  white-space: nowrap;
+  bottom: 100%;
+  background-color: rgb(78, 78, 78);
+  padding: 6px;
+  border-radius: 4px;
+  color: #fff;
+  display: none;
+}
+
+.msp-user-paging-arrow-tooltip::after {
+  position: absolute;
+  content: "";
+  border: 5px solid transparent;
+  border-top-color: rgb(78, 78, 78);
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.msp-user-paging-arrow:hover .msp-user-paging-arrow-tooltip {
+  display: block;
 }

@@ -40,7 +40,7 @@
     <section class="app-main">
       <div class="app-main-left cards-area">
         <div
-          v-for="(item, index) in state.listHotel.data"
+          v-for="(item, index) in listHotel.data"
           :key="index"
           class="card-wrapper main-card"
         >
@@ -71,26 +71,110 @@
             </div>
           </a>
         </div>
+        <!-- Paging -->
+        <div class="msp-user-paging w-full flex-center flex-column">
+          <div
+            class="msp-user-paging-content w-full flex align-items-center flex-between"
+          >
+            <div class="msp-user-paging-content-left text-nowrap">
+              Tổng số bản ghi : <b>{{ totalRecord }}</b>
+            </div>
+
+            <div class="msp-user-paging-content-right flex align-items-center">
+              <div class="text-nowrap m-r-8">Số bản ghi trên trang</div>
+
+              <div class="msp-user-paging-info text-nowrap">
+                <b>{{ rowStart }}</b> - <b>{{ rowEnd }}</b> bản ghi
+              </div>
+
+              <div class="msp-user-paging-arrow-gr flex flex-between">
+                <div class="msp-icon-36 flex-center msp-user-paging-arrow">
+                  <div
+                    :style="{ opacity: rowStart == 1 ? '.6' : '' }"
+                    class="msp-icon-24 msp-icon-arrow-left cursor-pointer"
+                    @click="
+                      rowStart != 1 && handleChangePageNumber(pageNumber - 1)
+                    "
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'chevron-left']"
+                      style="color: #fafafa"
+                    />
+                  </div>
+                  <div class="msp-user-paging-arrow-tooltip">Quay lại</div>
+                </div>
+
+                <div class="msp-icon-36 flex-center msp-user-paging-arrow">
+                  <div
+                    :style="{ opacity: rowEnd == totalRecord ? '.6' : '' }"
+                    class="msp-icon-24 msp-icon-arrow-right cursor-pointer"
+                    @click="
+                      rowEnd != totalRecord &&
+                        handleChangePageNumber(pageNumber + 1)
+                    "
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'chevron-right']"
+                      style="color: #fafafa"
+                    />
+                  </div>
+                  <div class="msp-user-paging-arrow-tooltip">Tiếp tục</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
+import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import router from "@/router";
-import { useHotelStore } from "@/stores/hotel";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
-const { state, initProcess } = useHotelStore();
+const pageNumber = ref(1);
+const pageSize = ref(9);
+const keyword = ref("");
+const roomID = ref("");
+let listHotel = ref([]);
+let totalRecord = ref(0);
+let rowStart = ref(0);
+let rowEnd = ref(0);
 onMounted(() => {
-  initProcess();
+  getRoom();
 });
 
 const openModal = (id) => {
   router.push("/hotel-item/" + id);
+};
+const getRoom = async () => {
+  const Data = await await RoomAPI.filter(
+    pageSize.value,
+    pageNumber.value,
+    keyword.value,
+    roomID.value
+  );
+  listHotel = Data.data;
+  console.log(Data);
+  rowEnd.value = Data.data.rowEnd;
+  rowStart.value = Data.data.rowStart;
+  totalRecord.value = Data.data.totalRecord;
+};
+
+/**
+ * Thay đổi page number
+ * @param {*} pageNumber trang muốn chuyển
+ */
+const handleChangePageNumber = async (pageNumber) => {
+  // this.loading = true;
+  pageNumber.value = pageNumber;
+  await getRoom();
+  // this.loading = false;
 };
 const data = [
   {
@@ -179,8 +263,6 @@ section.app-actions {
   flex: 1;
   overflow: hidden;
   padding: 24px 40px;
-  display: flex;
-  justify-content: space-between;
 }
 
 .cards-area {
