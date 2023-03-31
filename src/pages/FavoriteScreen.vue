@@ -71,9 +71,9 @@ const handleRemoveItem = (index) => {
 
 const handleMoveItem = () => {
   router.push({
-    path: "/hotel-item",
-    name: "Hotel Item",
-    component: () => import("@/pages/HotelItem.vue"),
+    path: "/hotel-detail/:id",
+    name: "Hotel Detail",
+    component: () => import("@/pages/HotelDetail/[roomID].vue"),
   });
 };
 </script>

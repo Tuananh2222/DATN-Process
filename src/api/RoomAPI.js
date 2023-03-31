@@ -31,5 +31,13 @@ class RoomAPI {
             filterQuery += `&bathroom=${bathroom}`;
         return BaseAPIConfig.get(`${this.controller}/${filterQuery}`)
     }
+    /**
+     * Lấy thông tin user theo id
+     * @param {*} roomID 
+     * @returns thông tin chi tiết room
+     */
+    geRoomByID(roomID){
+        return BaseAPIConfig.get(`${this.controller}/${roomID}`)
+    }
 }
 export default new RoomAPI();

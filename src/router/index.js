@@ -29,9 +29,9 @@ const router = createRouter({
       component: () => import("@/pages/HotelScreen.vue"),
     },
     {
-      path: "/hotel-item/:id",
-      name: "Hotel Item",
-      component: () => import("@/pages/HotelItem.vue"),
+      path: "/hotel-detail/:id",
+      name: "Hotel Detail",
+      component: () => import("@/pages/HotelDetail/[roomID].vue"),
     },
     {
       path: "/login",
