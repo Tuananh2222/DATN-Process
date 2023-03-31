@@ -4,28 +4,31 @@
       <div class="app-actions-line">
         <div class="filter-action-buttons">
           <CDropdown
-            :data="data"
+            ref="countPeopleFilter"
+            @changeValue="handleFilterbyPeople"
+            :data="[{ name: 'Tất cả', id: 'all' }, ...dataPeople]"
             fieldDisplay="name"
             fieldName="id"
-            :placeholder="'-People-'"
+            :placeholder="'Chọn số người ở'"
+            :search-enabled="fasle"
           />
           <CDropdown
-            :data="data"
+            ref="bedTypeFilter"
+            @changeValue="handleFilterbyBedType"
+            :data="[{ name: 'Tất cả', id: 'all' }, ...dataBedType]"
             fieldDisplay="name"
             fieldName="id"
-            :placeholder="'-Room Size-'"
+            :placeholder="'Chọn kiểu giường'"
+            :search-enabled="false"
           />
           <CDropdown
-            :data="data"
+            ref="bathroomFilter"
+            @changeValue="handleFilterbyBathroom"
+            :data="[{ name: 'Tất cả', id: 'all' }, ...dataBathroom]"
             fieldDisplay="name"
             fieldName="id"
-            :placeholder="'-Bed Type-'"
-          />
-          <CDropdown
-            :data="data"
-            fieldDisplay="name"
-            fieldName="id"
-            :placeholder="'-Bathroom-'"
+            :placeholder="'Chọn kiểu nhà vệ sinh'"
+            :search-enabled="false"
           />
         </div>
       </div>
@@ -160,7 +163,6 @@ const getRoom = async () => {
     roomID.value
   );
   listHotel = Data.data;
-  console.log(Data);
   rowEnd.value = Data.data.rowEnd;
   rowStart.value = Data.data.rowStart;
   totalRecord.value = Data.data.totalRecord;
@@ -170,32 +172,73 @@ const getRoom = async () => {
  * Thay đổi page number
  * @param {*} pageNumber trang muốn chuyển
  */
-const handleChangePageNumber = async (pageNumber) => {
+const handleChangePageNumber = async (numberPage) => {
   // this.loading = true;
-  pageNumber.value = pageNumber;
+  pageNumber.value = numberPage;
   await getRoom();
   // this.loading = false;
 };
-const data = [
+const dataBathroom = [
   {
     id: 1,
-    name: "HD Video Player",
+    name: "Standing shower",
   },
   {
     id: 2,
-    name: "SuperHD Video Player",
+    name: "Seperate bathtub and standing shower",
   },
   {
     id: 3,
-    name: "SuperPlasma 50",
+    name: "Seperate 2 bathrooms with standing shower",
+  },
+];
+
+const dataBedType = [
+  {
+    id: 1,
+    name: "2 Single beds or 1 Large double bed",
+  },
+  {
+    id: 2,
+    name: "Double bed",
+  },
+  {
+    id: 3,
+    name: "Double or twin beds on request",
   },
   {
     id: 4,
-    name: "SuperLED 50",
+    name: "Double bed & Twin beds",
+  },
+];
+const dataPeople = [
+  {
+    id: 1,
+    name: 1,
+  },
+  {
+    id: 2,
+    name: 2,
+  },
+  {
+    id: 3,
+    name: 3,
+  },
+  {
+    id: 4,
+    name: 4,
   },
   {
     id: 5,
-    name: "SuperLED 42",
+    name: 5,
+  },
+  {
+    id: 6,
+    name: 6,
+  },
+  {
+    id: 7,
+    name: 7,
   },
 ];
 </script>
@@ -249,14 +292,15 @@ section.app-actions {
   border: 1px solid #979797;
   padding: 10px 16px;
   font-size: 14px;
-  width: 69%;
+  width: 50%;
   margin: 0 auto;
 }
 
 .app-actions-line {
   display: flex;
   align-items: center;
-  margin: 32px 0;
+  width: 65%;
+  margin: 32px auto;
 }
 
 .app-main {
