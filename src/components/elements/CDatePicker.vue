@@ -6,6 +6,7 @@
       :show-clear-button="props.showButtonClear"
       :min="now"
       :onValueChanged="handleDateChanged"
+      pickerType="calendar"
     />
   </div>
 </template>
@@ -34,6 +35,23 @@ const props = defineProps({
 const handleDateChanged = (e) => {
   value.value = e.value;
 };
+// const getDisabledDates = () => {
+//   if (!checkinDate.value) {
+//     return [];
+//   }
+
+//   const startDate = new Date(checkinDate.value);
+//   startDate.setHours(0, 0, 0, 0);
+
+//   const endDate = new Date(startDate);
+//   endDate.setDate(endDate.getDate() + 1);
+
+//   return {
+//     from: startDate,
+//     to: endDate,
+//   };
+// };
+// const disabledDates = computed(() => [getDisabledDates()]);
 
 watch(value, (newValue) => {
   if (newValue) {
@@ -42,8 +60,4 @@ watch(value, (newValue) => {
 });
 </script>
 
-<style scoped>
-.dx-field-value {
-  width: 25% !important;
-}
-</style>
+<style scoped></style>

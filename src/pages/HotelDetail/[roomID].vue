@@ -379,12 +379,13 @@ onMounted(async () => {
 });
 
 const GetRoomDetails = async () => {
-  dataDetail = await (await RoomAPI.geRoomByID(route.params.id)).data;
+  const data = await (await RoomAPI.getRoomByID(route.params.id)).data;
+  dataDetail = data;
 };
 
 const handleBookRoom = () => {
-  router.push('/booking/booking-form')
-}
+  router.push("/booking/booking-form/" + route.params.id);
+};
 </script>
 
 <style lang="scss" scoped>

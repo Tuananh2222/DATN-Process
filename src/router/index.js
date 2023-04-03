@@ -64,7 +64,7 @@ const router = createRouter({
       component: () => import("@/pages/FavoriteScreen.vue"),
     },
     {
-      path: "/booking/booking-form",
+      path: "/booking/booking-form/:id",
       name: "Booking Form",
       component: () => import("@/pages/booking/FormScreen.vue"),
     },

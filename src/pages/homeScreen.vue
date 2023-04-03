@@ -479,6 +479,13 @@ const data = [
     @media not screen and (min-width: 1280px) {
       padding: 30px 20px 30px;
     }
+    .cell-sm-6 {
+      display: flex;
+      flex-direction: column;
+      :deep(.dx-field-value) {
+        width: 100%;
+      }
+    }
   }
 
   .hotel-booking-form h3 {

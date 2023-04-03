@@ -36,7 +36,7 @@ class RoomAPI {
      * @param {*} roomID 
      * @returns thông tin chi tiết room
      */
-    geRoomByID(roomID){
+    getRoomByID(roomID) {
         return BaseAPIConfig.get(`${this.controller}/${roomID}`)
     }
 }

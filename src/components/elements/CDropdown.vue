@@ -111,6 +111,7 @@ const handleClickItem = (e) => {
   const { itemIndex, itemData } = e;
   currentIndex.value = itemIndex;
   emits("changeValue", itemData[props.fieldName]);
+  emits("changeName", itemData[props.fieldDisplay]);
 };
 
 const handleKeyDown = (e) => {

@@ -1,10 +1,25 @@
 <template>
   <div class="container">
     <div class="time-booking">
-      <CDatePicker />
-      <CDatePicker />
-      <CDropdown />
-      <CDropdown />
+      <div class="dx-field-value">
+        <DxDateBox
+          :value="checkinDate"
+          show-clear-button="true"
+          :min="new Date()"
+          :onValueChanged="handleCheckinChanged"
+          pickerType="calendar"
+        />
+      </div>
+      <div class="dx-field-value">
+        <DxDateBox
+          :value="checkoutDate"
+          show-clear-button="true"
+          :min="new Date()"
+          :onValueChanged="handleCheckoutChanged"
+          pickerType="calendar"
+          :disabledDates="disabledDates"
+        />
+      </div>
     </div>
     <div class="booking-form">
       <div class="detaile-room">
@@ -16,12 +31,9 @@
             />
           </div>
           <div class="description-room">
-            <div class="title-description">Lexington King room</div>
+            <div class="title-description">{{ dataDetailRoom.roomName }}</div>
             <div class="text-description">
-              Relax and enjoy your stay in a space designed to feel just like
-              home. Exquisitely prepared bed linen, an interior bathed in warm
-              light, and a relaxing bathtub in a sparkling clean bathroom. An
-              ideal place to enjoy a refreshment or room service.
+              {{ dataDetailRoom.description }}
             </div>
             <div class="service-description">
               <div class="icon icon-bath">
@@ -44,25 +56,17 @@
               </div>
             </div>
             <div class="size-description-room">
-              <div class="bed-room">Bed size: 1 king bed</div>
-              <div class="size-room">Room size 18 m <sup>2</sup></div>
+              <div class="bed-room">Bed size: {{ dataDetailRoom.bedType }}</div>
+              <div class="size-room">
+                Room size {{ dataDetailRoom.roomSize }}m<sup>2</sup>
+              </div>
             </div>
           </div>
         </div>
         <div class="form-booking">
           <div class="booking-item">
             <div class="title-room">
-              <div class="main">Sol Double/Twin Room</div>
-              <div class="discount">
-                Early deal 65
-                <div class="icon">
-                  <font-awesome-icon
-                    :icon="['fas', 'dollar-sign']"
-                    size="xs"
-                    style="color: #fff"
-                  />
-                </div>
-              </div>
+              <div class="main">{{ dataDetailRoom.roomName }}</div>
               <div class="cancel">Flexible cancellation</div>
               <div class="breakfast">
                 Breakfast included
@@ -79,97 +83,168 @@
             </div>
             <div class="price">
               <div class="count-room">1 room left</div>
-              <div class="price-discount-room">VND 2.500.000</div>
-              <div class="price-room"><del>VND 6.000.000</del></div>
+              <div class="price-discount-room">
+                USD {{ dataDetailRoom.price }}
+              </div>
               <div class="text">per night</div>
             </div>
             <div class="room">
-              <CDropdown />
-            </div>
-          </div>
-          <div class="booking-item">
-            <div class="title-room">
-              <div class="main">Sol Double/Twin Room</div>
-              <div class="discount">
-                Basic deal
-                <div class="icon">
-                  <font-awesome-icon
-                    :icon="['fas', 'dollar-sign']"
-                    size="xs"
-                    style="color: #fff"
-                  />
-                </div>
+              <div v-if="checkinDate && checkoutDate">
+                <CDropdown
+                  :data="dataCountRoom"
+                  fieldDisplay="name"
+                  fieldName="id"
+                  @changeName="changeNameRoom"
+                  @changeValue="changeValueRoom"
+                />
               </div>
-              <div class="cancel">Flexible cancellation</div>
-              <div class="breakfast">
-                Breakfast included
-                <div class="icon">
-                  <font-awesome-icon :icon="['fas', 'utensils']" size="xs" />
-                </div>
+              <div v-if="!checkoutDate">
+                <CButton
+                  :label="'MIN 2 NIGHTS'"
+                  :class-name="'button-primary button-square button-block button-disabled'"
+                />
               </div>
-            </div>
-            <div class="count-people">
-              <div class="icon">
-                <font-awesome-icon :icon="['fas', 'user-group']" size="lg" />
-              </div>
-              2 Adult
-            </div>
-            <div class="price">
-              <div class="count-room">1 room left</div>
-              <div class="price-discount-room">VND 2.500.000</div>
-              <div class="price-room"><del>VND 6.000.000</del></div>
-              <div class="text">per night</div>
-            </div>
-            <div class="room">
-              <CDropdown />
-            </div>
-          </div>
-          <div class="booking-item">
-            <div class="title-room">
-              <div class="main">Sol Double/Twin Room</div>
-              <div class="cancel">Flexible cancellation</div>
-              <div class="breakfast">
-                Breakfast included
-                <div class="icon">
-                  <font-awesome-icon :icon="['fas', 'utensils']" size="xs" />
-                </div>
-              </div>
-            </div>
-            <div class="count-people">
-              <div class="icon">
-                <font-awesome-icon :icon="['fas', 'user-group']" size="lg" />
-              </div>
-              2 Adult
-            </div>
-            <div class="price">
-              <div class="count-room">1 room left</div>
-              <div class="price-discount-room">VND 2.500.000</div>
-              <div class="price-room"><del>VND 6.000.000</del></div>
-              <div class="text">per night</div>
-            </div>
-            <div class="room">
-              <CDropdown />
             </div>
           </div>
         </div>
       </div>
-      <div class="btn-booking">
-        <CButton
-          :label="'Booking Now'"
-          :class-name="'button-primary button-square button-block button-effect-ujarak'"
+      <div class="btn-booking" v-if="checkinDate && checkoutDate && coutnRoom">
+        <CDropdown
+          :data="dataDeal"
+          fieldDisplay="nameDeal"
+          fieldName="id"
+          :placeholder="'-Chọn Khuyến Mãi-'"
+          @changeName="changeNameDeal"
         />
-        <div class="count-room">1 Room</div>
-        <div class="price-room">2.300.000 VND</div>
-        <div class="count-night-rent">for 2 night</div>
+        <div class="btn-wrapper">
+          <CButton
+            :label="'Booking Now'"
+            :class-name="'button-primary button-square button-block button-effect-ujarak'"
+          />
+        </div>
+        <div class="count-room">{{ nameRoom }}</div>
+        <div class="price-room">
+          {{ priceAfterDiscount * dayBooking * coutnRoom }}
+        </div>
+        <div class="count-night-rent">
+          for
+          {{ dayBooking }}
+          night
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
-import CDatePicker from "@/components/elements/CDatePicker.vue";
+// import CDatePicker from "@/components/elements/CDatePicker.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
+import { useHotelItemStore } from "@/stores/hotel-item";
+import DxDateBox from "devextreme-vue/date-box";
+import { ref, onMounted, watch, computed } from "vue";
+import { useRoute } from "vue-router";
+
+const { initProcess } = useHotelItemStore();
+const route = useRoute();
+const checkinDate = ref(null);
+const checkoutDate = ref(null);
+const disabledDates = ref([]);
+const nameRoom = ref("");
+const nameDeal = ref("");
+const priceRoom = ref(0);
+const coutnRoom = ref(0);
+
+const dayBooking = computed(() => {
+  return Math.ceil(
+    (checkoutDate.value - checkinDate.value) / (1000 * 60 * 60 * 24)
+  );
+});
+
+let dataDetailRoom = ref({});
+
+//xem sự thay đổi của thời gian check in
+watch(checkinDate, (newValue) => {
+  if (newValue) {
+    const newDisabledDates = [...disabledDates.value];
+    newDisabledDates.push(
+      new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
+    );
+    disabledDates.value = newDisabledDates;
+  }
+});
+
+onMounted(async () => {
+  initProcess();
+  GetRoomDetails();
+});
+const GetRoomDetails = async () => {
+  const { data } = await RoomAPI.getRoomByID(route.params.id);
+  dataDetailRoom.value = data;
+  priceRoom.value = data.price;
+};
+
+const discountPriceEarly = (price) => {
+  return (price * 0.35).toFixed(2);
+};
+const discountPriceNormal = (price) => {
+  return (price * 0.5).toFixed(2);
+};
+
+const priceAfterDiscount = computed(() => {
+  if (nameDeal.value == "Early deal 65") {
+    return discountPriceEarly(priceRoom.value);
+  }
+  if (nameDeal.value == "Basic deal") {
+    return discountPriceNormal(priceRoom.value);
+  }
+  return priceRoom.value;
+});
+
+const handleCheckinChanged = (e) => {
+  checkinDate.value = e.value;
+};
+
+const handleCheckoutChanged = (e) => {
+  checkoutDate.value = e.value;
+};
+
+const changeNameRoom = (name) => {
+  nameRoom.value = name;
+};
+const changeValueRoom = (index) => {
+  coutnRoom.value = index;
+};
+
+const changeNameDeal = (deal) => {
+  nameDeal.value = deal;
+};
+
+const dataCountRoom = [
+  {
+    id: 1,
+    name: "1 Room",
+  },
+  {
+    id: 2,
+    name: "2 Room",
+  },
+];
+const dataDeal = [
+  {
+    id: 1,
+    nameDeal: "Early deal 65",
+  },
+  {
+    id: 2,
+    nameDeal: "Basic deal",
+  },
+  {
+    id: 3,
+    nameDeal: "No deal",
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -202,9 +277,11 @@ import CDropdown from "@/components/elements/CDropdown.vue";
             font-size: 16px;
           }
           .text-description {
+            margin-top: 10px;
             font-size: 12px;
           }
           .service-description {
+            margin-top: 10px;
             display: flex;
             .icon {
               background-color: #008000;
@@ -302,6 +379,9 @@ import CDropdown from "@/components/elements/CDropdown.vue";
         margin: 5px 0;
         font-weight: 300;
         font-size: 19px;
+      }
+      .btn-wrapper {
+        margin-top: 10px;
       }
     }
   }
