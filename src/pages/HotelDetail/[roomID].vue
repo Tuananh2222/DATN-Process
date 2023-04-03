@@ -3,9 +3,7 @@
     <div class="main-modal">
       <div class="modal-left">
         <div class="modal-image-wrapper">
-          <img
-            :src="dataDetail.imgUrl"
-          />
+          <img :src="dataDetail.imgUrl" />
         </div>
         <div class="modal-info-header">
           <div class="left-side">
@@ -167,10 +165,12 @@
             </p>
           </div>
           <div class="desc-actions">
-            <CButton
-              :label="'Book Now'"
-              :class-name="'button-primary button-square button-block button-effect-ujara'"
-            />
+            <div class="btn-wrapper" @click="handleBookRoom">
+              <CButton
+                :label="'Book Now'"
+                :class-name="'button-primary button-square button-block button-effect-ujara'"
+              />
+            </div>
             <div class="add-favourite">
               <input type="checkbox" id="favourite" />
               <label for="favourite">
@@ -363,22 +363,27 @@
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
+import router from "@/router";
 import { useHotelItemStore } from "@/stores/hotel-item";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
 const { state, initProcess } = useHotelItemStore();
-const route = useRoute()
+const route = useRoute();
 
-let dataDetail = ref({})
+let dataDetail = ref({});
 
-onMounted(async() => {
+onMounted(async () => {
   initProcess();
-  GetRoomDetails()
+  GetRoomDetails();
 });
 
-const GetRoomDetails = async() => {
-    dataDetail = await (await RoomAPI.geRoomByID(route.params.id)).data
+const GetRoomDetails = async () => {
+  dataDetail = await (await RoomAPI.geRoomByID(route.params.id)).data;
+};
+
+const handleBookRoom = () => {
+  router.push('/booking/booking-form')
 }
 </script>
 

@@ -91,7 +91,7 @@
             <div class="title-room">
               <div class="main">Sol Double/Twin Room</div>
               <div class="discount">
-                Early deal 65
+                Basic deal
                 <div class="icon">
                   <font-awesome-icon
                     :icon="['fas', 'dollar-sign']"
@@ -127,16 +127,6 @@
           <div class="booking-item">
             <div class="title-room">
               <div class="main">Sol Double/Twin Room</div>
-              <div class="discount">
-                Early deal 65
-                <div class="icon">
-                  <font-awesome-icon
-                    :icon="['fas', 'dollar-sign']"
-                    size="xs"
-                    style="color: #fff"
-                  />
-                </div>
-              </div>
               <div class="cancel">Flexible cancellation</div>
               <div class="breakfast">
                 Breakfast included
