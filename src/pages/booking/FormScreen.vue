@@ -5,7 +5,6 @@
         <DxDateBox
           :value="checkinDate"
           show-clear-button="true"
-          :min="new Date()"
           :onValueChanged="handleCheckinChanged"
           pickerType="calendar"
         />
@@ -14,7 +13,6 @@
         <DxDateBox
           :value="checkoutDate"
           show-clear-button="true"
-          :min="new Date()"
           :onValueChanged="handleCheckoutChanged"
           pickerType="calendar"
           :disabledDates="disabledDates"
@@ -138,6 +136,7 @@
 
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
+import RoomRegisFormAPI from "@/api/RoomRegisFormAPI";
 import CButton from "@/components/elements/CButton.vue";
 // import CDatePicker from "@/components/elements/CDatePicker.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
@@ -163,14 +162,19 @@ const dayBooking = computed(() => {
 });
 
 let dataDetailRoom = ref({});
+let dataTimeRoom = ref({});
 
 //xem sự thay đổi của thời gian check in
-watch(checkinDate, (newValue) => {
+watch(checkinDate, (newValue, oldValue) => {
+  const newDisabledDates = [...disabledDates.value];
   if (newValue) {
-    const newDisabledDates = [...disabledDates.value];
     newDisabledDates.push(
       new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
     );
+    disabledDates.value = newDisabledDates;
+  }
+  if (oldValue) {
+    newDisabledDates.splice(0, 1);
     disabledDates.value = newDisabledDates;
   }
 });
@@ -178,11 +182,19 @@ watch(checkinDate, (newValue) => {
 onMounted(async () => {
   initProcess();
   GetRoomDetails();
+  await GetTimeRoom();
+  // disabledDates.value.push(dataTimeRoom.value.arrivalTime, dataTimeRoom.value.departure)
+  console.log(dataTimeRoom.value.arrivalTime);
 });
 const GetRoomDetails = async () => {
   const { data } = await RoomAPI.getRoomByID(route.params.id);
   dataDetailRoom.value = data;
   priceRoom.value = data.price;
+};
+
+const GetTimeRoom = async () => {
+  const dataTime = await RoomRegisFormAPI.getRoomRegisFormById(route.params.id);
+  dataTimeRoom.value = dataTime.data;
 };
 
 const discountPriceEarly = (price) => {

@@ -5,7 +5,6 @@ class FacilitiesAPI {
 
     /**
      * Lấy tất cả dữ liệu của facilities
-     * Author : mhungwebdev (5/9/2022)
      * @returns tất cả dữ liệu của facilities
      */
     getAllFacilities(){
