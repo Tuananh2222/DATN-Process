@@ -10,13 +10,13 @@
         />
       </div>
       <div class="dx-field-value">
+        <!-- :value="checkoutDate"
+        show-clear-button="true"
+        pickerType="calendar" -->
         <DxDateBox
-          :value="checkoutDate"
-          show-clear-button="true"
           :onValueChanged="handleCheckoutChanged"
-          pickerType="calendar"
-          :disabledDates="disabledDates"
-        />
+          :disabled-dates="disabledDates"
+        ></DxDateBox>
       </div>
     </div>
     <div class="booking-form">
@@ -142,14 +142,15 @@ import CButton from "@/components/elements/CButton.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import { useHotelItemStore } from "@/stores/hotel-item";
 import DxDateBox from "devextreme-vue/date-box";
-import { ref, onMounted, watch, computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import {getDatesInRange} from "@/utils/functions/date-fn"
 
 const { initProcess } = useHotelItemStore();
 const route = useRoute();
 const checkinDate = ref(null);
 const checkoutDate = ref(null);
-const disabledDates = ref([]);
+const disabledDates = ref([new Date('4/4/2023'),new Date('4/6/2023')]);
 const nameRoom = ref("");
 const nameDeal = ref("");
 const priceRoom = ref(0);
@@ -165,19 +166,19 @@ let dataDetailRoom = ref({});
 let dataTimeRoom = ref({});
 
 //xem sự thay đổi của thời gian check in
-watch(checkinDate, (newValue, oldValue) => {
-  const newDisabledDates = [...disabledDates.value];
-  if (newValue) {
-    newDisabledDates.push(
-      new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
-    );
-    disabledDates.value = newDisabledDates;
-  }
-  if (oldValue) {
-    newDisabledDates.splice(0, 1);
-    disabledDates.value = newDisabledDates;
-  }
-});
+// watch(checkinDate, (newValue, oldValue) => {
+//   const newDisabledDates = [...disabledDates.value];
+//   if (newValue) {
+//     newDisabledDates.push(
+//       new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
+//     );
+//     disabledDates.value = newDisabledDates;
+//   }
+//   if (oldValue) {
+//     newDisabledDates.splice(0, 1);
+//     disabledDates.value = newDisabledDates;
+//   }
+// });
 
 onMounted(async () => {
   initProcess();
@@ -195,6 +196,7 @@ const GetRoomDetails = async () => {
 const GetTimeRoom = async () => {
   const dataTime = await RoomRegisFormAPI.getRoomRegisFormById(route.params.id);
   dataTimeRoom.value = dataTime.data;
+  disabledDates.value = getDatesInRange(new Date(dataTime.data.arrivalTime),new Date(dataTime.data.departureTime));
 };
 
 const discountPriceEarly = (price) => {
