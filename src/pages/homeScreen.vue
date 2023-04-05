@@ -302,9 +302,7 @@
           </div>
         </div>
         <div class="post-data">
-          <h1 class="title">
-            Top 3 Reasons Why Royal Villas Offers the Best Spa Procedures
-          </h1>
+          <h1 class="title">Hanoi Capital – Where should we visit?</h1>
           <div class="cta">
             <a href="#">Read more &rarr;</a>
           </div>
@@ -327,10 +325,7 @@
           </div>
         </div>
         <div class="post-data">
-          <h1 class="title">
-            Featured Therapies and Activities at Royal Villas Spa Resort and
-            Hotel
-          </h1>
+          <h1 class="title">Long Bien bridge - A peaceful and romantic</h1>
           <div class="cta">
             <a href="#">Read more &rarr;</a>
           </div>
@@ -353,7 +348,7 @@
           </div>
         </div>
         <div class="post-data">
-          <h1 class="title">Why Your Relaxing Getaway Starts Here</h1>
+          <h1 class="title">Bat Trang – Truly a worth-visiting traditional</h1>
           <div class="cta">
             <a href="#">Read more &rarr;</a>
           </div>
