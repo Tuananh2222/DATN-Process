@@ -22,23 +22,24 @@
         <div class="cell-sm-6 cell-md-5">
           <h3>A Few Words About Us</h3>
           <p>
-            Tired of your daily routine? Seeking for a place to stay and rest
-            with your family? You are in the right place! Our spa resort and
-            hotel provides luxury and historic accommodations for travelers. It
-            combines modern style and amenities with traditional values.
+            LEXINGTON HOTEL, A VARIATION AROUND GREY AND A WELLNESS COCOON
+            Lexington Hotel Hanoi is composed of 50 rooms on 9 levels including
+            Family and Connecting rooms which are perfect for individual clients
+            or families. All of our rooms offer the same services, their
+            differences lie in their size and some extra facilities. As a rather
+            unique characteristic, there are rooms have balconies or spacious
+            living area. A breath of fresh air in the heart of Hanoi Old
+            quarter!
           </p>
           <p>
-            All rooms are equipped with air conditioners and LCD TVs. Free WI-FI
-            service is available throughout the territory of the hotel. Our
-            restaurant food and meals from world cuisines unite people
-            connecting history and traditions. Experience our warm hospitality,
-            high quality of service and exceptional comfort! Make a reservation
-            for your dream vacation today!
+            Inspired by Vietnamese tradtional material, combination of grey and
+            beautified by black, Lexington Hotel Hanoi welcomes its guests in a
+            refined and intimate atmosphere. In each room, traditional material
+            is staged in different shades and subtly punctuated with touches of
+            the grey, the yellow from soil and the black of furniture which we
+            meet in a table, a stunning bathroom… around four atmospheres while
+            offering the conveniences of today.
           </p>
-          <CButton
-            :label="'read more'"
-            :class-name="'button-primary button button-square button-effect-ujarak button-lg'"
-          />
         </div>
       </div>
     </div>
@@ -209,9 +210,7 @@
   </section>
 </template>
 
-<script setup>
-import CButton from "@/components/elements/CButton.vue";
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
 .container-wrapper {
@@ -643,7 +642,7 @@ a:hover {
 .team-box.box-outline:hover > *:nth-child(1):before {
   transform: translate(-12px, -10px);
 }
-ul{
+ul {
   padding-inline-start: 0;
 }
 </style>

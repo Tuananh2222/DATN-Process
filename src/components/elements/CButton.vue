@@ -1,11 +1,11 @@
 <template>
-  <div :class="['button', props.className]">
+  <div :class="['button', props.className]" @click="handleButton">
     <span>{{ props.label }}</span>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({
   label: {
@@ -17,6 +17,12 @@ const props = defineProps({
     default: "",
   },
 });
+
+const emits = defineEmits(["handleButton"]);
+
+const handleButton = () => {
+  emits("handleButton");
+};
 </script>
 
 <style lang="scss" scoped>

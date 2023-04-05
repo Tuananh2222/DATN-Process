@@ -123,17 +123,20 @@ import TextBox from "../elements/textBox.vue";
         display: flex;
         justify-content: center;
         align-items: center;
-        :deep(.input-textbox){
+        :deep(.input-textbox) {
           height: 50px;
         }
         :deep(.sub-container) {
           margin-top: 0;
         }
-        :deep(.input-border){
+        :deep(.input-border) {
           border-radius: 0px;
         }
-        :deep(.button-block){
+        :deep(.button-block) {
           width: 50%;
+        }
+        :deep(.input-border) {
+          height: 50px;
         }
       }
     }

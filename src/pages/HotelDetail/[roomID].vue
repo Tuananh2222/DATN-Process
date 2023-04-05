@@ -380,7 +380,7 @@ onMounted(async () => {
 
 const GetRoomDetails = async () => {
   const data = await (await RoomAPI.getRoomByID(route.params.id)).data;
-  dataDetail = data;
+  dataDetail.value = data;
 };
 
 const handleBookRoom = () => {

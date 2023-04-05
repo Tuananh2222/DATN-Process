@@ -114,6 +114,7 @@
         <CButton
           :label="'book now'"
           :class-name="'button-effect-ujarak button-lg button-secondary-outline button-square'"
+          @handle-button="handleEventRoom"
         />
       </div>
     </div>
@@ -373,6 +374,7 @@ import CDropdown from "@/components/elements/CDropdown.vue";
 import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import CDatePicker from "@/components/elements/CDatePicker.vue";
+import router from "@/router";
 
 const data = [
   {
@@ -396,6 +398,10 @@ const data = [
     name: "SuperLED 42",
   },
 ];
+
+const handleEventRoom = () => {
+  router.push("/hotel");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -482,8 +488,18 @@ const data = [
     .cell-sm-6 {
       display: flex;
       flex-direction: column;
+      margin-top: 10px;
       :deep(.dx-field-value) {
         width: 100%;
+      }
+    }
+    .cell-xs-6 {
+      margin-top: 10px;
+    }
+    .cell-md-4 {
+      margin-top: 10px;
+      :deep(.input-border) {
+        height: 38px;
       }
     }
   }
