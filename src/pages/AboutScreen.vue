@@ -48,8 +48,8 @@
     <div class="shell text-center">
       <h3>Rooms & Suites</h3>
       <p>
-        Royal Villas offers the finest accommodations with unique designs that
-        provide both a luxurious and relaxing environment. Specially <br />
+        Lexington Hotel offers the finest accommodations with unique designs
+        that provide both a luxurious and relaxing environment. Specially <br />
         selected fabrics and finishes vary from room to room, offering guests a
         variety of beautiful and unique atmospheres to select from.
       </p>
@@ -165,49 +165,26 @@
       </div>
     </div>
   </div>
-  <section class="section section-md bg-white">
-    <div class="shell">
-      <h2 class="text-center">Our Team</h2>
-      <div class="range range-xs-center range-75">
-        <div class="cell-sm-6 cell-md-4">
-          <div class="team-box box-outline">
-            <div class="team-image-box">
-              <img
-                src="@/public/image/about/team.jpg"
-                alt=""
-                width="295"
-                height="282"
-              />
-              <div class="team-image-caption">
-                <ul class="list-inline">
-                  <li>
-                    <a class="icon"
-                      ><font-awesome-icon
-                        :icon="['fab', 'instagram']"
-                        size="2xl"
-                        style="color: #ffffff"
-                    /></a>
-                  </li>
-                  <li>
-                    <a class="icon"
-                      ><font-awesome-icon
-                        :icon="['fab', 'facebook-f']"
-                        size="2xl"
-                        style="color: #ffffff"
-                    /></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="team-caption">
-              <a class="link team-title" href="#">Tuan Anh</a
-              ><span>Web Developer</span>
-            </div>
-          </div>
-        </div>
+
+  <div class="popular-post">
+    <div class="shell-left">
+      <div class="img_3_1 cursor"></div>
+      <div class="img_3_2 cursor"></div>
+      <div class="img_3_3 cursor"></div>
+    </div>
+    <div class="shell-right">
+      <h3>A few steps from hereThe most popular spots of Hanoi</h3>
+      <div class="content-shell-right">
+        <p>100 step walk to Hoan Kiem Lake</p>
+        <p>1 minutes walk to Old Quarters</p>
+        <p>1 minutes walk to the St. Joseph's Cathedral</p>
+        <p>2 minutes walk to Weekend Night Market</p>
+        <p>2 minutes walk to Ngoc Son Temple</p>
+        <p>2 minutes walk to Thang Long Water Puppet Theatre</p>
+        <p>2 minutes walk to Dong Xuan Market</p>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup></script>
@@ -219,7 +196,7 @@
 
   .img-banner {
     height: 304px;
-    width: 1920px;
+    width: 100%;
     background: url("@/public/image/about/breadcrumbs-01.jpg");
     padding-top: 95px;
     padding-bottom: 110px;
@@ -552,88 +529,48 @@ p {
   padding-left: 15px;
   padding-right: 15px;
 }
-.team-box {
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.team-box:hover .team-image-caption {
-  opacity: 1;
-  transform: scale(1);
-  filter: blur(0);
-}
-
-.team-box:hover .team-image-caption .icon {
-  transform: rotateY(0deg);
-}
-
-.team-box.box-outline:hover > *:nth-child(1):before {
-  transform: translate(-12px, -10px);
-}
-.team-image-box {
-  position: relative;
-  max-width: 295px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.team-image-caption {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+.popular-post {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(41, 41, 41, 0.38);
-  pointer-events: none;
-  .list-inline {
+  padding: 0 50px;
+  .shell-left {
     display: flex;
-    justify-content: space-between;
-    list-style: none;
-    width: 50px;
+    flex-wrap: wrap;
+    width: 50%;
+    height: 700px;
+    .img_3_1 {
+      background-image: url("https://solariahotel.com/UploadFile/Gallery/Overview/5.jpg");
+      height: 50%;
+      width: 100%;
+      background-position: center;
+    }
+    .img_3_2 {
+      background-image: url("https://solariahotel.com/UploadFile/Gallery/Rooms/Solarium-double-twin-room/1.jpg");
+      height: 50%;
+      width: 50%;
+      background-position: center;
+      background-size: cover;
+    }
+    .img_3_3 {
+      background-image: url("https://solariahotel.com/UploadFile/Gallery/Bar/2.jpg");
+      height: 50%;
+      width: 50%;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  .shell-right {
+    width: 50%;
+    padding: 100px 65px;
+    .content-shell-right {
+      margin-top: 20px;
+      p {
+        font-size: 19px;
+      }
+    }
   }
 }
 
-.team-image-caption > * {
-  pointer-events: auto;
-}
-.team-box:hover .team-image-caption {
-  opacity: 1;
-  transform: scale(1);
-  filter: blur(0);
-}
-
-.team-box:hover .team-image-caption .icon {
-  transform: rotateY(0deg);
-}
-
-.team-caption {
-  color: #8f859e;
-}
-
-.team-caption > * {
-  display: inline-block;
-}
-
-.team-caption > * + *:before {
-  content: "|";
-  font-size: 20px;
-  display: inline-block;
-  color: #ddd;
-  padding-left: 13px;
-  padding-right: 13px;
-}
-* + .team-caption {
-  margin-top: 20px;
-}
-.team-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #151515;
-  cursor: pointer;
-}
 a:hover {
   color: #695f77;
   text-decoration: none;
