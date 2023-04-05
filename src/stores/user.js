@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", () => {
         router.push({
           path: "/",
           name: "Home",
-          component: () => import("@/pages/HomeScreen.vue"),
+          component: () => import("@/pages/homeScreen.vue"),
         });
       })
       .catch((error) => {

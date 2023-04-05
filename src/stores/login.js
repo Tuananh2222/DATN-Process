@@ -67,7 +67,7 @@ export const useLoginStore = defineStore("login", () => {
           router.push({
             path: "/",
             name: "Home",
-            component: () => import("@/pages/HomeScreen.vue"),
+            component: () => import("@/pages/homeScreen.vue"),
           });
           state.isAuthenticate = false
         }
