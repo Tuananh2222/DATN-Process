@@ -285,16 +285,12 @@
     </div>
     <hr />
     <div class="blog-wrapper">
-      <div class="card">
+      <div class="card" v-for="(item, index) in state.listBlog" :key="index">
         <div class="image-data">
           <div class="background-image">
-            <img src="@/public/image/blog-01-460x369.jpg" alt="" />
+            <img :src="item.img_blog" alt="" />
           </div>
           <div class="publication-details">
-            <a href="" class="author">
-              <font-awesome-icon icon="fa-regular fa-thumbs-up" />
-              220
-            </a>
             <spam class="date"
               ><font-awesome-icon icon="fa-solid fa-clock" /> March 30,
               2020</spam
@@ -302,13 +298,13 @@
           </div>
         </div>
         <div class="post-data">
-          <h1 class="title">Hanoi Capital – Where should we visit?</h1>
+          <h1 class="title">{{ item.title }}</h1>
           <div class="cta">
-            <a href="#">Read more &rarr;</a>
+            <a @click="handleClickReadBlog(item.id)">Read more &rarr;</a>
           </div>
         </div>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <div class="image-data">
           <div class="background-image">
             <img src="@/public/image/blog-02-460x369.jpg" alt="" />
@@ -353,7 +349,7 @@
             <a href="#">Read more &rarr;</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -370,6 +366,8 @@ import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import CDatePicker from "@/components/elements/CDatePicker.vue";
 import router from "@/router";
+import useBlogStore from "@/stores/blog";
+import { onMounted } from "vue";
 
 const data = [
   {
@@ -394,8 +392,18 @@ const data = [
   },
 ];
 
+const { state, initProcess } = useBlogStore();
+
+onMounted(() => {
+  initProcess();
+});
+
 const handleEventRoom = () => {
   router.push("/hotel");
+};
+
+const handleClickReadBlog = (id) => {
+  router.push("blog-item/" + id);
 };
 </script>
 

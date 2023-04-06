@@ -24,7 +24,7 @@ const router = createRouter({
       component: () => import("@/pages/BlogScreen.vue"),
     },
     {
-      path: "/blog-item",
+      path: "/blog-item/:id",
       name: "Blog Item",
       component: () => import("@/pages/BlogItem.vue"),
     },
