@@ -8,25 +8,20 @@
           background-position: center;
           background-repeat: no-repeat;
         "
-        src="https://37.media.tumblr.com/8b4969985e84b2aa1ac8d3449475f1af/tumblr_n3iftvUesn1snvqtdo1_1280.jpg"
-        alt=""
+        :src="blogDetail.img_blog"
       />
-      <h1>Hanoi Capital – Where should we visit?</h1>
+      <h1>{{ blogDetail.title }}</h1>
     </div>
     <div class="clear"></div>
   </header>
 
   <section class="content">
-    <article>
-      <h1>Hanoi Capital – Where should we visit?</h1>
+    <article v-for="item,index in blogDetail" :key="index">
+      <h1>{{ blogDetail.title }}</h1>
       <p>
-        With its colonial architecture and vibrant street life, Vietnam’s
-        capital deserves a visit by those heading to the north, says Natalie
-        Paris and Hanoi’s Old Quarter is the heart of Hanoi. In case you don’t
-        know where to start with your trip around Hanoi, here are some
-        must-visit places to add into your itinerary:
+        {{ blogDetail.description }}
       </p>
-      <h3>1. West Lake</h3>
+      <h3>{{ index }}</h3>
       <p>
         To the north of the old quarter is the enormous Ho Tay. This lake is the
         largest in Hanoi with a shore length of around 17km (10.6 miles) and is
@@ -167,7 +162,28 @@
   </aside>
 </template>
 
-<script setup></script>
+<script setup>
+
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+import useBlogStore from "@/stores/blog";
+
+
+const { state, initProcess } = useBlogStore();
+const route = useRoute();
+const id = route.params.id;
+const blogDetail = ref({});
+
+onMounted(() => {
+  initProcess()
+  getDetailBlog(id);
+});
+
+const getDetailBlog = (id) => {
+  blogDetail.value = state.listBlog.find(item => item.id == id);
+  console.log(blogDetail.value)
+};
+</script>
 
 <style lang="scss" scoped>
 /* main */
