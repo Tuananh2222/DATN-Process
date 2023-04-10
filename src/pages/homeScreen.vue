@@ -46,6 +46,7 @@
               <CButton
                 :label="'Learn more'"
                 :class-name="'button-effect-ujarak button-lg button-white-outline button-square'"
+                @handle-button="handleMoveHotel"
               />
             </div>
           </div>
@@ -404,6 +405,9 @@ const handleEventRoom = () => {
 
 const handleClickReadBlog = (id) => {
   router.push("blog-item/" + id);
+};
+const handleMoveHotel = () => {
+  router.push("/hotel");
 };
 </script>
 

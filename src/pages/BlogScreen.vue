@@ -2,77 +2,28 @@
   <div id="wrapper">
     <div id="main">
       <!-- Post -->
-      <article class="post">
-        <header>
-          <div class="title">
-            <h2><a href="single.html">Magna sed adipiscing</a></h2>
-            <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-          </div>
-          <div class="meta">
-            <time class="published" datetime="2015-11-01"
-              >November 1, 2015</time
-            >
-            <a href="#" class="author"><span class="name">Jane Doe</span></a>
-          </div>
-        </header>
-        <a href="single.html" class="image featured"
-          ><img src="@/public/image/Blog/pic01.jpg" alt=""
-        /></a>
-        <p>
-          Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna
-          enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-          congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed
-          vitae justo condimentum, porta lectus vitae, ultricies congue gravida
-          diam non fringilla.
-        </p>
-        <footer>
-          <div class="btn-wrapper">
-            <CButton
-              :label="'Continue Reading'"
-              :class-name="'button-primary button-square button-block button-effect-ujarak'"
-            />
-          </div>
-          <ul class="stats">
-            <li><a href="#">General</a></li>
-            <li><font-awesome-icon icon="fa-solid fa-heart" /> 28</li>
-            <li><font-awesome-icon icon="fa-solid fa-comment" /> 128</li>
-          </ul>
-        </footer>
-      </article>
-
-      <!-- Post -->
-      <article class="post">
+      <article
+        class="post"
+        v-for="(item, index) in state.listBlog"
+        :key="index"
+      >
         <header>
           <div class="title">
             <h2>
-              <a href="single.html"
-                >Ultricies sed magna euismod enim vitae gravida</a
-              >
+              <a>{{ item.title }}</a>
             </h2>
-            <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-          </div>
-          <div class="meta">
-            <time class="published" datetime="2015-10-25"
-              >October 25, 2015</time
-            >
-            <a href="#" class="author"><span class="name">Jane Doe</span></a>
           </div>
         </header>
-        <a href="single.html" class="image featured"
-          ><img src="@/public/image/Blog/pic02.jpg" alt=""
-        /></a>
+        <a class="image featured"><img :src="item.img_blog" alt="" /></a>
         <p>
-          Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna
-          enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-          congue ullam corper.
+          {{ item.description }}
         </p>
         <footer>
           <div class="btn-wrapper">
             <CButton
               :label="'Continue Reading'"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              @handle-button="handleShowDetailBlog(item.id)"
             />
           </div>
           <ul class="stats">
@@ -82,93 +33,26 @@
           </ul>
         </footer>
       </article>
-
-      <!-- Post -->
-      <article class="post">
-        <header>
-          <div class="title">
-            <h2><a href="single.html">Euismod et accumsan</a></h2>
-            <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-          </div>
-          <div class="meta">
-            <time class="published" datetime="2015-10-22"
-              >October 22, 2015</time
-            >
-            <a href="#" class="author"><span class="name">Jane Doe</span></a>
-          </div>
-        </header>
-        <a href="single.html" class="image featured"
-          ><img src="@/public/image/Blog/pic03.jpg" alt=""
-        /></a>
-        <p>
-          Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl.
-          Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna
-          enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
-          congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed
-          vitae justo condimentum, porta lectus vitae, ultricies congue gravida
-          diam non fringilla. Cras vehicula tellus eu ligula viverra, ac
-          fringilla turpis suscipit. Quisque vestibulum rhoncus ligula.
-        </p>
-        <footer>
-          <div class="btn-wrapper">
-            <CButton
-              :label="'Continue Reading'"
-              :class-name="'button-primary button-square button-block button-effect-ujarak'"
-            />
-          </div>
-          <ul class="stats">
-            <li><a href="#">General</a></li>
-            <li><font-awesome-icon icon="fa-solid fa-heart" /> 28</li>
-            <li><font-awesome-icon icon="fa-solid fa-comment" /> 128</li>
-          </ul>
-        </footer>
-      </article>
-
-      <!-- Post -->
     </div>
-    <section id="sidebar">
-      <!-- Intro -->
-      <section id="intro">
-        <header>
-          <h2>BLOG</h2>
-        </header>
-      </section>
-
-      <!-- Mini Posts -->
-      <section>
-        <div class="mini-posts">
-          <!-- Mini Post -->
-          <article class="mini-post">
-            <header>
-              <h3><a href="single.html">Vitae sed condimentum</a></h3>
-              <time class="published" datetime="2015-10-20"
-                >October 20, 2015</time
-              >
-            </header>
-            <a href="single.html" class="image"
-              ><img src="@/public/image/Blog/pic04.jpg" alt=""
-            /></a>
-          </article>
-
-          <!-- Mini Post -->
-          <article class="mini-post">
-            <header>
-              <h3><a href="single.html">Rutrum neque accumsan</a></h3>
-              <time class="published" datetime="2015-10-19"
-                >October 19, 2015</time
-              >
-            </header>
-            <a href="single.html" class="image"
-              ><img src="@/public/image/Blog/pic05.jpg" alt=""
-            /></a>
-          </article>
-        </div>
-      </section>
-    </section>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import CButton from "@/components/elements/CButton.vue";
+import router from "@/router";
+import useBlogStore from "@/stores/blog";
+import { onMounted } from "vue";
+
+const { state, initProcess } = useBlogStore();
+
+const handleShowDetailBlog = (blogId) => {
+  router.push("/blog-item/" + blogId);
+};
+
+onMounted(() => {
+  initProcess();
+});
+</script>
 
 <style lang="scss" scoped>
 #wrapper {
@@ -184,7 +68,6 @@
   margin: 0 auto;
   max-width: 100%;
   opacity: 1;
-  padding: 4.5em;
   width: 90em;
 }
 #main {
@@ -220,24 +103,6 @@
         h2 {
           font-weight: 900;
           font-size: 1.5em;
-        }
-      }
-      .meta {
-        padding: 3.75em 3em 1.75em 3em;
-        border-left: solid 1px rgba(160, 160, 160, 0.3);
-        min-width: 17em;
-        text-align: right;
-        width: 17em;
-        .published {
-          color: #3c3b3b;
-          display: block;
-          font-family: "Raleway", Helvetica, sans-serif;
-          font-size: 0.7em;
-          font-weight: 800;
-          letter-spacing: 0.25em;
-          margin-top: 0.5em;
-          text-transform: uppercase;
-          white-space: nowrap;
         }
       }
     }
@@ -305,6 +170,9 @@
     }
   }
 }
+.btn-wrapper {
+  margin-top: 10px;
+}
 #sidebar {
   margin-right: 3em;
   min-width: 22em;
@@ -324,6 +192,11 @@
   padding: 3em 0 0 0;
 }
 
+#intro {
+  border-bottom: solid 1px rgba(160, 160, 160, 0.3);
+  margin: 3em 0 0 0;
+}
+
 #sidebar > :first-child {
   border-top: 0;
   margin-top: 0;
@@ -332,9 +205,6 @@
 .mini-posts {
   margin: 0 0 2em 0;
   @media not screen and (min-width: 1280px) {
-    display: -moz-flex;
-    display: -webkit-flex;
-    display: -ms-flex;
     display: flex;
     -moz-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
@@ -351,9 +221,6 @@
     }
   }
   .mini-post {
-    display: -moz-flex;
-    display: -webkit-flex;
-    display: -ms-flex;
     display: flex;
     -moz-flex-direction: column-reverse;
     -webkit-flex-direction: column-reverse;
