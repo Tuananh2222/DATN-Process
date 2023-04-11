@@ -78,6 +78,31 @@ const router = createRouter({
       name: "Booking Pay",
       component: () => import("@/pages/booking/PayScreen.vue"),
     },
+    {
+      path: "/admin/home",
+      name: "Home Admin",
+      component: () => import("@/pages/Admin/HomeScreen.vue"),
+    },
+    {
+      path: "/admin/invoices",
+      name: "Invoices",
+      component: () => import("@/pages/Admin/InvoicesScreen.vue"),
+    },
+    {
+      path: "/admin/rooms",
+      name: "Rooms",
+      component: () => import("@/pages/Admin/RoomScreen.vue"),
+    },
+    {
+      path: "/admin/inbox",
+      name: "Inbox",
+      component: () => import("@/pages/Admin/InboxScreen.vue"),
+    },
+    {
+      path: "/admin/setting",
+      name: "Settings",
+      component: () => import("@/pages/Admin/SettingScreen.vue"),
+    },
   ],
 });
 

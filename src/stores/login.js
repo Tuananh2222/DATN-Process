@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import { useValidate } from "@/composables/useValidate";
@@ -104,14 +103,6 @@ export const useLoginStore = defineStore("login", () => {
       });
   };
 
-  const handleForgotPassword = async () => {
-    sendPasswordResetEmail(state.emailReset).then(() => {
-      // Email đặt lại mật khẩu đã được gửi.
-    }).catch(function (error) {
-      console.log(error)
-    });
-  }
-
   return {
     state,
     checkField,
@@ -119,8 +110,7 @@ export const useLoginStore = defineStore("login", () => {
     checkAllField,
     isValidForm,
     handleSignIn,
-    handleSignInWithGoogle,
-    handleForgotPassword
+    handleSignInWithGoogle
   };
 });
 export default useLoginStore;
