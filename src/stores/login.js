@@ -20,10 +20,8 @@ export const useLoginStore = defineStore("login", () => {
     hasErrors: {
       email: "",
       password: "",
-      emailReset: "",
     },
     email: "",
-    emailReset: "",
     password: "",
     isAuthenticate: false,
   });
@@ -32,10 +30,6 @@ export const useLoginStore = defineStore("login", () => {
     email: {
       required: helpers.withMessage("Vui lòng nhập email!", required),
       email: helpers.withMessage("Vui lòng nhập đúng định dạng", email),
-    },
-    emailReset: {
-      required: helpers.withMessage("Vui lòng nhập email!", required),
-      emailReset: helpers.withMessage("Vui lòng nhập đúng định dạng", email),
     },
     password: {
       required: helpers.withMessage("Vui lòng nhập mật khẩu!", required),
@@ -62,7 +56,7 @@ export const useLoginStore = defineStore("login", () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-
+        console.log(user)
         if (user.emailVerified) {
           router.push({
             path: "/",
