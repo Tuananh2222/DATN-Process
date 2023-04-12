@@ -23,6 +23,7 @@ export const useLoginStore = defineStore("login", () => {
     email: "",
     password: "",
     isAuthenticate: false,
+    isAdmin: false
   });
 
   const ruleList = {
@@ -55,17 +56,23 @@ export const useLoginStore = defineStore("login", () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-
-        if (user.emailVerified) {
-          router.push({
-            path: "/",
-            name: "Home",
-            component: () => import("@/pages/homeScreen.vue"),
-          });
-          state.isAuthenticate = false
+        console.log(user)
+        if (user.email === "vut5441@gmail.com") {
+          state.isAdmin = true
+          if (user.emailVerified) {
+            router.push({
+              path: "/",
+              name: "Home",
+              component: () => import("@/pages/homeScreen.vue"),
+            });
+            state.isAuthenticate = false
+          }
+          else {
+            state.isAuthenticate = true
+          }
         }
         else {
-          state.isAuthenticate = true
+          state.isAdmin = false
         }
 
         // ...
