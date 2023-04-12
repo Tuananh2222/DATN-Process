@@ -4,13 +4,14 @@ import { reactive } from "vue";
 import { defineStore } from "pinia";
 import { getAuth, signOut } from "firebase/auth";
 import router from "@/router";
+import UserAPI from "@/api/UserAPI";
 
 export const useUserStore = defineStore("user", () => {
   const auth = getAuth();
   const state = reactive({
-    name: "",
-    email: "",
-    phone: "",
+    detailInfoUser: null,
+    user:null,
+    uid:null
   });
   
 
@@ -30,6 +31,11 @@ export const useUserStore = defineStore("user", () => {
         console.log(errorCode, errorMessage);
       });
   };
-  return { state, handleLogout, auth };
+  
+  const getUser = async() => {
+    state.uid = state.user.currendUser
+    state.detailInfoUser = await (await UserAPI.getUserByUUID(state.uid))
+  }
+  return { state, handleLogout,getUser };
 });
 export default useUserStore;

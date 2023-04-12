@@ -23,7 +23,8 @@ export const useLoginStore = defineStore("login", () => {
     email: "",
     password: "",
     isAuthenticate: false,
-    isAdmin: false
+    isAdmin: false,
+    infoUser:null
   });
 
   const ruleList = {
@@ -56,7 +57,8 @@ export const useLoginStore = defineStore("login", () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user)
+        state.infoUser = user
+        console.log(state.infoUser)
         if (user.email === "vut5441@gmail.com") {
           state.isAdmin = true
           if (user.emailVerified) {

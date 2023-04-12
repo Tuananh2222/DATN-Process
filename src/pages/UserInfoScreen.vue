@@ -84,14 +84,33 @@
 </template>
 
 <script setup>
+import UserAPI from "@/api/UserAPI";
 import CButton from "@/components/elements/CButton.vue";
 import useUserStore from "@/stores/user";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
+import { onMounted, ref } from "vue";
 
 const userStore = useUserStore();
+const auth = getAuth();
 const { handleLogout } = userStore;
-
+const uid = ref(null);
+const detailUser = ref(null);
+onMounted(() => {
+  handleOnAuthStateChanged();
+});
 const submitLogout = () => {
   handleLogout();
+};
+const handleOnAuthStateChanged = () => {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      uid.value = user.uid;
+      detailUser.value = await (await UserAPI.getUserByUUID(uid.value)).data
+      console.log(detailUser.value)
+    } else {
+      uid.value = null;
+    }
+  });
 };
 </script>
 
