@@ -21,6 +21,8 @@
           :type="props.type === 'password' ? 'password' : 'text'"
           :class="[placeholderStyle, 'input-textbox']"
           :placeholder="props.placeholder"
+          :value="value"
+          @input="handleChangeValue"
           @focus="onFocus"
           @focusin="onFocusIn"
           @focusout="onFocusOut"
@@ -39,6 +41,10 @@ import { computed, defineProps, defineEmits, ref } from "vue";
 
 const props = defineProps({
   placeholder: {
+    type: String,
+    default: "",
+  },
+  value: {
     type: String,
     default: "",
   },
@@ -76,6 +82,7 @@ const emits = defineEmits([
   "focusIn",
   "focusOut",
   "search",
+  "changeValue",
 ]);
 const modelValue = useProps(props, "modelValue", emits);
 const placeholderStyle = "placeholder";
@@ -91,6 +98,9 @@ const onFocusIn = () => {
 const onFocusOut = () => {
   emits("focusOut");
   isFocusing.value = false;
+};
+const handleChangeValue = (e) => {
+  emits("changeValue", e.target.value);
 };
 const borderBackgroundStyle = computed(() => {
   if (props.status) {

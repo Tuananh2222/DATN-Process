@@ -5,6 +5,7 @@ import { defineStore } from "pinia";
 import { getAuth, signOut } from "firebase/auth";
 import router from "@/router";
 import UserAPI from "@/api/UserAPI";
+import { UserInsert } from "@/Entities/User";
 
 export const useUserStore = defineStore("user", () => {
   const auth = getAuth();
@@ -14,18 +15,13 @@ export const useUserStore = defineStore("user", () => {
     uid: null,
   });
 
-
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
         // Xóa cookie chứa thông tin đăng nhập của người dùng
-        sessionStorage.removeItem('uid')
+        sessionStorage.removeItem("uid");
         // Thực hiện các hành động sau khi đăng xuất thành công
-        router.push({
-          path: "/",
-          name: "Home",
-          component: () => import("@/pages/homeScreen.vue"),
-        });
+        router.push("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -35,14 +31,16 @@ export const useUserStore = defineStore("user", () => {
   };
 
   const getUser = async () => {
-    state.uid = sessionStorage.getItem('uid')
-    state.detailInfoUser = ((await UserAPI.getUserByUUID(state.uid)).data)
-    console.log(state.detailInfoUser)
-  }
+    state.uid = sessionStorage.getItem("uid");
+    state.detailInfoUser = (await UserAPI.getUserByUUID(state.uid)).data;
+    const user = new UserInsert(state.uid)
+    console.log(state.detailInfoUser);
+    console.log(user)
+  };
 
   const handleEditUser = async (user, id) => {
-    ((await UserAPI.editUser(user, id)))
-  }
+    await UserAPI.editUser(user, id);
+  };
   return { state, handleLogout, getUser, handleEditUser };
 });
 export default useUserStore;

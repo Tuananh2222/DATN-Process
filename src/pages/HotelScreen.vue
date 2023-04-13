@@ -2,40 +2,13 @@
   <div class="app-container">
     <section class="app-actions">
       <div class="app-actions-line">
-        <div class="filter-action-buttons">
-          <CDropdown
-            ref="countPeopleFilter"
-            @changeValue="handleFilterbyPeople"
-            :data="[{ name: 'Tất cả', id: 'all' }, ...dataPeople]"
-            fieldDisplay="name"
-            fieldName="id"
-            :placeholder="'Chọn số người ở'"
-            :search-enabled="fasle"
-          />
-          <CDropdown
-            ref="bedTypeFilter"
-            @changeValue="handleFilterbyBedType"
-            :data="[{ name: 'Tất cả', id: 'all' }, ...dataBedType]"
-            fieldDisplay="name"
-            fieldName="id"
-            :placeholder="'Chọn kiểu giường'"
-            :search-enabled="false"
-          />
-          <CDropdown
-            ref="bathroomFilter"
-            @changeValue="handleFilterbyBathroom"
-            :data="[{ name: 'Tất cả', id: 'all' }, ...dataBathroom]"
-            fieldDisplay="name"
-            fieldName="id"
-            :placeholder="'Chọn kiểu nhà vệ sinh'"
-            :search-enabled="false"
-          />
-        </div>
+        <div class="filter-action-buttons"></div>
       </div>
       <div class="app-actions-line">
-        <TextBox />
+        <TextBox @changeValue="handleValueSearch" :value="keyword" />
       </div>
       <CButton
+        @handle-button="handleSearch"
         :label="'Find Room'"
         :class-name="'button-primary button-square button-block button-effect-ujarak'"
       />
@@ -130,12 +103,13 @@
       </div>
     </section>
   </div>
+  <CLoading v-if="isLoading" />
 </template>
 
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
-import CDropdown from "@/components/elements/CDropdown.vue";
+import CLoading from "@/components/elements/CLoading.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import router from "@/router";
 import { onMounted, ref } from "vue";
@@ -143,13 +117,17 @@ import { onMounted, ref } from "vue";
 const pageNumber = ref(1);
 const pageSize = ref(9);
 const keyword = ref("");
-const roomID = ref("");
 let listHotel = ref([]);
 let totalRecord = ref(0);
 let rowStart = ref(0);
 let rowEnd = ref(0);
-onMounted(() => {
-  getRoom();
+const isLoading = ref(false);
+
+
+onMounted(async () => {
+  isLoading.value = true;
+  await getRoom();
+  isLoading.value = false;
 });
 
 const openModal = (id) => {
@@ -159,8 +137,7 @@ const getRoom = async () => {
   const Data = await await RoomAPI.filter(
     pageSize.value,
     pageNumber.value,
-    keyword.value,
-    roomID.value
+    keyword.value
   );
   listHotel = Data.data;
   rowEnd.value = Data.data.rowEnd;
@@ -178,69 +155,17 @@ const handleChangePageNumber = async (numberPage) => {
   await getRoom();
   // this.loading = false;
 };
-const dataBathroom = [
-  {
-    id: 1,
-    name: "Standing shower",
-  },
-  {
-    id: 2,
-    name: "Seperate bathtub and standing shower",
-  },
-  {
-    id: 3,
-    name: "Seperate 2 bathrooms with standing shower",
-  },
-];
 
-const dataBedType = [
-  {
-    id: 1,
-    name: "2 Single beds or 1 Large double bed",
-  },
-  {
-    id: 2,
-    name: "Double bed",
-  },
-  {
-    id: 3,
-    name: "Double or twin beds on request",
-  },
-  {
-    id: 4,
-    name: "Double bed & Twin beds",
-  },
-];
-const dataPeople = [
-  {
-    id: 1,
-    name: 1,
-  },
-  {
-    id: 2,
-    name: 2,
-  },
-  {
-    id: 3,
-    name: 3,
-  },
-  {
-    id: 4,
-    name: 4,
-  },
-  {
-    id: 5,
-    name: 5,
-  },
-  {
-    id: 6,
-    name: 6,
-  },
-  {
-    id: 7,
-    name: 7,
-  },
-];
+const handleValueSearch = (kword)=>{
+  keyword.value = kword;
+}
+
+const handleSearch = async () => {
+  if (!keyword.value || keyword.value.trim()) {
+    pageNumber.value = 1;
+    await getRoom();
+  }
+};
 </script>
 
 <style lang="scss" scoped>

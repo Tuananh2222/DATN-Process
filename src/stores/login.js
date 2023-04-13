@@ -49,27 +49,29 @@ export const useLoginStore = defineStore("login", () => {
     state
   );
 
-
-
   const handleSignIn = async () => {
     signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user
+        const user = userCredential.user;
         console.log(user);
-        sessionStorage.setItem('uid', user.uid)
+        sessionStorage.setItem("uid", user.uid);
         if (user.email === "vut5441@gmail.com") {
-          state.isAdmin = true
+          state.isAdmin = true;
           if (user.emailVerified) {
-            router.push('/');
-            state.isAuthenticate = false
+            router.push("/ad");
+            state.isAuthenticate = false;
+          } else {
+            state.isAuthenticate = true;
           }
-          else {
-            state.isAuthenticate = true
+        } else {
+          state.isAdmin = false;
+          if (user.emailVerified) {
+            router.push("/");
+            state.isAuthenticate = false;
+          } else {
+            state.isAuthenticate = true;
           }
-        }
-        else {
-          state.isAdmin = false
         }
 
         // ...
@@ -114,7 +116,7 @@ export const useLoginStore = defineStore("login", () => {
     checkAllField,
     isValidForm,
     handleSignIn,
-    handleSignInWithGoogle
+    handleSignInWithGoogle,
   };
 });
 export default useLoginStore;

@@ -294,6 +294,16 @@ ul {
   text-align: center;
   line-height: 24px;
 }
+.msp-icon-arrow-right {
+  -webkit-mask-position: -96px -24px;
+  -moz-mask-position: -96px -24px;
+  -ms-mask-position: -96px -24px;
+  -o-mask-position: -96px -24px;
+  mask-position: -96px -24px;
+  background-color: var(--icon-deault-color)!important;
+  text-align: center;
+  line-height: 24px;
+}
 
 .pst-relative {
   position: relative;

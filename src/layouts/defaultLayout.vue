@@ -1,5 +1,5 @@
 <template>
-  <!-- <CLoading /> -->
+  <!--  -->
   <!-- <div v-if="(state.isAdmin = true)">
     <NavigationAdmin />
   </div> -->

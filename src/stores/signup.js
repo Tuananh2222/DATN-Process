@@ -12,6 +12,8 @@ import _ from "lodash";
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";
 import router from "@/router";
+import { UserInsert } from "@/Entities/User";
+import UserAPI from "@/api/UserAPI";
 
 const defaultState = {
   hasErrors: {
@@ -39,7 +41,7 @@ export const useAuthenStore = defineStore("authen", () => {
     confirmPassword: "",
     isAuthenticated: false,
     showPopup: false,
-    isExist: ""
+    isExist: "",
   });
   const confirmPasswordRegex = (value) => {
     return state.password === value;
@@ -94,11 +96,14 @@ export const useAuthenStore = defineStore("authen", () => {
             // Signed in
 
             const user = userCredential.user;
+            const userInsert = new UserInsert(user.uid, user.email)
+            
             for (let item of user.providerData) {
               if (item.providerId == "password") {
-                sendEmailVerification(user)
+                sendEmailVerification (user)
                   .then(() => {
                     // Email verification sent
+                    UserAPI.insertUser(userInsert)
                     state.showPopup = true
                     setTimeout(() => {
                       router.push("/login");
