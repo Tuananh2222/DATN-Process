@@ -5,6 +5,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 
 import _ from "lodash";
@@ -37,6 +38,8 @@ export const useAuthenStore = defineStore("authen", () => {
     password: "",
     confirmPassword: "",
     isAuthenticated: false,
+    showPopup: false,
+    isExist: ""
   });
   const confirmPasswordRegex = (value) => {
     return state.password === value;
@@ -81,38 +84,44 @@ export const useAuthenStore = defineStore("authen", () => {
   };
 
   const handleSignUp = async () => {
-    createUserWithEmailAndPassword(auth, state.email, state.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        for (let item of user.providerData) {
-          if (item.providerId == "password") {
-            sendEmailVerification(user)
-              .then(() => {
-                // Email verification sent
-                setTimeout(() => {
-                  router.push({
-                    path: "/login",
-                    name: "Login",
-                    component: () => import("@/pages/LoginScreen.vue"),
-                  });
-                }, 5000)
+    fetchSignInMethodsForEmail(auth, state.email).then((signInMethods) => {
+      if (signInMethods.length > 0) {
+        state.isExist = "Email đã tồn tại! Vui lòng nhập lại email!"
+      }
+      else {
+        createUserWithEmailAndPassword(auth, state.email, state.password)
+          .then((userCredential) => {
+            // Signed in
 
-              })
-              .catch((error) => {
-                // Handle errors
-                console.log(error);
-              });
-          }
-        }
-        resetStateToDefault();
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
-      });
+            const user = userCredential.user;
+            for (let item of user.providerData) {
+              if (item.providerId == "password") {
+                sendEmailVerification(user)
+                  .then(() => {
+                    // Email verification sent
+                    state.showPopup = true
+                    setTimeout(() => {
+                      router.push("/login");
+                    }, 5000)
+
+                  })
+                  .catch((error) => {
+                    // Handle errors
+                    console.log(error);
+                  });
+              }
+            }
+            resetStateToDefault();
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+            // ..
+          });
+      }
+    })
+
   };
 
   return {

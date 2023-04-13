@@ -24,7 +24,6 @@ export const useLoginStore = defineStore("login", () => {
     password: "",
     isAuthenticate: false,
     isAdmin: false,
-    infoUser:null
   });
 
   const ruleList = {
@@ -56,17 +55,13 @@ export const useLoginStore = defineStore("login", () => {
     signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        state.infoUser = user
-        console.log(state.infoUser)
+        const user = userCredential.user
+        console.log(user);
+        sessionStorage.setItem('uid', user.uid)
         if (user.email === "vut5441@gmail.com") {
           state.isAdmin = true
           if (user.emailVerified) {
-            router.push({
-              path: "/",
-              name: "Home",
-              component: () => import("@/pages/homeScreen.vue"),
-            });
+            router.push('/');
             state.isAuthenticate = false
           }
           else {

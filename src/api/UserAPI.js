@@ -3,8 +3,12 @@ import BaseAPIConfig from "./BaseAPIConfig";
 class UserAPI {
     controller = "Users";
 
-    getUserByUUID(uuid){
+    getUserByUUID(uuid) {
         return BaseAPIConfig.get(`${this.controller}/getUserByUUID/${uuid}`)
+    }
+
+    editUser(user, id) {
+        return BaseAPIConfig.put(`${this.controller}/${id}`, user)
     }
 }
 

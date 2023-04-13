@@ -5,6 +5,12 @@
     :text-title="'Xác nhận Email'"
     :description="'Bạn đã tạo tài khoản thành công! Vui lòng xác nhận email!'"
   />
+  <CPopupConfirm
+    v-if="state.isExist"
+    @close-popup="handleHidePopupError"
+    :text-title="'Có lỗi xảy ra!'"
+    :description="state.isExist"
+  />
   <div class="wrapper">
     <div class="card">
       <section>
@@ -64,18 +70,18 @@ const { state, handleSignUp } = authenStore;
 const { isValidForm } = storeToRefs(authenStore);
 const submitSignup = () => {
   handleSignUp();
-  isShowPopup.value = true;
+  isShowPopup.value = state.showPopup;
 };
 const handleSignin = () => {
-  router.push({
-    path: "/login",
-    name: "Login",
-    component: () => import("@/pages/LoginScreen.vue"),
-  });
+  router.push("/login");
 };
 
 const handleHidePopup = () => {
   isShowPopup.value = false;
+};
+
+const handleHidePopupError = () => {
+  state.isExist = "";
 };
 </script>
 

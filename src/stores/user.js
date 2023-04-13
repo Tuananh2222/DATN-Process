@@ -10,14 +10,16 @@ export const useUserStore = defineStore("user", () => {
   const auth = getAuth();
   const state = reactive({
     detailInfoUser: null,
-    user:null,
-    uid:null
+    user: null,
+    uid: null,
   });
-  
+
 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
+        // Xóa cookie chứa thông tin đăng nhập của người dùng
+        sessionStorage.removeItem('uid')
         // Thực hiện các hành động sau khi đăng xuất thành công
         router.push({
           path: "/",
@@ -31,11 +33,16 @@ export const useUserStore = defineStore("user", () => {
         console.log(errorCode, errorMessage);
       });
   };
-  
-  const getUser = async() => {
-    state.uid = state.user.currendUser
-    state.detailInfoUser = await (await UserAPI.getUserByUUID(state.uid))
+
+  const getUser = async () => {
+    state.uid = sessionStorage.getItem('uid')
+    state.detailInfoUser = ((await UserAPI.getUserByUUID(state.uid)).data)
+    console.log(state.detailInfoUser)
   }
-  return { state, handleLogout,getUser };
+
+  const handleEditUser = async (user, id) => {
+    ((await UserAPI.editUser(user, id)))
+  }
+  return { state, handleLogout, getUser, handleEditUser };
 });
 export default useUserStore;

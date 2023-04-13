@@ -4,27 +4,13 @@
       <tr>
         <td>
           <section>
-            <label for="fileToUpload">
-              <i class="fa fa-camera"></i>
-              <input
-                type="file"
-                id="fileToUpload"
-                style="visibility: hidden"
-                accept=".png,.jpg,jpeg,.PNG,.JPEG"
-                name="fileToUpload"
-                onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
-              />
-            </label>
             <img
               src="https://i.ibb.co/yNGW4gg/avatar.png"
               id="blah"
               alt="Avatar"
             />
           </section>
-          <h1>J Conner</h1>
-          <h3>Web Designer & Developer</h3>
-        </td>
-        <td>
+          <h1>{{ state.detailInfoUser.userName }}</h1>
           <ul>
             <li>
               <b>Full name:</b>
@@ -33,8 +19,8 @@
                 name="fname"
                 id="fname"
                 maxlength="100"
-                value="John Conner"
-                required
+                v-model="state.detailInfoUser.userName"
+                :class="isEdit && 'showEdit'"
               />
             </li>
             <li>
@@ -44,8 +30,8 @@
                 name="email"
                 id="email"
                 maxlength="150"
-                value="email@mail.com"
-                required
+                v-model="state.detailInfoUser.email"
+                :class="isEdit && 'showEdit'"
               />
             </li>
             <li>
@@ -55,8 +41,8 @@
                 name="mobile"
                 id="mobile"
                 maxlength="10"
-                value="0123456789"
-                required
+                v-model="state.detailInfoUser.phoneNumber"
+                :class="isEdit && 'showEdit'"
               />
             </li>
             <li>
@@ -66,15 +52,27 @@
                 name="address"
                 id="address"
                 maxlength="250"
-                value="Street, Pincode, Province/State, Country"
-                required
+                v-model="state.detailInfoUser.address"
+                :class="isEdit && 'showEdit'"
               />
             </li>
           </ul>
-          <div class="btn-wrapper" @click="submitLogout">
+          <div class="btn-wrapper">
+            <CButton
+              :label="'Edit'"
+              :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              @handle-button="handleChangeForm"
+            />
+            <CButton
+              v-if="isEdit"
+              :label="'Save'"
+              :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              @handle-button="handleSaveForm"
+            />
             <CButton
               :label="'Sign out'"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              @handle-button="submitLogout"
             />
           </div>
         </td>
@@ -84,33 +82,28 @@
 </template>
 
 <script setup>
-import UserAPI from "@/api/UserAPI";
 import CButton from "@/components/elements/CButton.vue";
 import useUserStore from "@/stores/user";
-import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 
 const userStore = useUserStore();
-const auth = getAuth();
-const { handleLogout } = userStore;
-const uid = ref(null);
-const detailUser = ref(null);
-onMounted(() => {
-  handleOnAuthStateChanged();
+
+const { state, handleLogout, getUser, handleEditUser } = userStore;
+const isEdit = ref(false);
+onBeforeMount(async () => {
+  await getUser();
 });
 const submitLogout = () => {
   handleLogout();
 };
-const handleOnAuthStateChanged = () => {
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      uid.value = user.uid;
-      detailUser.value = await (await UserAPI.getUserByUUID(uid.value)).data
-      console.log(detailUser.value)
-    } else {
-      uid.value = null;
-    }
-  });
+
+const handleChangeForm = () => {
+  isEdit.value = !isEdit.value;
+};
+
+const handleSaveForm = () => {
+  handleEditUser(state.detailInfoUser, state.detailInfoUser.userID);
+  isEdit.value = false;
 };
 </script>
 
@@ -125,25 +118,30 @@ select {
   text-decoration: none;
   list-style: none;
   font-style: normal;
-  outline: none !important;
+  // outline: none;
   transition: 0.5s;
   resize: none;
 }
 
-ul {
-  position: relative;
-  left: -20px;
-}
-
 ul li {
-  padding: 20px 0;
   color: gray;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 b {
   color: #000;
   margin-right: 10px;
+  font-size: 16px;
+  width: 120px;
+  height: fit-content;
+}
+li input {
+  height: 40px;
+  font-size: 16px;
 }
 .container {
   width: 90%;
@@ -164,31 +162,39 @@ b {
   vertical-align: top;
 }
 
-.container table td:nth-child(1) {
+.container table td {
   text-align: Center;
 }
 
-.container table td:nth-child(2) .fa {
+.container table td .fa {
   float: right;
 }
 
-.container table td:nth-child(2) input {
+.container table td input {
   background: none;
   outline: none;
   border: 0;
   color: gray;
-  width: 60%;
   pointer-events: none;
 }
 
-.container table td:nth-child(1) section {
+.container table td {
+  .showEdit {
+    background: none;
+    outline: #ccc !important;
+    border: 1px solid #ccc !important;
+    pointer-events: unset;
+  }
+}
+
+.container table td section {
   position: relative;
   width: 200px;
   height: 200px;
-  margin: 5vh auto;
+  margin: 3vh auto;
 }
 
-.container table td:nth-child(1) .fa {
+.container table td .fa {
   position: absolute;
   right: 25px;
   top: 25px;
@@ -224,6 +230,14 @@ b {
     display: block;
     width: 90%;
     margin: 0px;
+  }
+}
+.btn-wrapper {
+  width: 30%;
+  margin: 0 auto;
+  .button-primary {
+    margin-top: 10px;
+    border-radius: 8px;
   }
 }
 </style>
