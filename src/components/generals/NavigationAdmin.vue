@@ -13,7 +13,7 @@
           ><img :src="item.imgUrl" alt="" />
           <span>{{ item.text }}</span></router-link
         >
-        <li class="side-nav__item">
+        <li class="side-nav__item" @click="handleSignout">
           <span>Log Out</span>
         </li>
       </ul>
@@ -22,6 +22,11 @@
 </template>
 
 <script setup>
+import router from '@/router';
+import useUserStore from '@/stores/user';
+
+const userStore = useUserStore();
+const { handleLogout } = userStore;
 const navList = [
   {
     text: "Dashboard",
@@ -44,6 +49,10 @@ const navList = [
     to: "Settings",
   },
 ];
+const handleSignout = () => {
+  handleLogout()
+  router.push('/')
+}
 </script>
 
 <style lang="scss" scoped>

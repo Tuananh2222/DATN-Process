@@ -224,7 +224,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-right">
+      <!-- <div class="modal-right">
         <div class="app-main-right-header">
           <span>Reviews</span>
           <a href="#">See All</a>
@@ -355,14 +355,17 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
+  <CLoading v-if="isLoading" />
+
 </template>
 
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
+import CLoading from "@/components/elements/CLoading.vue";
 import router from "@/router";
 import { useHotelItemStore } from "@/stores/hotel-item";
 import { onMounted, ref } from "vue";
@@ -370,12 +373,14 @@ import { useRoute } from "vue-router";
 
 const { state, initProcess } = useHotelItemStore();
 const route = useRoute();
-
+const isLoading = ref(false);
 let dataDetail = ref({});
 
 onMounted(async () => {
-  initProcess();
-  GetRoomDetails();
+  isLoading.value = true;
+  await initProcess();
+  await GetRoomDetails();
+  isLoading.value = false;
 });
 
 const GetRoomDetails = async () => {

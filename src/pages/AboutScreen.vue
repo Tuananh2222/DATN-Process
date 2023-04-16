@@ -185,9 +185,23 @@
       </div>
     </div>
   </div>
+  <div @click="handlePayment">Thanh toán</div>
 </template>
 
-<script setup></script>
+<script setup>
+import { payment } from "@/stores/momo";
+import { ref } from "vue";
+
+
+const orderId = ref("");
+const amount = ref(0);
+
+const handlePayment = async () => {
+  const response = await payment(orderId.value, amount.value);
+  // xử lý dữ liệu trả về
+  console.log(response);
+};
+</script>
 
 <style lang="scss" scoped>
 .container-wrapper {

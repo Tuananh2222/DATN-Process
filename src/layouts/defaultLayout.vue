@@ -9,12 +9,14 @@
       <router-view></router-view>
     </div>
     <DefaultFooter />
+    <CChatOpen/>
   </div>
 </template>
 
 <script setup>
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import CChatOpen from "@/components/elements/CChatOpen.vue";
 // import useLoginStore from "@/stores/login";
 // import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
 // import CLoading from "@/components/elements/CLoading.vue";

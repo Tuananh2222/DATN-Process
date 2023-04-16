@@ -134,7 +134,7 @@ const openModal = (id) => {
   router.push("/hotel-detail/" + id);
 };
 const getRoom = async () => {
-  const Data = await await RoomAPI.filter(
+  const Data = await RoomAPI.filter(
     pageSize.value,
     pageNumber.value,
     keyword.value

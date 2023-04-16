@@ -59,7 +59,7 @@ export const useLoginStore = defineStore("login", () => {
         if (user.email === "vut5441@gmail.com") {
           state.isAdmin = true;
           if (user.emailVerified) {
-            router.push("/ad");
+            router.push("/admin/home");
             state.isAuthenticate = false;
           } else {
             state.isAuthenticate = true;

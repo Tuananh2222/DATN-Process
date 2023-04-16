@@ -21,8 +21,6 @@
           :type="props.type === 'password' ? 'password' : 'text'"
           :class="[placeholderStyle, 'input-textbox']"
           :placeholder="props.placeholder"
-          :value="value"
-          @input="handleChangeValue"
           @focus="onFocus"
           @focusin="onFocusIn"
           @focusout="onFocusOut"
@@ -76,6 +74,7 @@ const props = defineProps({
     default: false,
   },
 });
+console.log(props.modelValue)
 const emits = defineEmits([
   "update:modelValue",
   "focus",
@@ -99,9 +98,9 @@ const onFocusOut = () => {
   emits("focusOut");
   isFocusing.value = false;
 };
-const handleChangeValue = (e) => {
-  emits("changeValue", e.target.value);
-};
+// const handleChangeValue = (e) => {
+//   emits("changeValue", e.target.value);
+// };
 const borderBackgroundStyle = computed(() => {
   if (props.status) {
     return "border-bacground";

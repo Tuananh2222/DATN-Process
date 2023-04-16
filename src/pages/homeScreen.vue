@@ -305,52 +305,8 @@
           </div>
         </div>
       </div>
-      <!-- <div class="card">
-        <div class="image-data">
-          <div class="background-image">
-            <img src="@/public/image/blog-02-460x369.jpg" alt="" />
-          </div>
-          <div class="publication-details">
-            <a href="" class="author">
-              <font-awesome-icon icon="fa-regular fa-thumbs-up" />
-              40
-            </a>
-            <spam class="date"
-              ><font-awesome-icon icon="fa-solid fa-clock" /> October 26,
-              2017</spam
-            >
-          </div>
-        </div>
-        <div class="post-data">
-          <h1 class="title">Long Bien bridge - A peaceful and romantic</h1>
-          <div class="cta">
-            <a href="#">Read more &rarr;</a>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="image-data">
-          <div class="background-image">
-            <img src="@/public/image/blog-03-460x369.jpg" alt="" />
-          </div>
-          <div class="publication-details">
-            <a href="" class="author">
-              <font-awesome-icon icon="fa-regular fa-thumbs-up" />
-              15
-            </a>
-            <spam class="date"
-              ><font-awesome-icon icon="fa-solid fa-clock" /> August 23,
-              2017</spam
-            >
-          </div>
-        </div>
-        <div class="post-data">
-          <h1 class="title">Bat Trang – Truly a worth-visiting traditional</h1>
-          <div class="cta">
-            <a href="#">Read more &rarr;</a>
-          </div>
-        </div>
-      </div> -->
+
+      
     </div>
   </div>
 </template>

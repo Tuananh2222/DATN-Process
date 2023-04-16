@@ -94,16 +94,14 @@ export const useAuthenStore = defineStore("authen", () => {
         createUserWithEmailAndPassword(auth, state.email, state.password)
           .then((userCredential) => {
             // Signed in
-
             const user = userCredential.user;
             const userInsert = new UserInsert(user.uid, user.email)
-            
             for (let item of user.providerData) {
               if (item.providerId == "password") {
                 sendEmailVerification (user)
-                  .then(() => {
+                  .then(async () => {
                     // Email verification sent
-                    UserAPI.insertUser(userInsert)
+                    await UserAPI.insertUser(userInsert)
                     state.showPopup = true
                     setTimeout(() => {
                       router.push("/login");
