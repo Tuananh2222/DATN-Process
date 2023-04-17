@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="container-wrapper">
     <div class="img-banner">
       <h2 class="text-white">Evaluate</h2>
@@ -97,10 +98,13 @@
       </div>
     </div>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
 import TextBox from "@/components/elements/textBox.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import { useContactStore } from "@/stores/contact.js";
 import { onMounted } from "vue";
 

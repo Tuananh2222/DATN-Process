@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="container">
     <div class="time-booking">
       <div class="dx-field-value">
@@ -133,6 +134,7 @@
       </div>
     </div>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
@@ -146,6 +148,8 @@ import DxDateBox from "devextreme-vue/date-box";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { getDatesInRange } from "@/utils/functions/date-fn";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
 
 const { initProcess } = useHotelItemStore();
 const route = useRoute();
@@ -266,9 +270,7 @@ const dataDeal = [
 <style lang="scss" scoped>
 .container {
   width: 75%;
-
   margin: 0 auto;
-
   .time-booking {
     width: 100%;
     display: flex;

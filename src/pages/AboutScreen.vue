@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="container-wrapper">
     <div class="img-banner">
       <h2 class="text-white">About</h2>
@@ -186,12 +187,14 @@
     </div>
   </div>
   <div @click="handlePayment">Thanh toán</div>
+  <DefaultFooter />
 </template>
 
 <script setup>
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import { payment } from "@/stores/momo";
 import { ref } from "vue";
-
 
 const orderId = ref("");
 const amount = ref(0);

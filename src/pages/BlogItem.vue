@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <header>
     <div class="header-banner">
       <img
@@ -28,12 +29,15 @@
       </p>
     </article>
   </section>
+  <DefaultFooter />
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import useBlogStore from "@/stores/blog";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
 
 const { state, initProcess } = useBlogStore();
 const route = useRoute();

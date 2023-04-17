@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div id="modal-window" class="shadow">
     <div class="main-modal">
       <div class="modal-left">
@@ -224,140 +225,9 @@
           </div>
         </div>
       </div>
-      <!-- <div class="modal-right">
-        <div class="app-main-right-header">
-          <span>Reviews</span>
-          <a href="#">See All</a>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?woman,cool"
-                  alt="Review"
-                />
-              </div>
-              <p>Jessica Finnick</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?woman,latina"
-                  alt="Review"
-                />
-              </div>
-              <p>Gloria Ramirez</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?man,art"
-                  alt="Review"
-                />
-              </div>
-              <p>Luck Besson</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?woman,adventure"
-                  alt="Review"
-                />
-              </div>
-              <p>Luna Rosa</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?man,modern"
-                  alt="Review"
-                />
-              </div>
-              <p>John mayer</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?woman"
-                  alt="Review"
-                />
-              </div>
-              <p>Tina Finnick</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-        <div class="card-wrapper">
-          <div class="card">
-            <div class="profile-info-wrapper">
-              <div class="profile-img-wrapper">
-                <img
-                  src="https://source.unsplash.com/featured/1200x900/?woman,modern"
-                  alt="Review"
-                />
-              </div>
-              <p>July Wallock</p>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            </p>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
+  <DefaultFooter />
   <CLoading v-if="isLoading" />
 
 </template>
@@ -366,6 +236,8 @@
 import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
 import CLoading from "@/components/elements/CLoading.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import { useHotelItemStore } from "@/stores/hotel-item";
 import { onMounted, ref } from "vue";

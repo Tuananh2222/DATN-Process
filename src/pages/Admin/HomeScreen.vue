@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <NavigationAdmin />
-
     <main class="main-content">
       <div class="top-container">
         <div action="#" class="search">
@@ -659,6 +658,29 @@ import DxChart, {
   DxValueAxis,
   DxConstantLine,
 } from "devextreme-vue/chart";
+
+const complaintsData = [
+  { complaint: "Cold pizza", count: 780 },
+  { complaint: "Not enough cheese", count: 120 },
+  { complaint: "Underbaked or Overbaked", count: 52 },
+  { complaint: "Delayed delivery", count: 1123 },
+  { complaint: "Damaged pizza", count: 321 },
+  { complaint: "Incorrect billing", count: 89 },
+  { complaint: "Wrong size delivered", count: 222 },
+];
+const data = complaintsData.sort((a, b) => b.count - a.count);
+const totalCount = data.reduce((prevValue, item) => prevValue + item.count, 0);
+
+let cumulativeCount = 0;
+
+const dataSource = data.map((item) => {
+  cumulativeCount += item.count;
+  return {
+    complaint: item.complaint,
+    count: item.count,
+    cumulativePercentage: Math.round((cumulativeCount * 100) / totalCount),
+  };
+});
 </script>
 
 <style lang="scss" scoped>
@@ -1159,5 +1181,8 @@ tr > td:first-child {
     width: 100%;
     font-size: 15px;
   }
+}
+:deep(.dx-visibility-change-handler) {
+  width: 800px;
 }
 </style>

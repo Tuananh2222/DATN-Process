@@ -82,6 +82,9 @@ const router = createRouter({
       path: "/admin/home",
       name: "Home Admin",
       component: () => import("@/pages/Admin/HomeScreen.vue"),
+      meta: {
+        layout: 'AdminLayout',
+      },
     },
     {
       path: "/admin/invoices",

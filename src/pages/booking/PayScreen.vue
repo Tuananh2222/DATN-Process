@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <form class="payment-form" @submit.prevent="submitForm">
     <div class="form-group">
       <label for="cardNumber">Số thẻ tín dụng:</label>
@@ -14,9 +15,12 @@
     </div>
     <button type="submit">Thanh toán</button>
   </form>
+  <DefaultFooter />
 </template>
 
 <script setup>
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import { ref } from "vue";
 

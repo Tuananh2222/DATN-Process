@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="body">
     <section class="cart_wrapper">
       <div class="cart_lists">
@@ -57,6 +58,7 @@ import CCartItem from "@/components/elements/CCartItem.vue";
 import router from "@/router";
 import { onMounted } from "vue";
 import useCartStore from "@/stores/cart";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 
 const { state, initProcess } = useCartStore();
 

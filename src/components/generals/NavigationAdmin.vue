@@ -22,8 +22,8 @@
 </template>
 
 <script setup>
-import router from '@/router';
-import useUserStore from '@/stores/user';
+import router from "@/router";
+import useUserStore from "@/stores/user";
 
 const userStore = useUserStore();
 const { handleLogout } = userStore;
@@ -50,9 +50,9 @@ const navList = [
   },
 ];
 const handleSignout = () => {
-  handleLogout()
-  router.push('/')
-}
+  handleLogout();
+  router.push("/");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -65,6 +65,7 @@ const handleSignout = () => {
   border-right: 1px solid #f3f5f7;
   padding: 0 16px;
   overflow: auto;
+  height: 100vh;
 }
 
 .sidebar__logo {

@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div id="wrapper">
     <div id="main">
       <!-- Post -->
@@ -35,10 +36,13 @@
       </article>
     </div>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
 import CButton from "@/components/elements/CButton.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import useBlogStore from "@/stores/blog";
 import { onMounted } from "vue";

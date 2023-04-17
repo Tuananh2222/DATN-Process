@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <CPopupConfirm
     v-if="isShowPopupForgot"
     @close-popup="handleHidePopup"
@@ -29,6 +30,7 @@
       </section>
     </div>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
@@ -37,6 +39,8 @@ import { ref } from "vue";
 import useForgotStore from "@/stores/forgot";
 import { storeToRefs } from "pinia";
 import TextBox from "@/components/elements/textBox.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
 
 const forgotStore = useForgotStore();
 const { state, handleForgotPassword } = forgotStore;

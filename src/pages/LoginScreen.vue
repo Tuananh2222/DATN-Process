@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <CPopupConfirm
     v-if="state.isAuthenticate"
     @close-popup="handleHidePopup(isAuthen)"
@@ -122,11 +123,14 @@
       </section>
     </div>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
 import CPopupConfirm from "@/components/elements/CPopupConfirm.vue";
 import TextBox from "@/components/elements/textBox.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import useLoginStore from "@/stores/login";
 import { storeToRefs } from "pinia";

@@ -1,7 +1,16 @@
 <template>
-  <div>Rooms</div>
+  <div class="container">
+    <NavigationAdmin />
+    <div>Rooms</div>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
+</script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  display: flex;
+}
+</style>

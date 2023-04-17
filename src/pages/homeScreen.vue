@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="container-main">
     <div class="banner-wrapper">
       <div class="banner-slide">
@@ -305,10 +306,9 @@
           </div>
         </div>
       </div>
-
-      
     </div>
   </div>
+  <DefaultFooter />
 </template>
 <script setup>
 // import CardProduct from "~~/components/generals/cardProduct.vue";
@@ -325,6 +325,8 @@ import CDatePicker from "@/components/elements/CDatePicker.vue";
 import router from "@/router";
 import useBlogStore from "@/stores/blog";
 import { onMounted } from "vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
 
 const data = [
   {

@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="app-container">
     <section class="app-actions">
       <div class="app-actions-line">
@@ -103,6 +104,7 @@
       </div>
     </section>
   </div>
+  <DefaultFooter />
   <CLoading v-if="isLoading" />
 </template>
 
@@ -111,6 +113,8 @@ import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
 import CLoading from "@/components/elements/CLoading.vue";
 import TextBox from "@/components/elements/textBox.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import { onMounted, ref } from "vue";
 

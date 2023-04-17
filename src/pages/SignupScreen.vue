@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <CPopupConfirm
     v-if="isShowPopup"
     @close-popup="handleHidePopup"
@@ -53,6 +54,7 @@
       </section>
     </div>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
@@ -62,6 +64,8 @@ import router from "@/router";
 import { useAuthenStore } from "@/stores/signup";
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
 
 let isShowPopup = ref(false);
 

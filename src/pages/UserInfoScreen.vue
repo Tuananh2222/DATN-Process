@@ -1,4 +1,5 @@
 <template>
+  <DefaultHeader />
   <div class="container">
     <table>
       <tr>
@@ -79,10 +80,13 @@
       </tr>
     </table>
   </div>
+  <DefaultFooter />
 </template>
 
 <script setup>
 import CButton from "@/components/elements/CButton.vue";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import useUserStore from "@/stores/user";
 import { onBeforeMount, ref } from "vue";
 
