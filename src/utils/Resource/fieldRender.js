@@ -1,63 +1,76 @@
 export const fieldRenderEmployee = [
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'employeeCode',
-        fieldDisplay: 'MÃ NHÂN VIÊN',
-        width: '120px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'fullName',
-        fieldDisplay: 'TÊN NHÂN VIÊN',
-        width: '196px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'genderName',
-        fieldDisplay: 'GIỚI TÍNH',
-        width: '100px'
-    },
-    {
-        textPositionClass: 'text-center',
-        fieldName: 'dateOfBirth',
-        fieldDisplay: 'NGÀY SINH',
-        type: "date",
-        width: '114px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'identityNumber',
-        fieldDisplay: 'SỐ CMND',
-        width: '137px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'positionName',
-        fieldDisplay: 'CHỨC DANH',
-        width: '143px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'departmentName',
-        fieldDisplay: 'TÊN ĐƠN VỊ',
-        width: '244px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'bankAccount',
-        fieldDisplay: 'SỐ TÀI KHOẢN',
-        width: '160px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'bankName',
-        fieldDisplay: 'TÊN NGÂN HÀNG',
-        width: '189px'
-    },
-    {
-        textPositionClass: 'text-left',
-        fieldName: 'bankBranch',
-        fieldDisplay: 'CHI NHÁNH TÀI KHOẢN NGÂN HÀNG',
-        width: '250px'
-    },
-]
+  {
+    textPositionClass: "text-left",
+    fieldName: "roomCode",
+    fieldDisplay: "MÃ PHÒNG",
+    width: "120px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "roomName",
+    fieldDisplay: "TÊN PHÒNG",
+    width: "196px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "roomSize",
+    fieldDisplay: "DIỆN TÍCH",
+    width: "100px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "bedType",
+    fieldDisplay: "KIỂU GIƯỜNG",
+    width: "143px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "bathroom",
+    fieldDisplay: "PHÒNG TẮM",
+    width: "244px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "countPeople",
+    fieldDisplay: "SỐ NGƯỜI",
+    width: "60px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "price",
+    fieldDisplay: "GIÁ",
+    width: "70px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "viewRoom",
+    fieldDisplay: "VIEW PHÒNG",
+    width: "220px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "imgUrl",
+    fieldDisplay: "LINK ẢNH",
+    width: "120px",
+  },
+  {
+    textPositionClass: "text-left",
+    fieldName: "description",
+    fieldDisplay: "CHi TIẾT",
+    width: "220px",
+  },
+  {
+    textPositionClass: "text-center",
+    fieldName: "arrivalTime",
+    fieldDisplay: "NGÀY VÀO",
+    type: "date",
+    width: "114px",
+  },
+  {
+    textPositionClass: "text-center",
+    fieldName: "departureTime",
+    fieldDisplay: "NGÀY RA",
+    type: "date",
+    width: "114px",
+  },
+];

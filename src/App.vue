@@ -1,4 +1,17 @@
 <template>
+  <CToast
+    :style="{ top: '10px', animationDuration: `0.5s` }"
+    :type="AppStore.typeToast"
+    :message="AppStore.toastMessage"
+    v-if="AppStore.toastMessage"
+  >
+    <div
+      :class="{
+        'icon-success': AppStore.typeToast == ToastMode.SUCCESS,
+        'icon-error': AppStore.typeToast == ToastMode.ERROR,
+      }"
+    ></div>
+  </CToast>
   <div class="body-container">
     <router-view></router-view>
   </div>
@@ -7,6 +20,11 @@
 
 <script setup>
 import CChatOpen from "./components/elements/CChatOpen.vue";
+import CToast from "./components/elements/CToast.vue";
+import useAppStore from "./stores/app";
+import { ToastMode } from "./utils/Resource/Enum";
+
+const AppStore = useAppStore()
 </script>
 
 <style lang="scss">

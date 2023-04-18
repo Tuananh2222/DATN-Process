@@ -30,13 +30,13 @@
         <tr v-for="(row, index) in props.data" :key="index">
           <td class="text-center">
             <CCheckbox
-              @click="handleSelectItem(row[props.idRow])"
-              :checked="listItemSelected.includes(row[props.idRow])"
+              @click="handleSelectItem(row[idRow])"
+              :checked="listItemSelected.includes(row[idRow])"
             />
           </td>
 
           <td
-            @dblclick="showFormEdit(row[props.idRow])"
+            @dblclick="showFormEdit(row[idRow])"
             :style="{
               minWidth: field?.width,
               maxWidth: field?.width,
@@ -57,28 +57,18 @@
 
           <td class="text-center">
             <div class="table-context-wrapper">
-              <div @click="showFormEdit(row[props.idRow])">Sửa</div>
-              <div
-                @click="(e) => showMenuContext(e, row)"
-                class="table-icon-menu-context icon"
-              ></div>
+              <div @click="showFormEdit(row[idRow])">Sửa</div>
+              <div @click="handleDeleteItem(row[idRow])">Xóa</div>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <BaseMenuContext
-      @handleDelete="handleDeleteItem"
-      :position="positionMenu"
-      v-show="isShowMenuContext"
-      @handleEdit="handleEditItem"
-    />
   </div>
 </template>
 
 <script setup>
 import { ref, defineEmits, defineProps } from "vue";
-import BaseMenuContext from "./BaseMenuContext.vue";
 import useCommon from "@/composables/useCommon";
 import CCheckbox from "../elements/CCheckbox.vue";
 
@@ -98,35 +88,16 @@ const props = defineProps({
   },
 });
 const { formatDate } = useCommon();
-const isShowMenuContext = ref(false);
 let itemSelected = ref(undefined);
-const positionMenu = ref({ x: 0, y: 0 });
-const emits = defineEmits(["select-row", "toggle-all"]);
+const emits = defineEmits([
+  "select-row",
+  "toggle-all",
+  "show-form-edit",
+  "delete-row",
+]);
 
-const showMenuContext = (e, row) => {
-  const screenY = document.body.clientHeight;
-  const screenX = document.body.clientWidth;
-  positionMenu.value.x = screenX - e.x;
-  positionMenu.value.y = e.y + 10;
-
-  if (screenY - positionMenu.value.y < 100) positionMenu.value.y -= 110;
-
-  if (itemSelected.value == row) {
-    isShowMenuContext.value = false;
-    itemSelected.value = undefined;
-  } else {
-    itemSelected.value = row;
-    isShowMenuContext.value = true;
-  }
-};
-const handleDeleteItem = () => {
-  isShowMenuContext.value = false;
-  this.$emit("delete-row", itemSelected);
-  itemSelected = undefined;
-};
-const handleEditItem = () => {
-  isShowMenuContext.value = false;
-  this.$emit("edit-row", itemSelected[props.idRow]);
+const handleDeleteItem = (id) => {
+  emits("delete-row", id);
   itemSelected = undefined;
 };
 
@@ -136,6 +107,9 @@ const handleSelectItem = () => {
 
 const handleToggleAll = () => {
   emits("toggle-all");
+};
+const showFormEdit = (id) => {
+  emits("show-form-edit", id);
 };
 </script>
 
@@ -290,20 +264,20 @@ const handleToggleAll = () => {
 .table-context-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   color: rgb(2, 94, 152);
   font-weight: 500;
   position: relative;
 }
 
-.table-context-wrapper > div:first-child {
+.table-context-wrapper > div {
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
   line-height: 13px;
 }
 
-.table-context-wrapper > div:first-child:active {
+.table-context-wrapper > div:active {
   border: 1px solid;
 }
 

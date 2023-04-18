@@ -52,10 +52,6 @@ export default function () {
     return colors[colorIndex];
   };
 
-
-
-
-
   const scrollTo = (top, behavior) => {
     if (process.client) {
       window.scrollTo({ top: top || 0, behavior });

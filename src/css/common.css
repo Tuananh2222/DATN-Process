@@ -201,87 +201,31 @@ ul {
   text-overflow: ellipsis;
 }
 
-.msp-icon-process {
-  -webkit-mask-position: -136px -97px;
-  -moz-mask-position: -136px -97px;
-  -ms-mask-position: -136px -97px;
-  -o-mask-position: -136px -97px;
-  mask-position: -136px -97px;
-  margin-right: 4px;
-  background-color: #fff;
-}
-
-.msp-icon-search {
-  -webkit-mask-position: -287px 0;
-  -moz-mask-position: -287px 0;
-  -ms-mask-position: -287px 0;
-  -o-mask-position: -287px 0;
-  mask-position: -287px 0;
-  background-color: #9fa4b4 !important;
-}
-
 .msp-global-search .msp-input {
   margin-right: 24px !important;
   margin-left: 4px;
   width: 240px;
 }
 
-.msp-icon-employee {
-  -webkit-mask-position: -336px -48px;
-  -moz-mask-position: -336px -48px;
-  -ms-mask-position: -336px -48px;
-  -o-mask-position: -336px -48px;
-  mask-position: -336px -48px;
-  background-color: #686c7b !important;
-}
-
-.msp-icon-protect {
-  -webkit-mask-position: -48px -72px;
-  -moz-mask-position: -48px -72px;
-  -ms-mask-position: -48px -72px;
-  -o-mask-position: -48px -72px;
-  mask-position: -48px -72px;
-  background-color: #686c7b !important;
-}
-
-.msp-icon-multi-user {
-  -webkit-mask-position: -72px -24px;
-  -moz-mask-position: -72px -24px;
-  -ms-mask-position: -72px -24px;
-  -o-mask-position: -72px -24px;
-  mask-position: -72px -24px;
-  background-color: #686c7b !important;
-}
-
-.msp-icon-connect {
-  -webkit-mask-position: -96px -72px;
-  -moz-mask-position: -96px -72px;
-  -ms-mask-position: -96px -72px;
-  -o-mask-position: -96px -72px;
-  mask-position: -96px -72px;
-  background-color: #686c7b !important;
-}
-
-.msp-icon-plus-white {
-  -webkit-mask-position: -243px 0;
-  -moz-mask-position: -243px 0;
-  -ms-mask-position: -243px 0;
-  -o-mask-position: -243px 0;
-  mask-position: -243px 0;
-  background-color: #fff;
-}
-
 .msp-icon-dropdown {
   background: url("./../public/icon/chev-down.svg") center;
 }
 
-.msp-user-grid-setting {
-  -webkit-mask-position: -264px -144px;
-  -moz-mask-position: -264px -144px;
-  -ms-mask-position: -264px -144px;
-  -o-mask-position: -264px -144px;
-  mask-position: -264px -144px;
-  background-color: #606474 !important;
+.icon-success {
+  background: url("./../public/icon/tick.svg") center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.icon-error {
+  background: url("./../public/icon/multiply.svg") center;
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
 }
 
 .msp-icon-arrow-left {
@@ -300,7 +244,7 @@ ul {
   -ms-mask-position: -96px -24px;
   -o-mask-position: -96px -24px;
   mask-position: -96px -24px;
-  background-color: var(--icon-deault-color)!important;
+  background-color: var(--icon-deault-color) !important;
   text-align: center;
   line-height: 24px;
 }
