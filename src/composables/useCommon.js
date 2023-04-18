@@ -1,27 +1,35 @@
-import {
-  SSR_DEFAULT_SCREEN_SIZE_HEIGHT,
-  SSR_DEFAULT_SCREEN_SIZE_WIDTH,
-} from "@/utils/constant";
-import { BREAKPOINT, DATE_FORMAT } from "@/utils/constant";
-import dayjs from "dayjs";
-import { computed, reactive } from "vue";
 export default function () {
-  const state = reactive({
-    screenSize: {
-      width: process.client ? window.innerWidth : SSR_DEFAULT_SCREEN_SIZE_WIDTH,
-      height: process.client
-        ? window.innerHeight
-        : SSR_DEFAULT_SCREEN_SIZE_HEIGHT,
-    },
-  });
-
-  const isMobileResolution = computed(
-    () => state.screenSize.width < BREAKPOINT
-  );
 
   const formatNumber = (number) => {
     return number ? new Intl.NumberFormat().format(Number(number)) : 0;
   };
+
+  const formatDate = (dateIn) => {
+    if (!dateIn)
+      return ""
+
+    const date = new Date(dateIn)
+
+    return `${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}/${date.getMonth() < 9 ? `${0}${date.getMonth() + 1}` : date.getMonth() + 1}/${date.getFullYear()}`
+  }
+
+  const getListPageNumber = (totalPage, currentPage) => {
+    let pageRender = [];
+
+    if (totalPage > 4) {
+      if (currentPage < 3)
+        pageRender = [1, 2, 3, null, totalPage]
+      else if (currentPage > totalPage - 3)
+        pageRender = [1, null, totalPage - 2, totalPage - 1, totalPage]
+      else
+        pageRender = [1, null, currentPage, currentPage + 1, currentPage + 2, null, totalPage]
+    } else {
+      for (let i = 1; i <= totalPage; i++)
+        pageRender.push(i)
+    }
+
+    return pageRender
+  }
 
 
   /**
@@ -44,21 +52,9 @@ export default function () {
     return colors[colorIndex];
   };
 
-  const onWindowResize = () => {
-    const { innerWidth, innerHeight } = window;
-    state.screenSize.width = innerWidth;
-    state.screenSize.height = innerHeight;
-  };
 
-  onMounted(() => {
-    if (typeof window === "undefined") return;
-    window.addEventListener("resize", onWindowResize);
-  });
 
-  onUnmounted(() => {
-    if (typeof window === "undefined") return;
-    window.removeEventListener("resize", onWindowResize);
-  });
+
 
   const scrollTo = (top, behavior) => {
     if (process.client) {
@@ -67,10 +63,10 @@ export default function () {
   };
 
   return {
-    state,
-    isMobileResolution,
     formatNumber,
     scrollTo,
-    randomColor
+    randomColor,
+    formatDate,
+    getListPageNumber
   };
 }

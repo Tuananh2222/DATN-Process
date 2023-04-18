@@ -1,11 +1,12 @@
 <template>
   <div
-    :style="{ top: position.y + 'px', right: position.x + 'px' }"
+    :style="{
+      top: props.positionTop + 'px',
+      right: props.positionRight + 'px',
+    }"
     class="misa-table-menu-context misa-text-left"
   >
-    <div @click="duplicateMethod" class="misa-table-menu-context-item">
-      Nhân bản
-    </div>
+    <div @click="editMethod" class="misa-table-menu-context-item">Sửa</div>
     <div
       @click="deleteMethod"
       id="misa-button-delete-employee"
@@ -17,17 +18,16 @@
 </template>
 
 <script setup>
+import { defineEmits, defineProps } from "vue";
 const props = defineProps({
-  position: {
-    x: Number,
-    y: Number,
-  },
+  positionTop: { type: Number, default: 0 },
+  positionRight: { type: Number, default: 0 },
 });
 
-const emits = defineEmits(["handleDupliCate", "handleDelete"]);
+const emits = defineEmits(["handleEdit", "handleDelete"]);
 
-const duplicateMethod = () => {
-  emits("handleDupliCate");
+const editMethod = () => {
+  emits("handleEdit");
 };
 
 const deleteMethod = () => {

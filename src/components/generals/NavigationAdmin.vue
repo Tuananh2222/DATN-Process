@@ -57,7 +57,7 @@ const handleSignout = () => {
 
 <style lang="scss" scoped>
 .sidebar {
-  width: 240px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
