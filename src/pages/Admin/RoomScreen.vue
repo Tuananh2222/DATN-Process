@@ -35,12 +35,18 @@
             :value="state.keyword"
             :placeholder="'Tìm kiếm phòng...'"
           />
-          <CButton
-            v-if="state.idSelected.length > 1 && state.isShowInteractMulti"
-            :class-name="'button-primary button-square button-block button-effect-ujarak'"
-            :label="'Xóa'"
-            @handle-button="handleDeleteMulti"
-          />
+          <div class="grid-func-right">
+            <CButton
+              v-if="state.idSelected.length > 1 && state.isShowInteractMulti"
+              :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              :label="'Xóa'"
+              @handle-button="handleDeleteMulti"
+            />
+            <CButton
+              :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              :label="'Thêm'"
+            />
+          </div>
         </div>
         <BaseTable
           :fieldRender="fieldRenderEmployee"
@@ -127,6 +133,11 @@ const handlePageNumber = async (pageNumber) => {
         padding: 16px 16px 16px 16px;
         align-items: center;
         z-index: 5;
+        .grid-func-right {
+          display: flex;
+          width: 30%;
+          justify-content: flex-end;
+        }
       }
     }
   }
@@ -134,6 +145,7 @@ const handlePageNumber = async (pageNumber) => {
 :deep(.button-primary) {
   border-radius: 8px;
   width: 200px;
+  margin-right: 20px;
 }
 :deep(.sub-container) {
   margin-top: 0;
