@@ -1,11 +1,8 @@
 <template>
   <div class="chat-board chatbot chat new trending"></div>
-  <div class="frame-content">
+  <div :class="['frame-content', isOpen && 'open']">
     <div
-      :class="[
-        'widget-position-right sidebar-position-right onlyBubble',
-        isOpen && 'open',
-      ]"
+      class="widget-position-right sidebar-position-right onlyBubble"
       id="chatContainer"
     >
       <div class="chat no-clip-path chrome moveFromRight-enter-done">
@@ -82,34 +79,34 @@
         </div>
       </div>
     </div>
-    <div
-      id="chat-button"
-      class="chat-closed mobile-size__medium"
-      @click="showModelChat"
-    >
-      <div class="buttonWave"></div>
-      <button id="button-body" class="chrome" tabindex="0">
-        <i
-          class="material-icons type1 for-closed active"
-          style="color: rgb(255, 255, 255)"
+  </div>
+  <div
+    id="chat-button"
+    class="chat-closed mobile-size__medium"
+    @click="showModelChat"
+  >
+    <div class="buttonWave"></div>
+    <button id="button-body" class="chrome" tabindex="0">
+      <i
+        class="material-icons type1 for-closed active"
+        style="color: rgb(255, 255, 255)"
+      >
+        <svg
+          id="ic_bubble"
+          fill="#FFFFFF"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
-          <svg
-            id="ic_bubble"
-            fill="#FFFFFF"
-            height="24"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
-            ></path>
-            <path d="M0 0h24v24H0z" fill="none"></path>
-          </svg>
-        </i>
-      </button>
-    </div>
+          <path
+            d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
+          ></path>
+          <path d="M0 0h24v24H0z" fill="none"></path>
+        </svg>
+      </i>
+    </button>
   </div>
 </template>
 
@@ -149,7 +146,7 @@ const sendMessage = async () => {
       getRoom();
 
       const configuration = new Configuration({
-        apiKey: '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',
+        apiKey: "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",
       });
       const openai = new OpenAIApi(configuration);
       const response = await openai.createCompletion({
@@ -158,7 +155,7 @@ const sendMessage = async () => {
         max_tokens: 7,
         temperature: 0,
       });
-      console.log(response)
+      console.log(response);
     }
     messages.value.push(newMsg);
     setTimeout(async () => {
@@ -201,7 +198,7 @@ const closeModelChat = () => {
 
 <style lang="scss" scoped>
 .frame-content {
-  display: block;
+  display: none;
   border: none;
   position: fixed;
   inset: auto 0px 0px auto;
@@ -729,7 +726,7 @@ label.material-icons svg.options-icon {
 }
 
 .onlyBubble {
-  display: none;
+  display: block;
   transition: all 0.3s ease-in-out;
 }
 

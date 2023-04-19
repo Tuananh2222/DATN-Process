@@ -8,7 +8,7 @@ import { Resource } from "@/utils/Resource/resource";
 export const useHotelStore = defineStore("hotel", () => {
   const state = reactive({
     //số bản ghi trên một trang
-    pageSize: 10,
+    pageSize: 20,
     //trang hiện tại
     pageNumber: 1,
     //tổng số record
@@ -29,16 +29,16 @@ export const useHotelStore = defineStore("hotel", () => {
     typeToast: ToastMode.ERROR,
     //message toast
     toastMessage: "",
+    keyword: ""
   });
   const { getListPageNumber } = useCommon();
   const loadDataRoom = async () => {
     try {
       state.idSelected = [];
       state.isSelectAll = false;
-      const res = await RoomAPI.filter(state.pageSize, state.pageNumber);
+      const res = await RoomAPI.filter(state.pageSize, state.pageNumber, state.keyword);
       const data = res.data;
       state.data = data.data;
-      console.log(state.data);
       state.totalRecord = res.data.totalRecord;
       state.totalPage = res.data.totalPage;
       state.pageNumberRender = getListPageNumber(
@@ -52,6 +52,10 @@ export const useHotelStore = defineStore("hotel", () => {
       console.log(error);
     }
   };
+  const changePageNumber = async (pageNumber) => {
+    state.pageNumber = pageNumber
+    await loadDataRoom()
+  }
   const selectItem = (id) => {
     if (state.idSelected.includes(id))
       state.idSelected = state.idSelected.filter((i) => i != id);
@@ -63,14 +67,15 @@ export const useHotelStore = defineStore("hotel", () => {
     if (state.idSelected.length == 0) state.isShowInteractMulti = false;
   };
   const toggleSelectAll = () => {
-    if (!state.isSelectAll)
+    if (!state.isSelectAll) {
       state.idSelected = state.data.map((room) => room["roomID"]);
+      state.isShowInteractMulti = true
+    }
     else {
       state.isShowInteractMulti = false;
       state.idSelected = [];
     }
-
     state.isSelectAll = !state.isSelectAll;
   };
-  return { state, loadDataRoom, selectItem, toggleSelectAll };
+  return { state, loadDataRoom, selectItem, toggleSelectAll, changePageNumber };
 });

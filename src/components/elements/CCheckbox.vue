@@ -1,9 +1,14 @@
 <template>
-  <div
-    @click="toggleSelect"
-    :class="{ checkbox: true, 'checkbox-checked': checkedData }"
-  >
-    <div></div>
+  <div :class="`checkbox-container`">
+    <div
+      @click="handleChangeState()"
+      :class="{
+        'icon-square-uncheck': !isChecked,
+        'icon-checkmark': true,
+        'icon-square-check': isChecked,
+        'cursor-pointer': true,
+      }"
+    ></div>
   </div>
 </template>
 
@@ -14,51 +19,43 @@ const props = defineProps({
     type: Boolean,
   },
 });
-const checkboxData = ref(false);
-const toggleSelect = () => {
-  checkboxData.value = !checkboxData.value;
+const isChecked = ref(false);
+const handleChangeState = () => {
+  isChecked.value = !isChecked.value;
 };
-watch(() => {
-  props.checked,
-    (newValue) => {
-      checkboxData.value = newValue;
-    };
-});
+watch(
+  () => props.checked,
+  (value) => {
+    isChecked.value = value;
+  }
+);
 </script>
 
 <style lang="scss" scoped>
-@keyframes checked {
-  from {
-    transform: rotate(-90deg);
-  }
-
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.checkbox {
-  width: 18px;
-  height: 18px;
-  border-radius: 2px;
-  border: 1px solid #babec5;
-  cursor: pointer;
-  box-sizing: border-box;
+.checkbox-container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transform: rotate(-90deg);
+  box-sizing: border-box;
 }
 
-.checkbox-checked {
-  border-color: var(--color-primary);
-  transform: rotate(0deg);
-  animation: checked 0.2s ease-in-out;
+.icon-checkmark {
+  height: 26px;
+  width: 22px;
+  min-width: 22px;
+  min-height: 26px;
+  box-sizing: border-box;
 }
 
-.checkbox-checked div {
-  background: url(../../public/icon/checked.svg) no-repeat -1225px -363px;
-  width: 14px;
-  height: 11px;
+.icon-square-check {
+  width: 16px;
+  height: 16px;
+  background: url(../../public/icon/checked.svg) center;
+  background-size: cover;
+}
+.icon-square-uncheck {
+  width: 20px;
+  height: 24px;
+  background: url(../../public/icon/square.svg) center;
+  background-size: cover;
 }
 </style>

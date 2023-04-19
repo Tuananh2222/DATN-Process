@@ -13,6 +13,9 @@ export const useAppStore = defineStore("app", () => {
     //kiểu toast
     typeToast: ToastMode.SUCCESS,
   });
-  return { state };
+  const setStateLoading = (stateIn) => {
+    state.isLoading = stateIn
+  }
+  return { state, setStateLoading };
 });
 export default useAppStore;

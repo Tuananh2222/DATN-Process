@@ -6,7 +6,11 @@
         <div class="filter-action-buttons"></div>
       </div>
       <div class="app-actions-line">
-        <TextBox @changeValue="handleValueSearch" :value="keyword" />
+        <CInput
+          @changeValue="handleValueSearch"
+          :value="keyword"
+          :placeholder="'Tìm kiếm phòng...'"
+        />
       </div>
       <CButton
         @handle-button="handleSearch"
@@ -111,8 +115,8 @@
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
+import CInput from "@/components/elements/CInput.vue";
 import CLoading from "@/components/elements/CLoading.vue";
-import TextBox from "@/components/elements/textBox.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
@@ -126,7 +130,6 @@ let totalRecord = ref(0);
 let rowStart = ref(0);
 let rowEnd = ref(0);
 const isLoading = ref(false);
-
 
 onMounted(async () => {
   isLoading.value = true;
@@ -160,9 +163,9 @@ const handleChangePageNumber = async (numberPage) => {
   // this.loading = false;
 };
 
-const handleValueSearch = (kword)=>{
+const handleValueSearch = (kword) => {
   keyword.value = kword;
-}
+};
 
 const handleSearch = async () => {
   if (!keyword.value || keyword.value.trim()) {

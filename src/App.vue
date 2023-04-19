@@ -16,15 +16,17 @@
     <router-view></router-view>
   </div>
   <CChatOpen />
+  <CLoading v-if="AppStore.state.isLoading" />
 </template>
 
 <script setup>
 import CChatOpen from "./components/elements/CChatOpen.vue";
+import CLoading from "./components/elements/CLoading.vue";
 import CToast from "./components/elements/CToast.vue";
 import useAppStore from "./stores/app";
 import { ToastMode } from "./utils/Resource/Enum";
 
-const AppStore = useAppStore()
+const AppStore = useAppStore();
 </script>
 
 <style lang="scss">
