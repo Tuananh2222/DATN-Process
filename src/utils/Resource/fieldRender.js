@@ -19,13 +19,13 @@ export const fieldRenderEmployee = [
   },
   {
     textPositionClass: "text-left",
-    fieldName: "bedType",
+    fieldName: "bedTypeName",
     fieldDisplay: "KIỂU GIƯỜNG",
     width: "143px",
   },
   {
     textPositionClass: "text-left",
-    fieldName: "bathroom",
+    fieldName: "bathroomName",
     fieldDisplay: "PHÒNG TẮM",
     width: "244px",
   },

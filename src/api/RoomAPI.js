@@ -17,18 +17,15 @@ class RoomAPI {
     *  data : Dữ liệu người dùng
     * }
     */
-    filter(pageSize, pageNumber, keyword, roomID, roomSize, bedType, bathroom) {
+    filter(pageSize, pageNumber, keyword, minPrice, maxPrice) {
         let filterQuery = `filter?pageSize=${pageSize}&pageNumber=${pageNumber}`
         if (keyword)
             filterQuery += `&keyword=${keyword}`;
-        if (roomID && roomID != "all")
-            filterQuery += `&roomID=${roomID}`;
-        if (roomSize && roomSize != "all")
-            filterQuery += `&roomSize=${roomSize}`;
-        if (bedType && bedType != "all")
-            filterQuery += `&bedType=${bedType}`;
-        if (bathroom && bathroom != "all")
-            filterQuery += `&bathroom=${bathroom}`;
+        if (minPrice && minPrice != null)
+            filterQuery += `&minPrice=${minPrice}`;
+        if (maxPrice && maxPrice != null)
+            filterQuery += `&maxPrice=${maxPrice}`;
+
         return BaseAPIConfig.get(`${this.controller}/${filterQuery}`)
     }
     /**

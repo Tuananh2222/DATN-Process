@@ -78,6 +78,7 @@ const handleFocusInput = () => {
   padding: 4px 8px;
   border-radius: 4px;
   background-color: #fff;
+  width: 100%;
 }
 
 .input-container-focus {

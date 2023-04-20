@@ -3,14 +3,37 @@
   <div class="app-container">
     <section class="app-actions">
       <div class="app-actions-line">
-        <div class="filter-action-buttons"></div>
-      </div>
-      <div class="app-actions-line">
         <CInput
           @changeValue="handleValueSearch"
           :value="keyword"
           :placeholder="'Tìm kiếm phòng...'"
         />
+      </div>
+      <div class="app-actions-line">
+        <div class="wrapper">
+          <header>
+            <h2>Price Range</h2>
+            <p>Use slider or enter min and max price</p>
+          </header>
+          <CRadio
+            :value="150"
+            v-model="selectedValue"
+            :name="'Price'"
+            :label="'Under $150'"
+          />
+          <CRadio
+            :value="300"
+            v-model="selectedValue"
+            :name="'Price'"
+            :label="'Between $150 & $300'"
+          />
+          <CRadio
+            :value="500"
+            v-model="selectedValue"
+            :name="'Price'"
+            :label="'Over $300'"
+          />
+        </div>
       </div>
       <CButton
         @handle-button="handleSearch"
@@ -43,11 +66,11 @@
               </div>
               <div class="card-text small">
                 Bed Type:
-                <span class="card-price"> {{ item.bedType }}</span>
+                <span class="card-price"> {{ item.bedTypeName }}</span>
               </div>
               <div class="card-text small">
                 Bathroom:
-                <span class="card-price">{{ item.bathroom }}</span>
+                <span class="card-price">{{ item.bathroomName }}</span>
               </div>
             </div>
           </a>
@@ -117,10 +140,11 @@ import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
 import CInput from "@/components/elements/CInput.vue";
 import CLoading from "@/components/elements/CLoading.vue";
+import CRadio from "@/components/elements/CRadio.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const pageNumber = ref(1);
 const pageSize = ref(9);
@@ -130,6 +154,9 @@ let totalRecord = ref(0);
 let rowStart = ref(0);
 let rowEnd = ref(0);
 const isLoading = ref(false);
+const selectedValue = ref(null);
+const minPrice = ref(0);
+const maxPrice = ref(0);
 
 onMounted(async () => {
   isLoading.value = true;
@@ -137,6 +164,20 @@ onMounted(async () => {
   isLoading.value = false;
 });
 
+watch(
+  () => selectedValue.value,
+  (newV, oldV) => {
+    console.log(newV, oldV);
+    if (oldV == null) {
+      minPrice.value = 0;
+    } else {
+      minPrice.value = oldV;
+    }
+    maxPrice.value = newV;
+    getRoom();
+    console.log(maxPrice.value, minPrice.value);
+  }
+);
 const openModal = (id) => {
   router.push("/hotel-detail/" + id);
 };
@@ -144,9 +185,12 @@ const getRoom = async () => {
   const Data = await RoomAPI.filter(
     pageSize.value,
     pageNumber.value,
-    keyword.value
+    keyword.value,
+    minPrice.value,
+    maxPrice.value
   );
   listHotel = Data.data;
+  console.log(listHotel);
   rowEnd.value = Data.data.rowEnd;
   rowStart.value = Data.data.rowStart;
   totalRecord.value = Data.data.totalRecord;
@@ -168,6 +212,7 @@ const handleValueSearch = (kword) => {
 };
 
 const handleSearch = async () => {
+  console.log(selectedValue.value);
   if (!keyword.value || keyword.value.trim()) {
     pageNumber.value = 1;
     await getRoom();
@@ -187,14 +232,12 @@ a {
 
 .app-container {
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
 }
 
 section.app-actions {
-  padding: 0 40px 40px 40px;
-  background-color: #f0ede8;
+  width: 20%;
 }
 
 :deep(.container-input) {
@@ -224,21 +267,21 @@ section.app-actions {
   border: 1px solid #979797;
   padding: 10px 16px;
   font-size: 14px;
-  width: 50%;
+  width: 75%;
   margin: 0 auto;
+  border-radius: 8px;
 }
 
 .app-actions-line {
   display: flex;
   align-items: center;
-  width: 65%;
+  width: 75%;
   margin: 32px auto;
 }
 
 .app-main {
   flex: 1;
   overflow: hidden;
-  padding: 24px 40px;
 }
 
 .cards-area {
@@ -413,5 +456,23 @@ section.app-actions {
   section.app-main {
     overflow: visible;
   }
+}
+.wrapper {
+  width: 400px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 25px 40px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  header {
+    margin-bottom: 50px;
+  }
+}
+header h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+header p {
+  margin-top: 5px;
+  font-size: 16px;
 }
 </style>

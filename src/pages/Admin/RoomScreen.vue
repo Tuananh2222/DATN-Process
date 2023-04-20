@@ -135,7 +135,7 @@ const handlePageNumber = async (pageNumber) => {
         z-index: 5;
         .grid-func-right {
           display: flex;
-          width: 30%;
+          width: 50%;
           justify-content: flex-end;
         }
       }

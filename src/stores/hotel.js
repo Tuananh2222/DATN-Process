@@ -29,7 +29,8 @@ export const useHotelStore = defineStore("hotel", () => {
     typeToast: ToastMode.ERROR,
     //message toast
     toastMessage: "",
-    keyword: ""
+    keyword: "",
+
   });
   const { getListPageNumber } = useCommon();
   const loadDataRoom = async () => {
