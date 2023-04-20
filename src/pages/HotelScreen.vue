@@ -33,6 +33,12 @@
             :name="'Price'"
             :label="'Over $300'"
           />
+          <CRadio
+            :value="0"
+            v-model="selectedValue"
+            :name="'Price'"
+            :label="'Reset'"
+          />
         </div>
       </div>
       <CButton
@@ -173,7 +179,12 @@ watch(
     } else {
       minPrice.value = oldV;
     }
-    maxPrice.value = newV;
+    if (newV == 0) {
+      maxPrice.value = 500;
+      minPrice.value = 0;
+    } else {
+      maxPrice.value = newV;
+    }
     getRoom();
     console.log(maxPrice.value, minPrice.value);
   }

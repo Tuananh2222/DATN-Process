@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="label">
     <input
       type="radio"
       :value="props.value"
@@ -38,67 +38,53 @@ const handleChangeValue = (e) => {
 </script>
 
 <style lang="scss" scoped>
-.control {
-  cursor: pointer;
-  padding-top: calc(0.25rem * 2);
-  padding-bottom: calc(0.25rem * 2);
+.label{
   display: flex;
-  position: relative;
-  line-height: 1.25;
+  margin-top: 10px;
+}
+input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  /* Remove most all native input styles */
+  appearance: none;
+  /* For iOS < 15 */
+  background-color: var(--form-background);
+  /* Not removed via appearance */
+  margin: 0;
 
-  &--checkbox,
-  &--radio {
-    .control-box {
-      border: 2px solid rgb(33 33 33 / 1);
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
 
-      svg {
-        transform: scale(0);
-        width: calc(0.25rem * 3.5);
-        height: calc(0.25rem * 3.5);
-      }
-    }
+  display: grid;
+  place-content: center;
+}
 
-    .control-input:checked ~ .control-box svg {
-      transform: scale(1);
-    }
-  }
-  &--radio,
-  &--custom {
-    .control-box {
-      border-radius: 10em;
-    }
-  }
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em rebeccapurple;
+  /* Windows High Contrast Mode */
+  background-color: CanvasText;
+}
 
-  &--custom {
-    .control-input:checked ~ .control-box {
-      box-shadow: 0 0 0 2px white, 0 0 0 4px black;
-    }
-  }
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
 
-  &-input {
-    position: absolute;
-    opacity: 0;
-  }
-
-  &-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.25rem;
-    flex-shrink: 0;
-    border-width: 2px;
-    overflow: hidden;
-    width: calc(0.25rem * 5);
-    height: calc(0.25rem * 5);
-    margin-right: calc(0.25rem * 3);
-    background-color: rgb(255 255 255 / 1);
-  }
-
-  &-label {
-    min-width: 0;
-    align-self: center;
-    flex: 1;
-  }
+input[type="radio"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+label{
+  margin-left: 5px;
 }
 </style>
