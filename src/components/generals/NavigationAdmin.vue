@@ -41,12 +41,8 @@ const navList = [
     to: "Rooms",
   },
   {
-    text: "Inbox",
-    to: "Inbox",
-  },
-  {
-    text: "Settings",
-    to: "Settings",
+    text: "Evaluate",
+    to: "Evaluate Admin",
   },
 ];
 const handleSignout = () => {

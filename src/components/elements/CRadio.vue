@@ -38,9 +38,10 @@ const handleChangeValue = (e) => {
 </script>
 
 <style lang="scss" scoped>
-.label{
+.label {
   display: flex;
   margin-top: 10px;
+  cursor: pointer;
 }
 input[type="radio"] {
   /* Add if not using autoprefixer */
@@ -84,7 +85,7 @@ input[type="radio"]:focus {
   outline: max(2px, 0.15em) solid currentColor;
   outline-offset: max(2px, 0.15em);
 }
-label{
+label {
   margin-left: 5px;
 }
 </style>

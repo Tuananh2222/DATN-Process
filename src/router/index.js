@@ -59,11 +59,6 @@ const router = createRouter({
       component: () => import("@/pages/UserInfoScreen.vue"),
     },
     {
-      path: "/cart",
-      name: "Cart",
-      component: () => import("@/pages/CartScreen.vue"),
-    },
-    {
       path: "/favorite",
       name: "Favorite",
       component: () => import("@/pages/FavoriteScreen.vue"),
@@ -97,14 +92,9 @@ const router = createRouter({
       component: () => import("@/pages/Admin/RoomScreen.vue"),
     },
     {
-      path: "/admin/inbox",
-      name: "Inbox",
+      path: "/admin/evaluate",
+      name: "Evaluate Admin",
       component: () => import("@/pages/Admin/InboxScreen.vue"),
-    },
-    {
-      path: "/admin/setting",
-      name: "Settings",
-      component: () => import("@/pages/Admin/SettingScreen.vue"),
     },
   ],
 });

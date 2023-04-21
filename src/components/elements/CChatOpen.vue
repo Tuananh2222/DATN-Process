@@ -114,7 +114,6 @@
 import RoomAPI from "@/api/RoomAPI";
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import { Configuration, OpenAIApi } from "openai";
 const messages = ref([]);
 const newMessages = ref("");
 const isOpen = ref(false);
@@ -141,22 +140,6 @@ const sendMessage = async () => {
       role: "user",
       content: newMessages.value,
     };
-    if (newMessages.value.includes("Booking Room Family")) {
-      keyword.value = "Family";
-      getRoom();
-
-      const configuration = new Configuration({
-        apiKey: "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",
-      });
-      const openai = new OpenAIApi(configuration);
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: newMessages.value,
-        max_tokens: 7,
-        temperature: 0,
-      });
-      console.log(response);
-    }
     messages.value.push(newMsg);
     setTimeout(async () => {
       const response = await axios.post(
@@ -169,7 +152,7 @@ const sendMessage = async () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer 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",
+              "Bearer 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",
           },
         }
       );
@@ -545,13 +528,6 @@ hr {
   background: rgb(255, 255, 255);
   width: 100%;
   margin-top: 10px;
-  /* border-width: 0px 1px 1px;
-                border-right-style: solid;
-                border-bottom-style: solid;
-                border-left-style: solid;
-                border-right-color: rgb(235, 238, 240);
-                border-bottom-color: rgb(235, 238, 240);
-                border-left-color: rgb(235, 238, 240);*/
   border-image: initial;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;

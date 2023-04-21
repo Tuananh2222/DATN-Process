@@ -16,9 +16,6 @@
       <div class="icon" @click="handleUser">
         <font-awesome-icon :icon="['fas', 'user']" size="lg" />
       </div>
-      <div class="icon" @click="handleCartBooking">
-        <font-awesome-icon :icon="['fas', 'clipboard']" size="lg" />
-      </div>
       <div class="icon" @click="handleFavorite">
         <font-awesome-icon :icon="['fas', 'heart']" size="lg" />
       </div>
@@ -142,14 +139,6 @@ const handleUser = () => {
         component: () => import("@/pages/LoginScreen.vue"),
       });
     }
-  });
-};
-
-const handleCartBooking = () => {
-  router.push({
-    path: "/cart",
-    name: "Cart",
-    component: () => import("@/pages/CartScreen.vue"),
   });
 };
 

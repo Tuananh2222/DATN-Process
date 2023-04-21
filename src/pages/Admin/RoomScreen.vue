@@ -39,7 +39,7 @@
             <CButton
               v-if="state.idSelected.length > 1 && state.isShowInteractMulti"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
-              :label="'Xóa'"
+              :label="'Xóa hàng loạt'"
               @handle-button="handleDeleteMulti"
             />
             <CButton
