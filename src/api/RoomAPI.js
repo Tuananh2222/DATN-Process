@@ -36,5 +36,11 @@ class RoomAPI {
     getRoomByID(roomID) {
         return BaseAPIConfig.get(`${this.controller}/${roomID}`)
     }
+    deleteRoom(roomID) {
+        return BaseAPIConfig.delete(`${this.controller}/${roomID}`)
+    }
+    getNewRoomCode(){
+        return BaseAPIConfig.get(`${this.controller}/NewRoomCode`)
+    }
 }
 export default new RoomAPI();

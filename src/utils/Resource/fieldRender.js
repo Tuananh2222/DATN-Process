@@ -33,7 +33,7 @@ export const fieldRenderEmployee = [
     textPositionClass: "text-left",
     fieldName: "countPeople",
     fieldDisplay: "SỐ NGƯỜI",
-    width: "60px",
+    width: "100px",
   },
   {
     textPositionClass: "text-left",

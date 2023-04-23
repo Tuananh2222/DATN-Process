@@ -1,28 +1,36 @@
 <template>
-  <div
-    :style="{ width: width }"
-    :class="`input-container flex ${isFocus ? 'input-container-focus' : ''} ${
-      error ? 'border-field-error' : ''
-    }`"
-  >
-    <slot></slot>
-    <input
-      :tabindex="tabIndex"
-      :placeholder="placeholder"
-      :value="value"
-      :type="type"
-      @input="handleChangeValue"
-      @blur="handleBlurInput"
-      @focus="handleFocusInput"
-      class="input h-full flex-1 w-full"
-    />
+  <div class="input-wrapper">
+    <div class="label-field">
+      {{ label }} <span v-if="fieldRequire" style="color: red">*</span>
+    </div>
+    <div
+      :style="{ width: width }"
+      :class="`input-container flex ${isFocus ? 'input-container-focus' : ''} ${
+        error ? 'border-field-error' : ''
+      }`"
+    >
+      <slot></slot>
+      <input
+        :tabindex="tabIndex"
+        :placeholder="placeholder"
+        :value="value"
+        :type="type"
+        @input="handleChangeValue"
+        @blur="handleBlurInput"
+        @focus="handleFocusInput"
+        @focusout="onFocusOut"
+        class="input h-full flex-1 w-full"
+      />
+    </div>
+    <div v-if="error" class="message-error">{{ error }}</div>
+    
   </div>
 </template>
 
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
 
-defineProps({
+const props=defineProps({
   placeholder: String,
   //giá trị input
   value: {
@@ -51,12 +59,16 @@ defineProps({
   error: String,
   //xác định focus khi input được khởi tạo
   initFocus: Boolean,
+  label: String,
+  fieldRequire: Boolean,
+  //Tên field name
+  fieldName:String,
 });
 
 const isFocus = ref(false);
-const emit = defineEmits(["changeValue", "blurInput"]);
+const emit = defineEmits(["changeValue", "blurInput", "focusOut"]);
 const handleChangeValue = (e) => {
-  emit("changeValue", e.target.value);
+  emit("changeValue", e.target.value,props.fieldName);
 };
 
 const handleBlurInput = (e) => {
@@ -66,6 +78,10 @@ const handleBlurInput = (e) => {
 
 const handleFocusInput = () => {
   isFocus.value = true;
+};
+const onFocusOut = () => {
+  emit("focusOut");
+  isFocus.value = false;
 };
 </script>
 
@@ -94,5 +110,21 @@ const handleFocusInput = () => {
 
 .input-container:hover {
   border: 1px solid var(--input-hover-border-color) !important;
+}
+.label-field {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.border-field-error {
+  border-color: var(--input-error-border-color) !important;
+}
+.message-error {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--text-error);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 150px;
 }
 </style>

@@ -5,8 +5,6 @@ export class Resource {
     static confirmDeleteMultiEmployeeMessage = "Bạn có thực sự muốn xóa những phòng đã chọn không ?"
     //message error dư liệu không có trong danh sách
     static errorNotInList = "Dữ liệu không có trong danh sách"
-    //message error ngày không được lớn hơn ngày hiện tại
-    static errorDateNotAllowThanNow = "Ngày không được lớn hơn ngày hiện tại !"
     //message error email không đúng định dạng
     static errorEmailInvalidFormat = "Email không đúng định dạng !"
     //message lưu thành công

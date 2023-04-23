@@ -1,51 +1,57 @@
 <template>
-  <div
-    :style="{ width: width }"
-    id="msp-dropdown-container"
-    :class="{ 'msp-border-field-error': error }"
-  >
-    <DxSelectBox
-      :placeholder="placeholder"
-      :dataSource="data"
-      dropDownButtonTemplate="buttonDropDown"
-      itemTemplate="itemTemplate"
-      :drop-down-options="{ overflow: 'unset' }"
-      :display-expr="fieldDisplay"
-      :value-expr="fieldName"
-      :value="value"
-      :onItemClick="handleClickItem"
-      :onKeyDown="handleKeyDown"
-      labelMode="hidden"
-      :opened="opened"
-      :tabIndex="searchEnabled && tabIndex"
-      :searchEnabled="searchEnabled"
-      :onFocusIn="handleFocus"
-      :onFocusOut="handleBlur"
-      noDataText="Không có dữ liệu"
-      :onInput="searchEnabled && ((e) => handleInput(e))"
+  <div class="dropdown-wrapper">
+    <div class="label-field">
+      {{ label }} <span v-if="fieldRequire" style="color: red">*</span>
+    </div>
+    <div
+      :style="{ width: width }"
+      id="msp-dropdown-container"
+      :class="{ 'msp-border-field-error': error }"
     >
-      <template #buttonDropDown>
-        <div class="msp-icon-dropdown msp-icon-20"></div>
-      </template>
+      <DxSelectBox
+        :placeholder="placeholder"
+        :dataSource="data"
+        dropDownButtonTemplate="buttonDropDown"
+        itemTemplate="itemTemplate"
+        :drop-down-options="{ overflow: 'unset' }"
+        :display-expr="fieldDisplay"
+        :value-expr="fieldName"
+        :value="value"
+        :onItemClick="handleClickItem"
+        :onKeyDown="handleKeyDown"
+        labelMode="hidden"
+        :opened="opened"
+        :tabIndex="searchEnabled && tabIndex"
+        :searchEnabled="searchEnabled"
+        :onFocusIn="handleFocus"
+        :onFocusOut="handleBlur"
+        noDataText="Không có dữ liệu"
+        :onInput="searchEnabled && ((e) => handleInput(e))"
+      >
+        <template #buttonDropDown>
+          <div class="msp-icon-dropdown msp-icon-20"></div>
+        </template>
 
-      <template #itemTemplate="{ data }">
-        <div class="msp-dropdown-item-custom-dx">
-          <div
-            class="msp-dropdown-item-text text-ellipsis flex align-items-center flex-between"
-          >
-            <div class="h-full text-ellipsis">{{ data[fieldDisplay] }}</div>
-            <slot
-              classProp="msp-dropdown-item-icon"
-              :value="value"
-              name="item-icon"
-            ></slot>
+        <template #itemTemplate="{ data }">
+          <div class="msp-dropdown-item-custom-dx">
+            <div
+              class="msp-dropdown-item-text text-ellipsis flex align-items-center flex-between"
+            >
+              <div class="h-full text-ellipsis">{{ data[fieldDisplay] }}</div>
+              <slot
+                classProp="msp-dropdown-item-icon"
+                :value="value"
+                name="item-icon"
+              ></slot>
+            </div>
+            <span v-if="showTooltip" class="msp-dropdown-item-custom-tooltip">{{
+              data[fieldDisplay]
+            }}</span>
           </div>
-          <span v-if="showTooltip" class="msp-dropdown-item-custom-tooltip">{{
-            data[fieldDisplay]
-          }}</span>
-        </div>
-      </template>
-    </DxSelectBox>
+        </template>
+      </DxSelectBox>
+    </div>
+    <div v-if="error" class="message-error">{{ error }}</div>
   </div>
 </template>
 <script setup>
@@ -98,6 +104,8 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  label: String,
+  fieldRequire: Boolean,
 });
 onMounted(() => {
   if (props.valueInit != null) {
@@ -105,13 +113,12 @@ onMounted(() => {
   }
 });
 
-const emits = defineEmits(["changeValue", "blurDropdown"]);
+const emits = defineEmits(["changeValue", "blurDropdown", "changeName"]);
 
 const handleClickItem = (e) => {
-  const { itemIndex, itemData } = e;
-  currentIndex.value = itemIndex;
-  emits("changeValue", itemData[props.fieldName]);
-  emits("changeName", itemData[props.fieldDisplay]);
+  currentIndex.value = e.itemIndex;
+  emits("changeValue", e.itemData[props.fieldName]);
+  emits("changeName", e.itemData[props.fieldDisplay]);
 };
 
 const handleKeyDown = (e) => {
@@ -156,5 +163,18 @@ watch(
     display: flex;
     align-items: center;
   }
+}
+.label-field {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.message-error {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--text-error);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 150px;
 }
 </style>

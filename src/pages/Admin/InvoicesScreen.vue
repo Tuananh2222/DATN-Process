@@ -5,7 +5,9 @@
     </div>
     <div class="main-container">
       <BaseTopAdmin :name-page="'Invoices'" />
+      
     </div>
+    
   </div>
 </template>
 

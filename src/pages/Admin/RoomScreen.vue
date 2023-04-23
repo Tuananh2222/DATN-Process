@@ -45,6 +45,7 @@
             <CButton
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
               :label="'Thêm'"
+              @handle-button="handleAddItem"
             />
           </div>
         </div>
@@ -55,6 +56,8 @@
           :listItemSelected="state.idSelected"
           @handleSelectItem="selectItem"
           @toggle-all="toggleSelectAll"
+          @delete-row="handleDeleteItem"
+          @show-form-edit="handleEditItem"
         />
         <BasePaging
           :pageNumberRender="state.pageNumberRender"
@@ -66,6 +69,20 @@
         />
       </div>
     </div>
+    <RoomForm v-if="isShowPopup" @close-popup="handleClosePopup" />
+    <PopupDelete
+      v-if="roomNameDelete"
+      @closePopupDelete="togglePopupConfirmDelete"
+      @confirmDelete="handleDeleteUser"
+      ><template #messageConfirmDelete>
+        <div class="popup-delete-user-msg">
+          <span
+            v-html="
+              `Bạn có chắc chắn muốn xóa <b>${roomNameDelete}</b> khỏi danh sách không?`
+            "
+          ></span>
+        </div> </template
+    ></PopupDelete>
   </div>
 </template>
 
@@ -74,18 +91,25 @@ import { fieldRenderEmployee } from "@/utils/Resource/fieldRender";
 import BaseTable from "@/components/generals/BaseTable.vue";
 import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
 import { useHotelStore } from "@/stores/hotel";
-import { onMounted } from "vue";
+import { useRoomForm } from "@/stores/roomForm";
+import { onMounted, ref } from "vue";
 import CToast from "@/components/elements/CToast.vue";
 import CButton from "@/components/elements/CButton.vue";
 import BaseTopAdmin from "@/components/generals/BaseTopAdmin.vue";
 import BasePaging from "@/components/generals/BasePaging.vue";
 import useAppStore from "@/stores/app";
 import CInput from "@/components/elements/CInput.vue";
+import RoomForm from "@/components/generals/RoomForm.vue";
+import { FormMode } from "@/utils/Resource/Enum";
+import PopupDelete from "@/components/generals/PopupDelete.vue";
 const roomStore = useHotelStore();
+const roomForm = useRoomForm();
+const { state: stateRoomForm, submitForm } = roomForm;
 const { state, selectItem, toggleSelectAll, loadDataRoom, changePageNumber } =
   roomStore;
 const { setStateLoading } = useAppStore();
-
+const isShowPopup = ref(false);
+let roomNameDelete = ref("");
 onMounted(() => {
   loadDataRoom();
 });
@@ -105,6 +129,31 @@ const handlePageNumber = async (pageNumber) => {
     setStateLoading(false);
   } catch (error) {
     console.log(error);
+  }
+};
+const handleAddItem = () => {
+  isShowPopup.value = true;
+};
+const handleClosePopup = () => {
+  isShowPopup.value = false;
+};
+const handleDeleteItem = (id) => {
+  const roomDelete = state.data.find((room) => room.roomID == id);
+  roomNameDelete.value = roomDelete.roomName;
+  console.log(id);
+};
+const handleEditItem = async (id) => {
+  stateRoomForm.formMode = FormMode.FORM_EDIT;
+  stateRoomForm.idRoomEdit = id;
+  await submitForm(id);
+  isShowPopup.value = true;
+  console.log(id);
+};
+const togglePopupConfirmDelete = (roomN = null) => {
+  if (roomN == null) {
+    roomNameDelete.value = "";
+  } else {
+    roomNameDelete.value = roomN;
   }
 };
 </script>
@@ -141,6 +190,10 @@ const handlePageNumber = async (pageNumber) => {
       }
     }
   }
+}
+.popup-delete-user-msg {
+  padding: 24px;
+  line-height: 1.25;
 }
 :deep(.button-primary) {
   border-radius: 8px;
