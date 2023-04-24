@@ -45,7 +45,7 @@
             <CButton
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
               :label="'Thêm'"
-              @handle-button="handleAddItem"
+              @handle-button="handleButtonAdd"
             />
           </div>
         </div>
@@ -69,13 +69,17 @@
         />
       </div>
     </div>
-    <RoomForm v-if="isShowPopup" @close-popup="handleClosePopup" />
+    <RoomForm
+      v-if="isShowPopup"
+      @close-popup="handleClosePopup"
+      :title-form="titleForm"
+    />
     <PopupDelete
       v-if="roomNameDelete"
       @closePopupDelete="togglePopupConfirmDelete"
       @confirmDelete="handleDeleteUser"
       ><template #messageConfirmDelete>
-        <div class="popup-delete-user-msg">
+        <div class="popup-delete-msg">
           <span
             v-html="
               `Bạn có chắc chắn muốn xóa <b>${roomNameDelete}</b> khỏi danh sách không?`
@@ -104,12 +108,13 @@ import { FormMode } from "@/utils/Resource/Enum";
 import PopupDelete from "@/components/generals/PopupDelete.vue";
 const roomStore = useHotelStore();
 const roomForm = useRoomForm();
-const { state: stateRoomForm, submitForm } = roomForm;
+const { state: stateRoomForm, initForm } = roomForm;
 const { state, selectItem, toggleSelectAll, loadDataRoom, changePageNumber } =
   roomStore;
 const { setStateLoading } = useAppStore();
 const isShowPopup = ref(false);
 let roomNameDelete = ref("");
+const titleForm = ref("");
 onMounted(() => {
   loadDataRoom();
 });
@@ -131,7 +136,10 @@ const handlePageNumber = async (pageNumber) => {
     console.log(error);
   }
 };
-const handleAddItem = () => {
+const handleButtonAdd = async () => {
+  stateRoomForm.formMode = FormMode.FORM_ADD;
+  titleForm.value = "ADD ROOM";
+  await initForm();
   isShowPopup.value = true;
 };
 const handleClosePopup = () => {
@@ -140,14 +148,13 @@ const handleClosePopup = () => {
 const handleDeleteItem = (id) => {
   const roomDelete = state.data.find((room) => room.roomID == id);
   roomNameDelete.value = roomDelete.roomName;
-  console.log(id);
 };
 const handleEditItem = async (id) => {
   stateRoomForm.formMode = FormMode.FORM_EDIT;
+  titleForm.value = "EDIT ROOM";
   stateRoomForm.idRoomEdit = id;
-  await submitForm(id);
+  await initForm(id);
   isShowPopup.value = true;
-  console.log(id);
 };
 const togglePopupConfirmDelete = (roomN = null) => {
   if (roomN == null) {
@@ -191,7 +198,7 @@ const togglePopupConfirmDelete = (roomN = null) => {
     }
   }
 }
-.popup-delete-user-msg {
+.popup-delete-msg {
   padding: 24px;
   line-height: 1.25;
 }

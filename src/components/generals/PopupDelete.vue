@@ -7,9 +7,9 @@
 
           <div
             @click="$emit('closePopupDelete')"
-            class="icon-close border-circle pst-relative flex-center"
+            class="icon-close pst-relative flex-center"
           >
-            <div class="icon-x icon-v2 icon-24 cursor-pointer"></div>
+            <div class="cursor-pointer"></div>
           </div>
         </div>
       </template>

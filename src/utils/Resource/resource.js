@@ -10,7 +10,7 @@ export class Resource {
     //message lưu thành công
     static saveSuccessMessage = "Lưu thành công."
     //kiểu lỗi duplicate employee code
-    static typeErrorDuplicateEmployeeCode = "Duplicate EmployeeCode"
+    static typeErrorDuplicateRoomCode = "Duplicate RoomCode"
 
     /**
      * Func : convert message xóa
@@ -18,7 +18,7 @@ export class Resource {
      * @param {*} recordDeleted số bản ghi đã xóa
      * @returns message xóa thành công
      */
-    static messageDeleteSuccessEmployee(recordDeleted){
+    static messageDeleteSuccessEmployee(recordDeleted) {
         return `Xóa thành công ${recordDeleted} phòng`
     }
 
@@ -28,7 +28,7 @@ export class Resource {
      * @param {*} employeeCode 
      * @returns 
      */
-    static messageDeleteOneEmployee(employeeCode){
+    static messageDeleteOneEmployee(employeeCode) {
         return `Bạn có thực sự muốn xóa phòng <${employeeCode}> không ?`
     }
 
@@ -38,7 +38,7 @@ export class Resource {
      * @param {*} fieldName tên field
      * @returns message error field không được để trống
      */
-    static errorNotEmpty(fieldName){
+    static errorNotEmpty(fieldName) {
         return `${fieldName} không được để trống !`
     }
 
@@ -48,7 +48,7 @@ export class Resource {
      * @param {*} fieldName tên field
      * @returns error message ngày không đúng định dạng
      */
-    static errorDateInvalidFormat(fieldName){
+    static errorDateInvalidFormat(fieldName) {
         return `${fieldName} không đúng định dạng.`
     }
 }

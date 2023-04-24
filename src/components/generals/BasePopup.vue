@@ -42,7 +42,7 @@ defineProps({
 }
 
 .popup-button-gr {
-  height: 60px;
+  height: 80px;
   min-height: 60px;
   width: 100%;
   padding-bottom: 20px;

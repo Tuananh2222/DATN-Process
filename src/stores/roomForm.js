@@ -4,9 +4,11 @@ import RoomAPI from "@/api/RoomAPI";
 import { useValidate } from "@/composables/useValidate";
 import { FormMode, ToastMode } from "@/utils/Resource/Enum";
 import { Resource } from "@/utils/Resource/resource";
+import useVuelidate from "@vuelidate/core";
 import { helpers, required } from "@vuelidate/validators";
 import { defineStore } from "pinia";
 import { reactive } from "vue";
+import { v4 as uuidv4 } from "uuid";
 
 export const useRoomForm = defineStore("roomForm", () => {
   const state = reactive({
@@ -20,12 +22,17 @@ export const useRoomForm = defineStore("roomForm", () => {
     typeToast: ToastMode.SUCCESS,
     //dữ liệu kiểu phòng
     bedtypes: [],
+    //message lỗi trùng mã nhân viên
+    errorDuplicateRoomCode: "",
+    //mảng message thông báo lỗi từ server
+    listErrorServer: [],
     //dữ liệu nhà tắm
     bathrooms: [],
     roomDetail: {},
     formMode: FormMode.FORM_ADD,
     idRoomEdit: undefined,
     rooms: {
+      roomID: "",
       roomCode: "",
       roomName: "",
       roomSize: "",
@@ -35,7 +42,7 @@ export const useRoomForm = defineStore("roomForm", () => {
       price: "",
       viewRoom: "",
       imgUrl: "",
-      description: "",
+      description: ""
     },
     hasErrors: {
       roomCode: "",
@@ -49,6 +56,7 @@ export const useRoomForm = defineStore("roomForm", () => {
       bedTypeID: "",
       bathroomID: "",
     },
+    isValidForm: true
   });
   const ruleList = {
     roomCode: {
@@ -85,8 +93,19 @@ export const useRoomForm = defineStore("roomForm", () => {
       required: helpers.withMessage("Vui lòng chọn kiểu nhà tắm!", required),
     },
   };
+  const validate = async (val) => {
+    const $v = useVuelidate(ruleList, state.rooms)
+    const v = await $v.value[val].$validate()
+    if (!v) {
+      state.hasErrors[val] = $v.value[val].$errors[0].$message
+      state.isValidForm = true
+    }
+    else
+      state.isValidForm = false
+  }
 
-  const { checkField, $v, checkAllField } = useValidate(
+
+  const { checkField, checkAllField } = useValidate(
     ruleList,
     state.rooms,
     state.hasErrors
@@ -116,20 +135,19 @@ export const useRoomForm = defineStore("roomForm", () => {
   const changeValue = (value, fieldName) => {
     state.rooms[fieldName] = value;
 
-    state.rooms.hasErrors[fieldName] = "";
+    state.hasErrors[fieldName] = "";
   };
   const getNewRoomCode = async () => {
     return (await RoomAPI.getNewRoomCode()).data;
   };
 
-  const submitForm = async (id) => {
+  const initForm = async (id) => {
     emptyForm();
     try {
       if (state.formMode == FormMode.FORM_ADD) {
-        state.rooms.roomCode = getNewRoomCode();
+        state.rooms.roomCode = await getNewRoomCode();
       } else {
         state.roomDetail = (await RoomAPI.getRoomByID(id)).data;
-        // state.rooms = state.roomDetail
         console.log(state.roomDetail);
         state.rooms = {
           roomCode: state.roomDetail.roomCode,
@@ -151,17 +169,43 @@ export const useRoomForm = defineStore("roomForm", () => {
     }
   };
 
-  // const getRoomDetail = async () => {
-  //   return await RoomAPI
-  // }
+  const isChanged = () => {
+    const fieldName = Object.keys(state.rooms)
+    let isChanged = false;
+    if (state.formMode == FormMode.FORM_ADD) {
+      fieldName.forEach(field => {
+        if (state.rooms[field] && field != 'roomCode') {
+          isChanged = true;
+        }
+      })
+    }
+    else {
+      fieldName.forEach(field => {
+        if (state.rooms[field] != state.roomDetail[field]) {
+          isChanged = true
+        }
+      })
+    }
+    console.log(isChanged)
+    return isChanged;
+  }
+
+  const saveForm = async () => {
+    try {
+      if (!state.isValidForm) {
+        if (state.formMode == FormMode.FORM_ADD) {
+          await RoomAPI.insertNewRoom({ ...state.rooms, roomID: uuidv4() })
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const emptyForm = () => {
     for (let key in state.rooms) {
-      if (key == "hasErrors") {
-        state.rooms.hasErrors[key] = "";
-      } else {
-        state.rooms[key] = "";
-      }
+      state.hasErrors[key] = "";
+      state.rooms[key] = "";
     }
   };
 
@@ -169,12 +213,14 @@ export const useRoomForm = defineStore("roomForm", () => {
     state,
     checkField,
     checkAllField,
-    $v,
     getBedType,
     getBathRoom,
     changeValue,
     getNewRoomCode,
-    submitForm,
+    initForm,
+    validate,
+    saveForm,
+    isChanged
   };
 });
 export default useRoomForm;

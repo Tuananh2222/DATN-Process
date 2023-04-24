@@ -5,7 +5,6 @@ const { isEmpty } = lodash;
 
 export const useValidate = (rules, state, hasErrors) => {
   const $v = useVuelidate(rules, state);
-
   const isValidForm = ref(false);
 
   const checkField = async (name) => {
