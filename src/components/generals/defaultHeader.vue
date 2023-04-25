@@ -115,11 +115,37 @@
 <script setup>
 import router from "@/router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { dbRealTime } from "@/firebaseConfig";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const auth = getAuth();
 
 const isShowNoti = ref(false);
+const q = query(
+  collection(dbRealTime, "notification"),
+  where("ID", "=", "YkUHHdwjUDTnS1yzH2mR")
+);
+const getNoti = onSnapshot(q, (querySnapshot) => {
+  console.log(q);
+  querySnapshot.forEach((doc) => {
+    {
+      console.log(doc.data());
+    }
+  });
+});
+onMounted(() => {
+  console.log(q);
+  getNoti();
+  onSnapshot(q, (querySnapshot) => {
+    console.log(q);
+    querySnapshot.forEach((doc) => {
+      {
+        console.log(doc.data());
+      }
+    });
+  });
+});
 
 const handleUser = () => {
   onAuthStateChanged(auth, (user) => {

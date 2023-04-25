@@ -18,7 +18,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig)
+const dbRealTime = getFirestore(firebaseApp)
 const db = getFirestore(firebaseApp)
 
 // here we can export reusable database references
 export const todosRef = collection(db, 'todos')
+export { dbRealTime }

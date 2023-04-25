@@ -74,7 +74,6 @@ const props = defineProps({
     default: false,
   },
 });
-console.log(props.modelValue)
 const emits = defineEmits([
   "update:modelValue",
   "focus",
