@@ -1,6 +1,9 @@
 <template>
   <footer class="site-footer">
     <div class="container">
+      <div class="myself-wrapper">
+        <img src="@/public/image/logo-lockup.png" alt="" />
+      </div>
       <div class="content-footer">
         <h4>Opening Hours</h4>
         <div class="group-xs">
@@ -27,7 +30,7 @@
               <dt><font-awesome-icon icon="fa-solid fa-location-dot" /></dt>
               <dd>
                 <a class="link link-gray-darker" href="#"
-                  >6036 Richmond hwy., Alexandria, VA, 2230</a
+                  >298 Cau Dien Street</a
                 >
               </dd>
             </dl>
@@ -43,25 +46,11 @@
           </li>
         </ul>
       </div>
-
-      <div class="myself-wrapper">
-        <h4>Join Our Newsletter</h4>
-        <div class="email-wrapper">
-          <TextBox :placeholder="'Enter your email'" />
-          <CButton
-            :label="'Subscribe'"
-            :class-name="'button-primary button-square button-block button-effect-ujarak'"
-          />
-        </div>
-      </div>
     </div>
   </footer>
 </template>
 
-<script setup>
-import CButton from "../elements/CButton.vue";
-import TextBox from "../elements/textBox.vue";
-</script>
+<script setup></script>
 <style lang="scss" scoped>
 .site-footer {
   display: flex;
@@ -82,6 +71,10 @@ import TextBox from "../elements/textBox.vue";
       flex-direction: column;
     }
     .content-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       width: calc(100% / 3);
       h4 {
         text-align: left;
@@ -107,6 +100,8 @@ import TextBox from "../elements/textBox.vue";
       width: calc(100% / 3);
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       @media not screen and (min-width: 1280px) {
         width: 100%;
         align-items: flex-start;

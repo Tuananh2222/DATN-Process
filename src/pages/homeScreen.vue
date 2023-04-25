@@ -54,37 +54,6 @@
         </div>
       </div>
     </div>
-    <div class="hotel-booking-form">
-      <h3>Book a Room</h3>
-      <!-- RD Mailform-->
-      <div class="rd-mailform">
-        <div class="cell-lg-12 cell-md-4">
-          <TextBox :label="'Your Name'" :placeholder="'Your Full Name'" />
-        </div>
-        <div class="cell-sm-6">
-          <p class="text-uppercase">Arrival</p>
-          <CDatePicker />
-        </div>
-        <div class="cell-sm-6">
-          <p class="text-uppercase">Departure</p>
-          <CDatePicker />
-        </div>
-        <div class="cell-xs-6">
-          <p class="text-uppercase">Adults</p>
-          <CDropdown :data="data" fieldDisplay="name" fieldName="id" />
-        </div>
-        <div class="cell-xs-6">
-          <p class="text-uppercase">Children</p>
-          <CDropdown :data="data" />
-        </div>
-        <div class="btn-wrapper">
-          <CButton
-            :label="'check availability'"
-            class-name="button-primary button-square button-block button-effect-ujarak"
-          />
-        </div>
-      </div>
-    </div>
   </div>
   <div class="content-video">
     <iframe
@@ -318,38 +287,12 @@ import "swiper/css/navigation";
 import "swiper/swiper.min.css";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, EffectFade } from "swiper";
-import CDropdown from "@/components/elements/CDropdown.vue";
 import CButton from "@/components/elements/CButton.vue";
-import TextBox from "@/components/elements/textBox.vue";
-import CDatePicker from "@/components/elements/CDatePicker.vue";
 import router from "@/router";
 import useBlogStore from "@/stores/blog";
 import { onMounted } from "vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
-
-const data = [
-  {
-    id: 1,
-    name: "HD Video Player",
-  },
-  {
-    id: 2,
-    name: "SuperHD Video Player",
-  },
-  {
-    id: 3,
-    name: "SuperPlasma 50",
-  },
-  {
-    id: 4,
-    name: "SuperLED 50",
-  },
-  {
-    id: 5,
-    name: "SuperLED 42",
-  },
-];
 
 const { state, initProcess } = useBlogStore();
 
@@ -377,7 +320,7 @@ const handleMoveHotel = () => {
   padding: 0 15px;
   .banner-wrapper {
     position: relative;
-    width: 70%;
+    width: 100%;
     height: 657px;
     @media not screen and (min-width: 1280px) {
       margin-top: -79px;
