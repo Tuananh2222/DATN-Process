@@ -193,16 +193,16 @@
 <script setup>
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
-import { payment } from "@/stores/momo";
-import { ref } from "vue";
-
-const orderId = ref("");
-const amount = ref(0);
+import { dbRealTime } from "@/firebaseConfig";
+import { addDoc, collection } from "firebase/firestore";
 
 const handlePayment = async () => {
-  const response = await payment(orderId.value, amount.value);
-  // xử lý dữ liệu trả về
-  console.log(response);
+  const docRef = await addDoc(collection(dbRealTime, "notification"), {
+    message: "Thêm Thông báo thành công",
+    notiID: 1,
+    sortOrder: 1,
+  });
+  console.log(docRef)
 };
 </script>
 

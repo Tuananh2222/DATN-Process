@@ -13,7 +13,7 @@ export const useUserStore = defineStore("user", () => {
     detailInfoUser: null,
     user: null,
     uid: null,
-    notification: []
+    notifications: []
   });
 
   const handleLogout = () => {

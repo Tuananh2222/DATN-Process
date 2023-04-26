@@ -22,7 +22,7 @@
       <div class="icon notification">
         <a href="#">
           <div class="notBtn" href="#">
-            <div class="number">{{ state.notification.length }}</div>
+            <div class="number">{{ state.notifications.length }}</div>
             <div class="fas" @click="handleNotifications">
               <font-awesome-icon :icon="['fas', 'bell']" size="lg" />
             </div>
@@ -72,10 +72,12 @@ const getNoti = onSnapshot(q, (querySnapshot) => {
   querySnapshot.forEach((doc) => {
     {
       const notification = doc.data();
-      state.notification.push(notification);
       const seconds = doc._document.createTime.timestamp.seconds;
       notification.sortOrder = seconds;
-      console.log(doc.data());
+      notification.ID = doc.id;
+      if (state.notifications.find((noti) => noti.ID == doc.id) == undefined) {
+        state.notifications.unshift(notification);
+      }
     }
   });
 });
@@ -90,30 +92,17 @@ const sortByField = (field, data) => {
 const handleUser = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
       const uid = user.uid;
       console.log(uid);
-      router.push({
-        path: "/user-info",
-        name: "User Information",
-        component: () => import("@/pages/UserInfoScreen.vue"),
-      });
+      router.push("/user-info");
     } else {
-      router.push({
-        path: "/login",
-        name: "Login",
-        component: () => import("@/pages/LoginScreen.vue"),
-      });
+      router.push("/login");
     }
   });
 };
 
 const handleFavorite = () => {
-  router.push({
-    path: "/favorite",
-    name: "Favorite",
-    component: () => import("@/pages/FavoriteScreen.vue"),
-  });
+  router.push("/favorite");
 };
 
 const handleNotifications = () => {

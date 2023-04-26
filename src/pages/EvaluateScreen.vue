@@ -10,36 +10,22 @@
 
         <div class="box-container">
           <TextBox
-            v-model.trim="state.username"
-            :err-msg="state.hasErrors.username"
-            placeholder="Họ tên *"
+            v-model.trim="state.userName"
+            placeholder="Họ tên"
             :required="false"
-            @focusOut="contactStore.checkField('username')"
-          />
-          <TextBox
-            v-model.trim="state.tel"
-            :err-msg="state.hasErrors.tel"
-            placeholder="Số điện thoai *"
-            :required="false"
-            @focusOut="contactStore.checkField('tel')"
           />
           <textarea
             class="form-input"
             id="contact-message"
             name="message"
             placeholder="Your message"
+            v-model="state.description"
           ></textarea>
-          <TextBox
-            v-model.trim="state.email"
-            :err-msg="state.hasErrors.email"
-            placeholder="Email *"
-            :required="false"
-            @focusOut="contactStore.checkField('email')"
-          />
           <div class="btn-wrapper">
             <CButton
               :label="'send message'"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
+              @handle-button="sendEvaluate"
             />
           </div>
         </div>
@@ -102,16 +88,18 @@
 </template>
 
 <script setup>
+import CButton from "@/components/elements/CButton.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
-import { useContactStore } from "@/stores/contact.js";
-import { onMounted } from "vue";
+import useEvaluateStore from "@/stores/evaluate";
 
-const contactStore = useContactStore();
-const { state } = contactStore;
+const evaluateStore = useEvaluateStore();
+const { state,insertEvaluate } = evaluateStore;
 
-onMounted(() => {});
+const sendEvaluate = async () => {
+  insertEvaluate()
+};
 </script>
 
 <style lang="scss" scoped>
