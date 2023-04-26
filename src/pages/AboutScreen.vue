@@ -186,24 +186,24 @@
       </div>
     </div>
   </div>
-  <div @click="handlePayment">Thanh toán</div>
   <DefaultFooter />
 </template>
 
 <script setup>
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
-import { dbRealTime } from "@/firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
+// import { dbRealTime } from "@/firebaseConfig";
+// import { addDoc, collection } from "firebase/firestore";
 
-const handlePayment = async () => {
-  const docRef = await addDoc(collection(dbRealTime, "notification"), {
-    message: "Thêm Thông báo thành công",
-    notiID: 1,
-    sortOrder: 1,
-  });
-  console.log(docRef)
-};
+// ví dụ về add notification
+// const handlePayment = async () => {
+//   const docRef = await addDoc(collection(dbRealTime, "notification"), {
+//     message: "Thêm Thông báo thành công",
+//     notiID: 1,
+//     sortOrder: 1,
+//   });
+//   console.log(docRef)
+// };
 </script>
 
 <style lang="scss" scoped>
