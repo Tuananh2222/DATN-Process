@@ -22,7 +22,7 @@
       <div class="icon notification">
         <a href="#">
           <div class="notBtn" href="#">
-            <div class="number">2</div>
+            <div class="number">{{ state.notification.length }}</div>
             <div class="fas" @click="handleNotifications">
               <font-awesome-icon :icon="['fas', 'bell']" size="lg" />
             </div>
@@ -30,76 +30,18 @@
               <div class="display">
                 <div class="cont">
                   <!-- Fold this div and try deleting evrything inbetween -->
-                  <div class="sec">
+                  <div
+                    v-for="(notification, index) in sortByField(
+                      'sortOrder',
+                      state.notification
+                    )"
+                    :key="index"
+                    class="sec"
+                  >
                     <a href="https://codepen.io/Golez/">
                       <div class="txt">
-                        James liked your post: "Pure css notification box"
+                        {{ notification.message }}
                       </div>
-                      <div class="txt sub">11/7 - 2:30 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Annita liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/7 - 2:13 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Brie liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/6 - 9:35 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Madison liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/6 - 4:04 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Ted liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/6 - 10:37 am</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Tommas liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/5 - 7:30 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Claire liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/5 - 2:30 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Jerimaiah liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/5 - 1:34 pm</div>
-                    </a>
-                  </div>
-                  <div class="sec">
-                    <a href="https://codepen.io/Golez/">
-                      <div class="txt">
-                        Debra liked your post: "Pure css notification box"
-                      </div>
-                      <div class="txt sub">11/5 - 10:20 am</div>
                     </a>
                   </div>
                 </div>
@@ -115,37 +57,35 @@
 <script setup>
 import router from "@/router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { onMounted, ref } from "vue";
+import { onUnmounted, ref } from "vue";
 import { dbRealTime } from "@/firebaseConfig";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
+import useUserStore from "@/stores/user";
 
+const userStore = useUserStore();
+const { state } = userStore;
 const auth = getAuth();
 
 const isShowNoti = ref(false);
-const q = query(
-  collection(dbRealTime, "notification"),
-  where("ID", "=", "YkUHHdwjUDTnS1yzH2mR")
-);
+const q = query(collection(dbRealTime, "notification"));
 const getNoti = onSnapshot(q, (querySnapshot) => {
-  console.log(q);
   querySnapshot.forEach((doc) => {
     {
+      const notification = doc.data();
+      state.notification.push(notification);
+      const seconds = doc._document.createTime.timestamp.seconds;
+      notification.sortOrder = seconds;
       console.log(doc.data());
     }
   });
 });
-onMounted(() => {
-  console.log(q);
+onUnmounted(() => {
   getNoti();
-  onSnapshot(q, (querySnapshot) => {
-    console.log(q);
-    querySnapshot.forEach((doc) => {
-      {
-        console.log(doc.data());
-      }
-    });
-  });
 });
+
+const sortByField = (field, data) => {
+  return data.sort((a, b) => (a[field] < b[field] ? 1 : -1));
+};
 
 const handleUser = () => {
   onAuthStateChanged(auth, (user) => {
@@ -294,7 +234,7 @@ const headerList = [
 
 .box {
   width: 400px;
-  height: 60vh;
+  height: 40vh;
   border-radius: 10px;
   transition: 0.5s;
   position: absolute;

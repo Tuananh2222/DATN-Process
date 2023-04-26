@@ -229,7 +229,7 @@ const closeModelChat = () => {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: rgb(20, 127, 255);
+  background-color: #8f859e;
   opacity: 0.5;
 }
 
@@ -246,8 +246,8 @@ const closeModelChat = () => {
   background-size: 130% 130%;
   transition: all 0.2s ease-in-out 0s;
   position: relative;
-  color: rgb(0, 125, 252);
-  border: 1px solid #1e88e5;
+  color: #8f859e;
+  border: 1px solid #8f859e;
 }
 
 #button-body::before {
@@ -257,7 +257,7 @@ const closeModelChat = () => {
   inset: -1px;
   opacity: 0;
   border-radius: 50%;
-  background-color: rgb(198, 204, 220);
+  background-color: #8f859e;
 }
 
 #chat-button button i.for-closed.active {
@@ -365,7 +365,7 @@ svg:not(:root) {
 }
 
 #button-body {
-  box-shadow: rgba(0, 77, 255, 0.5) 0px 4px 24px;
+  box-shadow: #8f859e 0px 4px 24px;
 }
 
 body:not(.mobile) #button button:not(.disabled):hover i.type1 svg,
@@ -575,11 +575,7 @@ hr {
   z-index: 4;
   flex: 0 0 auto;
   color: rgb(255, 255, 255);
-  background: linear-gradient(
-    135deg,
-    rgb(42, 39, 218) 0%,
-    rgb(0, 204, 255) 100%
-  );
+  background: #8f859e;
 }
 
 .avatars-wrapper {
@@ -685,7 +681,7 @@ label.material-icons svg.options-icon {
 }
 
 .send-icon:hover svg path {
-  fill: #1775ec;
+  fill: #8f859e;
 }
 
 .message-operator {
@@ -779,7 +775,7 @@ label.material-icons svg.options-icon {
   fill: #1775ec;
 }
 .chat-closed .chrome {
-  background: linear-gradient(135deg, rgb(42, 39, 218), rgb(0, 204, 255));
-  box-shadow: rgba(0, 77, 255, 0.5) 0px 4px 24px;
+  background: #8f859e;
+  box-shadow: #8f859e 0px 4px 24px;
 }
 </style>

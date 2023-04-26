@@ -2,13 +2,7 @@
   <DefaultHeader />
   <header>
     <div class="header-banner">
-      <img
-        style="
-          width: 100%;
-          height: 500px;
-        "
-        :src="blogDetail.img_blog"
-      />
+      <img style="width: 100%; height: 100vh" :src="blogDetail.img_blog" />
       <h1>{{ blogDetail.title }}</h1>
     </div>
     <div class="clear"></div>
@@ -20,7 +14,7 @@
       <p>
         {{ blogDetail.description }}
       </p>
-      <h3>{{ (item.index + ".") + item.title_child }}</h3>
+      <h3>{{ item.index + "." + item.title_child }}</h3>
       <p>
         {{ item.description_child }}
       </p>
@@ -58,7 +52,7 @@ const getDetailBlog = (id) => {
 <style lang="scss" scoped>
 /* main */
 header {
-  height: 560px;
+  height: 100vh;
   z-index: 10;
 }
 .header-banner {
@@ -93,7 +87,7 @@ section {
 
 /* demo content */
 .content {
-  margin: 0 auto;
+  margin: 10px auto;
   width: 960px;
   max-width: 100%;
 }

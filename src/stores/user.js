@@ -13,6 +13,7 @@ export const useUserStore = defineStore("user", () => {
     detailInfoUser: null,
     user: null,
     uid: null,
+    notification: []
   });
 
   const handleLogout = () => {
@@ -34,7 +35,6 @@ export const useUserStore = defineStore("user", () => {
     state.uid = sessionStorage.getItem("uid");
     state.detailInfoUser = (await UserAPI.getUserByUUID(state.uid)).data;
     const user = new UserInsert(state.uid)
-    console.log(state.detailInfoUser);
     console.log(user)
   };
 

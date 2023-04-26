@@ -148,8 +148,8 @@ export const useRoomForm = defineStore("roomForm", () => {
         state.rooms.roomCode = await getNewRoomCode();
       } else {
         state.roomDetail = (await RoomAPI.getRoomByID(id)).data;
-        console.log(state.roomDetail);
         state.rooms = {
+          roomID: state.roomDetail.roomID,
           roomCode: state.roomDetail.roomCode,
           roomName: state.roomDetail.roomName,
           roomSize: state.roomDetail.roomSize,
@@ -186,7 +186,6 @@ export const useRoomForm = defineStore("roomForm", () => {
         }
       })
     }
-    console.log(isChanged)
     return isChanged;
   }
 
@@ -195,6 +194,10 @@ export const useRoomForm = defineStore("roomForm", () => {
       if (!state.isValidForm) {
         if (state.formMode == FormMode.FORM_ADD) {
           await RoomAPI.insertNewRoom({ ...state.rooms, roomID: uuidv4() })
+        }
+        else if (state.formMode == FormMode.FORM_EDIT) {
+          debugger
+          await RoomAPI.updateRoom(state.idRoomEdit, state.rooms)
         }
       }
     } catch (error) {

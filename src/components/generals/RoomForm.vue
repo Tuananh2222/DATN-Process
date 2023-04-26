@@ -122,7 +122,7 @@
                 <CButton
                   :class-name="'button-primary button-square button-block button-effect-ujarak'"
                   :class="[state.isValidForm && 'button-disabled']"
-                  :label="'Thêm mới'"
+                  :label="'Lưu'"
                   @handle-button="handleAddItem"
                 />
                 <CButton
@@ -193,8 +193,9 @@ const handleChangeValueBathroom = (id) => {
 };
 const handleAddItem = async () => {
   if (!isChanged() && state.formMode == FormMode.FORM_EDIT) {
-    state.formMode = FormMode.FORM_ADD;
-    await initForm();
+    // state.formMode = FormMode.FORM_ADD;
+    // await initForm();
+    console.log(state.idRoomEdit);
   } else {
     const res = await saveForm();
     if (res) {
