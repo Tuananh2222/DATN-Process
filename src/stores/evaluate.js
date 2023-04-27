@@ -7,13 +7,19 @@ export const useEvaluateStore = defineStore("evaluate", () => {
   const state = reactive({
     userName: "",
     description: "",
+    listEvaluate: [],
   });
 
   const insertEvaluate = async () => {
-    await EvaluateAPI.insertEvaluate({...state,evaluateID: uuidv4()});
-    console.log('first')
+    await EvaluateAPI.insertEvaluate({ ...state, evaluateID: uuidv4() });
+    console.log("first");
   };
 
-  return { state, insertEvaluate };
+  const getDataEvaluate = async () => {
+    const data = (await EvaluateAPI.getEvaluate()).data
+    state.listEvaluate = data
+  };
+
+  return { state, insertEvaluate, getDataEvaluate };
 });
 export default useEvaluateStore;

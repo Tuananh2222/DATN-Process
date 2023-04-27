@@ -8,7 +8,6 @@ class RoomAPI {
      * @param {*} pageSize Số bản ghi trên trang
      * @param {*} pageNumber trang hiện tại
      * @param {*} keyword từ khóa tìm kiếm
-     * @param {*} roomID của role muốn filter
      * @returns {
     *  TotalRecord : Tổng số bản ghi;
     *  RowStart : Bản ghi bắt đầu;
@@ -28,11 +27,6 @@ class RoomAPI {
 
         return BaseAPIConfig.get(`${this.controller}/${filterQuery}`)
     }
-    /**
-     * Lấy thông tin user theo id
-     * @param {*} roomID 
-     * @returns thông tin chi tiết room
-     */
     getRoomByID(roomID) {
         return BaseAPIConfig.get(`${this.controller}/${roomID}`)
     }

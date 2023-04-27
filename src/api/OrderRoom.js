@@ -1,10 +1,10 @@
 import BaseAPIConfig from "./BaseAPIConfig";
 
-class BathroomAPI {
-    controller = "Bathrooms";
+class OrderRoomAPI {
+    controller = "OrderRooms";
 
-    getAllBathroom(){
+    getAllOrderRoom(){
         return BaseAPIConfig.get(`${this.controller}`)
     }
 }
-export default new BathroomAPI();
+export default new OrderRoomAPI();

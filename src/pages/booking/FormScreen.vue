@@ -139,9 +139,7 @@
 
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
-import RoomRegisFormAPI from "@/api/RoomRegisFormAPI";
 import CButton from "@/components/elements/CButton.vue";
-// import CDatePicker from "@/components/elements/CDatePicker.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import { useHotelItemStore } from "@/stores/hotel-item";
 import DxDateBox from "devextreme-vue/date-box";
@@ -150,12 +148,15 @@ import { useRoute } from "vue-router";
 import { getDatesInRange } from "@/utils/functions/date-fn";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
+import useOrderRoom from "@/stores/orderRoom";
 
 const { initProcess } = useHotelItemStore();
+const orderRoomStore = useOrderRoom();
+const { state, getDataOrder, formatDate } = orderRoomStore;
 const route = useRoute();
 const checkinDate = ref(null);
 const checkoutDate = ref(null);
-const disabledDates = ref([new Date("4/4/2023"), new Date("4/6/2023")]);
+const disabledDates = ref([]);
 const nameRoom = ref("");
 const nameDeal = ref("");
 const priceRoom = ref(0);
@@ -168,7 +169,6 @@ const dayBooking = computed(() => {
 });
 
 let dataDetailRoom = ref({});
-let dataTimeRoom = ref({});
 
 //xem sự thay đổi của thời gian check in
 watch(checkinDate, (newValue, oldValue) => {
@@ -186,8 +186,9 @@ watch(checkinDate, (newValue, oldValue) => {
 });
 
 onMounted(async () => {
-  initProcess();
-  GetRoomDetails();
+  await initProcess();
+  await GetRoomDetails();
+  await getDataOrder();
   await GetTimeRoom();
 });
 const GetRoomDetails = async () => {
@@ -197,12 +198,22 @@ const GetRoomDetails = async () => {
 };
 
 const GetTimeRoom = async () => {
-  const dataTime = await RoomRegisFormAPI.getRoomRegisFormById(route.params.id);
-  dataTimeRoom.value = dataTime.data;
+  const newArrayDate = formatDate(state.listDate);
+  const minDate = newArrayDate.reduce((min, current) => {
+    const date1 = new Date(current.arrivalTime);
+    return date1 < min ? date1 : min;
+  }, new Date(newArrayDate[0].arrivalTime));
+
+  const maxDate = newArrayDate.reduce((max, current) => {
+    const currentDate = new Date(current.depatureTime);
+    return currentDate > max ? currentDate : max;
+  }, new Date(newArrayDate[0].depatureTime));
+  
   disabledDates.value = getDatesInRange(
-    new Date(dataTime.data.arrivalTime),
-    new Date(dataTime.data.departureTime)
+    new Date(minDate),
+    new Date(maxDate)
   );
+  console.log(disabledDates.value);
 };
 
 const discountPriceEarly = (price) => {
