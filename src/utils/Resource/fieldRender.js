@@ -68,7 +68,7 @@ export const fieldRenderEmployee = [
   },
   {
     textPositionClass: "text-center",
-    fieldName: "departureTime",
+    fieldName: "depatureTime",
     fieldDisplay: "NGÀY RA",
     type: "date",
     width: "114px",

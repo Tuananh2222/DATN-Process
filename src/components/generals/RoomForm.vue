@@ -121,7 +121,7 @@
               <div :class="['btn-wrapper', state.rooms.imgUrl && 'haveImg']">
                 <CButton
                   :class-name="'button-primary button-square button-block button-effect-ujarak'"
-                  :class="[state.isValidForm && 'button-disabled']"
+                  :class="[state.isValidForm ? '' : 'button-disabled']"
                   :label="'Lưu'"
                   @handle-button="handleAddItem"
                 />
@@ -193,12 +193,11 @@ const handleChangeValueBathroom = (id) => {
 };
 const handleAddItem = async () => {
   if (!isChanged() && state.formMode == FormMode.FORM_EDIT) {
-    // state.formMode = FormMode.FORM_ADD;
-    // await initForm();
-    console.log(state.idRoomEdit);
+    state.isValidForm = false;
   } else {
     const res = await saveForm();
     if (res) {
+      state.isShowPopup = false;
       stateApp.toastMessage = Resource.saveSuccessMessage;
       stateApp.typeToast = ToastMode.SUCCESS;
       setTimeout(() => {
@@ -230,7 +229,7 @@ const handleAddItem = async () => {
   width: 100%;
   background: #fff;
   padding: 25px 30px;
-  border-radius: 5px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   .imgform {

@@ -1,7 +1,7 @@
 <template>
-  <!-- <div class="misa-toast-error-list">
+  <div class="misa-toast-error-list">
     <CToast
-      v-for="(message, index) in state.listErrorServer"
+      v-for="(message, index) in stateRoomForm.listErrorServer"
       :key="{ index }"
       :style="{
         top: `${index * 80 + 10}` + 'px',
@@ -10,14 +10,22 @@
       :type="'error'"
       :message="message"
     >
-      <div class="misa-icon misa-icon-error"></div>
+      <div class="icon-error"></div>
     </CToast>
-  </div> -->
+  </div>
 
   <CToast
     v-if="state.toastMessage"
     :type="state.typeToast"
     :message="state.toastMessage"
+    :style="{ animationDuration: '.3s' }"
+  >
+    <div class="icon-error"></div>
+  </CToast>
+  <CToast
+    v-if="stateRoomForm.toastMessage"
+    :type="stateRoomForm.typeToast"
+    :message="stateRoomForm.toastMessage"
     :style="{ animationDuration: '.3s' }"
   >
     <div class="icon-error"></div>
@@ -37,7 +45,7 @@
           />
           <div class="grid-func-right">
             <CButton
-              v-if="state.idSelected.length > 1 && state.isShowInteractMulti"
+              v-if="state.idSelected.length > 1 || state.isShowInteractMulti"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
               :label="'Xóa hàng loạt'"
               @handle-button="handleDeleteMulti"
@@ -54,8 +62,6 @@
           :data="state.data"
           :idRow="'roomID'"
           :listItemSelected="state.idSelected"
-          @handleSelectItem="selectItem"
-          @toggle-all="toggleSelectAll"
           @delete-row="handleDeleteItem"
           @show-form-edit="handleEditItem"
         />
@@ -70,19 +76,19 @@
       </div>
     </div>
     <RoomForm
-      v-if="isShowPopup"
+      v-if="stateRoomForm.isShowPopup"
       @close-popup="handleClosePopup"
       :title-form="titleForm"
     />
     <PopupDelete
-      v-if="roomNameDelete"
+      v-if="stateRoomForm.roomNameDelete"
       @closePopupDelete="togglePopupConfirmDelete"
       @confirmDelete="handleDeleteUser"
       ><template #messageConfirmDelete>
         <div class="popup-delete-msg">
           <span
             v-html="
-              `Bạn có chắc chắn muốn xóa <b>${roomNameDelete}</b> khỏi danh sách không?`
+              `Bạn có chắc chắn muốn xóa <b>${stateRoomForm.roomNameDelete}</b> khỏi danh sách không?`
             "
           ></span>
         </div> </template
@@ -106,15 +112,14 @@ import CInput from "@/components/elements/CInput.vue";
 import RoomForm from "@/components/generals/RoomForm.vue";
 import { FormMode } from "@/utils/Resource/Enum";
 import PopupDelete from "@/components/generals/PopupDelete.vue";
+import RoomAPI from "@/api/RoomAPI";
 const roomStore = useHotelStore();
 const roomForm = useRoomForm();
-const { state: stateRoomForm, initForm } = roomForm;
-const { state, selectItem, toggleSelectAll, loadDataRoom, changePageNumber } =
-  roomStore;
+const { state: stateRoomForm, initForm, deleteRoom } = roomForm;
+const { state, loadDataRoom, changePageNumber } = roomStore;
 const { setStateLoading } = useAppStore();
-const isShowPopup = ref(false);
-let roomNameDelete = ref("");
 const titleForm = ref("");
+
 onMounted(() => {
   loadDataRoom();
 });
@@ -140,28 +145,37 @@ const handleButtonAdd = async () => {
   stateRoomForm.formMode = FormMode.FORM_ADD;
   titleForm.value = "ADD ROOM";
   await initForm();
-  isShowPopup.value = true;
+  stateRoomForm.isShowPopup = true;
 };
 const handleClosePopup = () => {
-  isShowPopup.value = false;
+  stateRoomForm.isShowPopup = false;
 };
 const handleDeleteItem = (id) => {
   const roomDelete = state.data.find((room) => room.roomID == id);
-  roomNameDelete.value = roomDelete.roomName;
+  stateRoomForm.roomNameDelete = roomDelete.roomName;
+  stateRoomForm.idRoomTarget = id;
 };
 const handleEditItem = async (id) => {
   stateRoomForm.formMode = FormMode.FORM_EDIT;
   titleForm.value = "EDIT ROOM";
   stateRoomForm.idRoomEdit = id;
   await initForm(id);
-  isShowPopup.value = true;
+  stateRoomForm.isShowPopup = true;
 };
 const togglePopupConfirmDelete = (roomN = null) => {
   if (roomN == null) {
-    roomNameDelete.value = "";
+    stateRoomForm.roomNameDelete = "";
   } else {
-    roomNameDelete.value = roomN;
+    stateRoomForm.roomNameDelete = roomN;
   }
+};
+
+const handleDeleteUser = async () => {
+  await deleteRoom();
+};
+
+const handleDeleteMulti = async () => {
+  await RoomAPI.deleteMultiRoom(state.idSelected);
 };
 </script>
 

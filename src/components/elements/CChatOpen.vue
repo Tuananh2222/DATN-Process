@@ -121,6 +121,8 @@ const pageNumber = ref(1);
 const pageSize = ref(9);
 const keyword = ref("");
 let listHotel = ref([]);
+const canSend = ref(false);
+const listMessageCanSend = ["hotel", "booking", "room", "book"];
 
 onMounted(() => {
   getRoom();
@@ -134,6 +136,7 @@ const getRoom = async () => {
   );
   listHotel.value = Data.data.data;
 };
+
 const sendMessage = async () => {
   if (newMessages.value.trim() != "") {
     const newMsg = {
@@ -141,31 +144,46 @@ const sendMessage = async () => {
       content: newMessages.value,
     };
     messages.value.push(newMsg);
-    setTimeout(async () => {
-      const response = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-3.5-turbo",
-          messages: messages.value,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
-          },
-        }
-      );
-      const messageChatbot = {
-        role: "system",
-        content: response.data.choices[0].message.content.replace(
-          "<br/>",
-          /\n/g
-        ),
-      };
+    listMessageCanSend.forEach((en) => {
+      if (newMessages.value.indexOf(en) > 0) canSend.value = true;
+    });
 
-      messages.value.push(messageChatbot);
-    }, 200);
+    if (canSend.value) {
+      setTimeout(async () => {
+        const response = await axios.post(
+          "https://api.openai.com/v1/chat/completions",
+          {
+            model: "gpt-3.5-turbo",
+            messages: messages.value,
+            temperature: 0,
+            max_tokens: 100,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer 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",
+            },
+          }
+        );
+        const messageChatbot = {
+          role: "system",
+          content: response.data.choices[0].message.content.replace(
+            "<br/>",
+            /\n/g
+          ),
+        };
+
+        messages.value.push(messageChatbot);
+      }, 200);
+    } else {
+      messages.value.push({
+        role: "system",
+        content:
+          "Vui lòng nhập đúng chủ đề về đặt phòng khách sạn hoặc liên quan",
+      });
+    }
+
     newMessages.value = "";
   }
 };
@@ -294,8 +312,8 @@ i {
 }
 
 svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 #chat-button button i.type1::after {
@@ -400,7 +418,6 @@ body:not(.mobile) #button button:not(.disabled):focus i.type1::after {
   bottom: 26px;
   border-radius: 16px;
   pointer-events: auto;
-  box-shadow: rgba(0, 18, 46, 0.16) 0px 8px 22px 0px;
   overflow: hidden;
   z-index: 999;
   right: 48px;
@@ -476,6 +493,7 @@ input {
 .send-icon {
   width: 26px;
   height: 26px;
+  line-height: 26px;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 26px;
   flex: 0 0 26px;

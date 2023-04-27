@@ -60,7 +60,10 @@ export const useHotelStore = defineStore("hotel", () => {
   const selectItem = (id) => {
     if (state.idSelected.includes(id))
       state.idSelected = state.idSelected.filter((i) => i != id);
-    else state.idSelected.push(id);
+    else {
+      state.idSelected.push(id)
+    }
+    console.log(state.idSelected)
 
     if (state.idSelected.length == state.data.length) state.isSelectAll = true;
     else state.isSelectAll = false;

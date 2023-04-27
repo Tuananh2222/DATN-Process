@@ -3,12 +3,6 @@
     <table class="table" border="0" cellspacing="0">
       <thead>
         <tr>
-          <th class="text-center">
-            <CCheckbox
-              :checked="props.data.length == props.listItemSelected.length"
-              @click="handleToggleAll"
-            />
-          </th>
           <th
             :style="{
               minWidth: field?.width,
@@ -28,13 +22,6 @@
       <div class="table-empty" v-if="props.data.length == 0">Trống</div>
       <tbody>
         <tr v-for="(row, index) in props.data" :key="index">
-          <td class="text-center">
-            <CCheckbox
-              @click="handleSelectItem(row[idRow])"
-              :checked="listItemSelected.includes(row[idRow])"
-            />
-          </td>
-
           <td
             @dblclick="showFormEdit(row[idRow])"
             :style="{
@@ -68,9 +55,8 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, defineProps } from "vue";
+import { defineEmits, defineProps } from "vue";
 import useCommon from "@/composables/useCommon";
-import CCheckbox from "../elements/CCheckbox.vue";
 
 const props = defineProps({
   data: {
@@ -88,7 +74,6 @@ const props = defineProps({
   },
 });
 const { formatDate } = useCommon();
-let itemSelected = ref(undefined);
 const emits = defineEmits([
   "select-row",
   "toggle-all",
@@ -98,16 +83,8 @@ const emits = defineEmits([
 
 const handleDeleteItem = (id) => {
   emits("delete-row", id);
-  itemSelected = undefined;
 };
 
-const handleSelectItem = () => {
-  emits("select-row", itemSelected);
-};
-
-const handleToggleAll = () => {
-  emits("toggle-all");
-};
 const showFormEdit = (id) => {
   emits("show-form-edit", id);
 };

@@ -9,8 +9,10 @@ export class Resource {
     static errorEmailInvalidFormat = "Email không đúng định dạng !"
     //message lưu thành công
     static saveSuccessMessage = "Lưu thành công."
-    //kiểu lỗi duplicate employee code
-    static typeErrorDuplicateRoomCode = "Duplicate RoomCode"
+    //kiểu lỗi duplicate room code
+    static typeErrorDuplicateRoomCode = "Mã phòng đã tồn tại trong hệ thống."
+    //Thông báo xóa thành công
+    static deleteSuccess = "Xóa thành công."
 
     /**
      * Func : convert message xóa

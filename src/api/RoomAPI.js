@@ -38,7 +38,10 @@ class RoomAPI {
     }
     deleteRoom(roomID) {
         return BaseAPIConfig.delete(`${this.controller}/${roomID}`)
-
+    }
+    deleteMultiRoom(listRoomID) {
+        debugger
+        return BaseAPIConfig.delete(`${this.controller}/multi`, listRoomID)
     }
     getNewRoomCode() {
         return BaseAPIConfig.get(`${this.controller}/NewRoomCode`)
