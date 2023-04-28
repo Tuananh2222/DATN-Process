@@ -2,24 +2,14 @@
   <DefaultHeader />
   <div class="container">
     <div class="time-booking">
-      <div class="dx-field-value">
-        <DxDateBox
-          :value="checkinDate"
-          show-clear-button="true"
-          :onValueChanged="handleCheckinChanged"
-          pickerType="calendar"
-          :disabled-dates="disabledDates"
-        />
-      </div>
-      <div class="dx-field-value">
-        <DxDateBox
-          :value="checkoutDate"
-          show-clear-button="true"
-          pickerType="calendar"
-          :onValueChanged="handleCheckoutChanged"
-          :disabled-dates="disabledDates"
-        ></DxDateBox>
-      </div>
+      <CDateSelection
+        :data-disable="state.listDataDisabled"
+        @click-confirm="handleChooseDateIn"
+      />
+      <CDateSelection
+        :data-disable="state.listDataDisabled"
+        @click-confirm="handleChooseDateOut"
+      />
     </div>
     <div class="booking-form">
       <div class="detaile-room">
@@ -142,48 +132,51 @@ import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
 import CDropdown from "@/components/elements/CDropdown.vue";
 import { useHotelItemStore } from "@/stores/hotel-item";
-import DxDateBox from "devextreme-vue/date-box";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getDatesInRange } from "@/utils/functions/date-fn";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import useOrderRoom from "@/stores/orderRoom";
+import CDateSelection from "@/components/elements/CDateSelection.vue";
+import { storeToRefs } from "pinia";
 
 const { initProcess } = useHotelItemStore();
 const orderRoomStore = useOrderRoom();
-const { state, getDataOrder, formatDate } = orderRoomStore;
+const { getDataOrder, formatDate } = orderRoomStore;
 const route = useRoute();
-const checkinDate = ref(null);
-const checkoutDate = ref(null);
+
 const disabledDates = ref([]);
 const nameRoom = ref("");
 const nameDeal = ref("");
 const priceRoom = ref(0);
 const coutnRoom = ref(0);
-
-const dayBooking = computed(() => {
-  return Math.ceil(
-    (checkoutDate.value - checkinDate.value) / (1000 * 60 * 60 * 24)
-  );
-});
+const { state } = storeToRefs(orderRoomStore);
+// const dayBooking = computed(() => {
+//   return Math.ceil(
+//     (checkoutDate.value - checkinDate.value) / (1000 * 60 * 60 * 24)
+//   );
+// });
 
 let dataDetailRoom = ref({});
 
-//xem sự thay đổi của thời gian check in
-watch(checkinDate, (newValue, oldValue) => {
-  const newDisabledDates = [...disabledDates.value];
-  if (newValue) {
-    newDisabledDates.push(
-      new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
-    );
-    disabledDates.value = newDisabledDates;
-  }
-  if (oldValue) {
-    newDisabledDates.splice(0, 1);
-    disabledDates.value = newDisabledDates;
-  }
-});
+// //xem sự thay đổi của thời gian check in
+// watch(checkinDate, (newValue, oldValue) => {
+//   const newDisabledDates = [...disabledDates.value];
+//   if (newValue) {
+//     newDisabledDates.push(
+//       new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
+//     );
+//     disabledDates.value = newDisabledDates;
+//   }
+//   if (oldValue) {
+//     const indexToRemove = newDisabledDates.indexOf(oldValue);
+//     if (indexToRemove !== -1) {
+//       newDisabledDates.splice(indexToRemove, 1);
+//     }
+//     disabledDates.value = newDisabledDates;
+//   }
+// });
 
 onMounted(async () => {
   await initProcess();
@@ -191,6 +184,7 @@ onMounted(async () => {
   await getDataOrder();
   await GetTimeRoom();
 });
+
 const GetRoomDetails = async () => {
   const { data } = await RoomAPI.getRoomByID(route.params.id);
   dataDetailRoom.value = data;
@@ -208,12 +202,8 @@ const GetTimeRoom = async () => {
     const currentDate = new Date(current.depatureTime);
     return currentDate > max ? currentDate : max;
   }, new Date(newArrayDate[0].depatureTime));
-  
-  disabledDates.value = getDatesInRange(
-    new Date(minDate),
-    new Date(maxDate)
-  );
-  console.log(disabledDates.value);
+
+  disabledDates.value = getDatesInRange(new Date(minDate), new Date(maxDate));
 };
 
 const discountPriceEarly = (price) => {
@@ -233,14 +223,6 @@ const priceAfterDiscount = computed(() => {
   return priceRoom.value;
 });
 
-const handleCheckinChanged = (e) => {
-  checkinDate.value = e.value;
-};
-
-const handleCheckoutChanged = (e) => {
-  checkoutDate.value = e.value;
-};
-
 const changeNameRoom = (name) => {
   nameRoom.value = name;
 };
@@ -250,6 +232,10 @@ const changeValueRoom = (index) => {
 
 const changeNameDeal = (deal) => {
   nameDeal.value = deal;
+};
+
+const handleChooseDateIn = (date) => {
+  console.log(date);
 };
 
 const dataCountRoom = [

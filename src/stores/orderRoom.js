@@ -8,6 +8,7 @@ export const useOrderRoom = defineStore("orderRoom", () => {
   const state = reactive({
     listOrderRoom: [],
     listDate: [],
+    listDataDisabled: []
   });
 
   const getDataOrder = async () => {
@@ -16,6 +17,13 @@ export const useOrderRoom = defineStore("orderRoom", () => {
     state.listDate = state.listOrderRoom.map(
       ({ arrivalTime, depatureTime }) => ({ arrivalTime, depatureTime })
     );
+
+    state.listDataDisabled = state.listDate.map((item) => {
+      return {
+        start: new Date(item.arrivalTime),
+        end: new Date(item.depatureTime)
+      }
+    })
   };
 
   const formatDate = (array) => {

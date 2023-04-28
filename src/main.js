@@ -12,6 +12,8 @@ import "devextreme/dist/css/dx.light.css";
 import "@/css/common.css";
 import { firebaseApp } from "./firebaseConfig";
 import { VueFire, VueFireAuth } from "vuefire";
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -29,4 +31,5 @@ app.use(VueFire, {
     VueFireAuth(),
   ],
 });
+app.use(VCalendar, {})
 app.component("font-awesome-icon", FontAwesomeIcon).mount("#app");
