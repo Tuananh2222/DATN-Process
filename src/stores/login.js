@@ -11,6 +11,7 @@ import {
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";
 import router from "@/router";
+import { UserInsert } from "@/Entities/User";
 
 export const useLoginStore = defineStore("login", () => {
   const auth = getAuth();
@@ -109,6 +110,38 @@ export const useLoginStore = defineStore("login", () => {
       });
   };
 
+  const handleSignInWithPopup = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then(async (result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          const userInsert = new UserInsert(user.uid, user.displayName);
+          await UserAPI.insertUser(userInsert);
+          sessionStorage.setItem("uid", user.uid);
+          console.log("first", user)
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+          router.push("/")
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+    } catch (error) {
+
+    }
+  }
+
   return {
     state,
     checkField,
@@ -117,6 +150,7 @@ export const useLoginStore = defineStore("login", () => {
     isValidForm,
     handleSignIn,
     handleSignInWithGoogle,
+    handleSignInWithPopup
   };
 });
 export default useLoginStore;

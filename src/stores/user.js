@@ -34,8 +34,7 @@ export const useUserStore = defineStore("user", () => {
   const getUser = async () => {
     state.uid = sessionStorage.getItem("uid");
     state.detailInfoUser = (await UserAPI.getUserByUUID(state.uid)).data;
-    const user = new UserInsert(state.uid)
-    console.log(user)
+    console.log(state.detailInfoUser)
   };
 
   const handleEditUser = async (user, id) => {

@@ -16,7 +16,7 @@ class RoomAPI {
     *  data : Dữ liệu người dùng
     * }
     */
-    filter(pageSize, pageNumber, keyword, minPrice, maxPrice) {
+    filter(pageSize, pageNumber, keyword, minPrice, maxPrice, countPeople) {
         let filterQuery = `filter?pageSize=${pageSize}&pageNumber=${pageNumber}`
         if (keyword)
             filterQuery += `&keyword=${keyword}`;
@@ -24,6 +24,8 @@ class RoomAPI {
             filterQuery += `&minPrice=${minPrice}`;
         if (maxPrice && maxPrice != null)
             filterQuery += `&maxPrice=${maxPrice}`;
+        if (countPeople && countPeople != null)
+            filterQuery += `&countPeople=${countPeople}`
 
         return BaseAPIConfig.get(`${this.controller}/${filterQuery}`)
     }

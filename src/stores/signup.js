@@ -6,8 +6,10 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   fetchSignInMethodsForEmail,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "firebase/auth";
-
+import { firebase } from '@firebase/app'
 import _ from "lodash";
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";

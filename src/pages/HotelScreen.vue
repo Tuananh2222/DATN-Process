@@ -10,6 +10,17 @@
         />
       </div>
       <div class="app-actions-line">
+        <CDropdown
+          :data="countPeopleData"
+          field-display="value"
+          field-name="value"
+          :value-init="countValues"
+          placeholder="Number of people in 1 room"
+          @changeValue="handleChangeValue"
+          width="280px"
+        />
+      </div>
+      <div class="app-actions-line">
         <div class="wrapper">
           <header>
             <h2>Price Range</h2>
@@ -41,6 +52,7 @@
           />
         </div>
       </div>
+
       <CButton
         @handle-button="handleSearch"
         :label="'Find Room'"
@@ -144,6 +156,7 @@
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
 import CButton from "@/components/elements/CButton.vue";
+import CDropdown from "@/components/elements/CDropdown.vue";
 import CInput from "@/components/elements/CInput.vue";
 import CLoading from "@/components/elements/CLoading.vue";
 import CRadio from "@/components/elements/CRadio.vue";
@@ -163,6 +176,7 @@ const isLoading = ref(false);
 const selectedValue = ref(null);
 const minPrice = ref(0);
 const maxPrice = ref(0);
+const countValues = ref(0);
 
 onMounted(async () => {
   isLoading.value = true;
@@ -186,7 +200,6 @@ watch(
       maxPrice.value = newV;
     }
     getRoom();
-    console.log(maxPrice.value, minPrice.value);
   }
 );
 const openModal = (id) => {
@@ -198,7 +211,8 @@ const getRoom = async () => {
     pageNumber.value,
     keyword.value,
     minPrice.value,
-    maxPrice.value
+    maxPrice.value,
+    countValues.value
   );
   listHotel = Data.data;
   console.log(listHotel);
@@ -229,6 +243,35 @@ const handleSearch = async () => {
     await getRoom();
   }
 };
+
+const handleChangeValue = async (count) => {
+  isLoading.value = true;
+  countValues.value = count;
+  pageNumber.value = 1;
+  await getRoom();
+  isLoading.value = false;
+};
+
+const countPeopleData = [
+  {
+    value: 2,
+  },
+  {
+    value: 3,
+  },
+  {
+    value: 4,
+  },
+  {
+    value: 5,
+  },
+  {
+    value: 6,
+  },
+  {
+    value: 7,
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -485,5 +528,8 @@ header h2 {
 header p {
   margin-top: 5px;
   font-size: 16px;
+}
+:deep(.input-wrapper) {
+  width: 100%;
 }
 </style>

@@ -258,7 +258,6 @@ const { state: stateApp } = appStore;
 const orders = ref([]);
 const getOrderByUserID = async () => {
   const userID = stateApp.detailUser.userID;
-  console.log(userID);
   const res = await OrderRoom.getOrderRoomByUserID(userID);
   orders.value = res.data;
 };

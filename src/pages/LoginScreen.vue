@@ -70,7 +70,7 @@
               </svg>
               Facebook
             </div>
-            <div class="google">
+            <div class="google" @click="handleSignInWithPopup()">
               <svg
                 width="34"
                 height="36"
@@ -136,7 +136,7 @@ import useLoginStore from "@/stores/login";
 import { storeToRefs } from "pinia";
 
 const loginStore = useLoginStore();
-const { state, handleSignIn } = loginStore;
+const { state, handleSignIn, handleSignInWithPopup } = loginStore;
 const { isValidForm } = storeToRefs(loginStore);
 
 const submitSignIn = async () => {
