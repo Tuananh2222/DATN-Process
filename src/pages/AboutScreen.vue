@@ -22,7 +22,7 @@
         </div>
         <div class="cell-sm-6 cell-md-5">
           <h3>A Few Words About Us</h3>
-          <p>
+          <p style="line-height: 1.25">
             LEXINGTON HOTEL, A VARIATION AROUND GREY AND A WELLNESS COCOON
             Lexington Hotel Hanoi is composed of 50 rooms on 9 levels including
             Family and Connecting rooms which are perfect for individual clients
@@ -32,7 +32,7 @@
             living area. A breath of fresh air in the heart of Hanoi Old
             quarter!
           </p>
-          <p>
+          <p style="line-height: 1.25">
             Inspired by Vietnamese tradtional material, combination of grey and
             beautified by black, Lexington Hotel Hanoi welcomes its guests in a
             refined and intimate atmosphere. In each room, traditional material
@@ -582,7 +582,7 @@ p {
     .content-shell-right {
       margin-top: 20px;
       p {
-        font-size: 19px;
+        font-size: 14px;
       }
     }
   }

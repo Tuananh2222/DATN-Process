@@ -166,12 +166,11 @@
             </p>
           </div>
           <div class="desc-actions">
-            <div class="btn-wrapper" @click="handleBookRoom">
-              <CButton
-                :label="'Book Now'"
-                :class-name="'button-primary button-square button-block button-effect-ujara'"
-              />
-            </div>
+            <CButton
+              :label="'Book Now'"
+              :class-name="'button-primary button-square button-block button-effect-ujara'"
+              @handle-button="handleBookRoom"
+            />
           </div>
           <div class="desc-view">
             <div class="modal-info-header">
@@ -205,7 +204,6 @@
   </div>
   <DefaultFooter />
   <CLoading v-if="isLoading" />
-
 </template>
 
 <script setup>
@@ -216,9 +214,11 @@ import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import { useHotelItemStore } from "@/stores/hotel-item";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
+const auth = getAuth();
 const { state, initProcess } = useHotelItemStore();
 const route = useRoute();
 const isLoading = ref(false);
@@ -232,12 +232,22 @@ onMounted(async () => {
 });
 
 const GetRoomDetails = async () => {
-  const data = await (await RoomAPI.getRoomByID(route.params.id)).data;
+  state.roomID = route.params.id
+  const data = await (await RoomAPI.getRoomByID(state.roomID)).data;
   dataDetail.value = data;
 };
 
 const handleBookRoom = () => {
-  router.push("/booking/booking-form/" + route.params.id);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid);
+      sessionStorage.setItem('roomID',route.params.id)
+      router.push("/booking/booking-form/" + route.params.id);
+    } else {
+      router.push("/login");
+    }
+  });
 };
 </script>
 
@@ -470,7 +480,6 @@ a {
   font-size: 14px;
   width: 120px;
 }
-
 
 .modal-right {
   background-color: var(--cards-area-bg);

@@ -579,13 +579,13 @@ import DxChart, {
 } from "devextreme-vue/chart";
 
 const complaintsData = [
-  { complaint: "Cold pizza", count: 780 },
-  { complaint: "Not enough cheese", count: 120 },
-  { complaint: "Underbaked or Overbaked", count: 52 },
-  { complaint: "Delayed delivery", count: 1123 },
-  { complaint: "Damaged pizza", count: 321 },
-  { complaint: "Incorrect billing", count: 89 },
-  { complaint: "Wrong size delivered", count: 222 },
+  { complaint: "Monday", count: 780 },
+  { complaint: "Tuesday", count: 120 },
+  { complaint: "Wednesday", count: 52 },
+  { complaint: "Thursday", count: 1123 },
+  { complaint: "Friday", count: 321 },
+  { complaint: "Saturday", count: 89 },
+  { complaint: "Sunday", count: 222 },
 ];
 const data = complaintsData.sort((a, b) => b.count - a.count);
 const totalCount = data.reduce((prevValue, item) => prevValue + item.count, 0);

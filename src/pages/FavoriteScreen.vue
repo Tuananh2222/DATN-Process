@@ -1,594 +1,186 @@
 <template>
   <DefaultHeader />
-  <div class="body">
-    <section class="cart_wrapper">
-      <div class="cart_lists">
-        <div class="cart_title">
-          <span><font-awesome-icon :icon="['fas', 'heart']" size="xl" /></span>
-          Your Room Favorite
-        </div>
+  <div class="mt-40 table-order">
+    <DxDataGrid
+      :allowColumnResizing="true"
+      :columnResizingMode="'widget'"
+      :showColumnLines="false"
+      :showBorders="false"
+      :width="'100%'"
+      :noDataText="'You don\'t have any orders yet'"
+      :data-source="orders"
+    >
+      <DxColumn
+        :width="250"
+        :data-field="'roomName'"
+        :allow-sorting="false"
+        :caption="'Room Name'"
+      >
+      </DxColumn>
 
-        <div class="cart_list_wrap">
-          <div class="cart_overflow">
-            <div
-              class="cart_responsive"
-              v-for="(item, index) in state.listFavarite"
-              :key="index"
-            >
-              <CCartItem
-                :title="item.title"
-                :view_detail="item.view"
-                :img_url="item.img_url"
-                @move-detail="handleMoveItem(index)"
-              >
-                <div class="td_item item_color">
-                  <label>Max People: {{ item.people }}</label>
-                </div>
-                <div class="td_item item_qty">
-                  Bed Type: {{ item.bed_type }}
-                </div>
-                <div class="td_item item_price">
-                  <label>Room Size: {{ item.room_size }}<sup>2</sup></label>
-                </div>
-                <div
-                  class="td_item item_remove"
-                  @click="handleRemoveItem(index)"
-                >
-                  <font-awesome-icon :icon="['fas', 'xmark']" />
-                </div>
-              </CCartItem>
-            </div>
-          </div>
-          <div class="footer">
-            <div class="back_cart">
-              <a href="#back">
-                <font-awesome-icon :icon="['fas', 'arrow-left']" />
-                Back
-              </a>
-            </div>
-          </div>
+      <DxColumn
+        :width="160"
+        :data-field="'arrivalTime'"
+        :allow-sorting="false"
+        :caption="'Day In'"
+        cellTemplate="arrivalTemplate"
+      >
+      </DxColumn>
+
+      <DxColumn
+        :width="160"
+        :data-field="'depatureTime'"
+        :allow-sorting="false"
+        :caption="'Day Out'"
+        cellTemplate="depatureTemplate"
+      >
+      </DxColumn>
+
+      <DxColumn
+        :width="160"
+        :data-field="'createdDate'"
+        :allow-sorting="false"
+        :caption="'date created'"
+        cellTemplate="createdTemplate"
+      >
+      </DxColumn>
+
+      <DxColumn
+        :width="160"
+        :data-field="'statusPayment'"
+        :allow-sorting="false"
+        alignment="left"
+        :caption="'Payment Status'"
+        cellTemplate="paymentStatusTemplate"
+      >
+      </DxColumn>
+
+      <DxColumn
+        :width="160"
+        :data-field="'statusOrder'"
+        :allow-sorting="false"
+        :caption="'Order Status'"
+        alignment="center"
+        cellTemplate="orderStatusTemplate"
+      >
+      </DxColumn>
+
+      <DxColumn
+        :width="100"
+        :data-field="'price'"
+        :allow-sorting="false"
+        :caption="'Total Amount'"
+        cellTemplate="totalBillTemplate"
+      >
+      </DxColumn>
+
+      <template #arrivalTemplate="{ data }">
+        <div>{{ formatDate(data.value) }}</div>
+      </template>
+
+      <template #depatureTemplate="{ data }">
+        <div>{{ formatDate(data.value) }}</div>
+      </template>
+
+      <template #createdTemplate="{ data }">
+        <div>{{ formatDate(data.value) }}</div>
+      </template>
+      <template #paymentStatusTemplate="{ data }">
+        <div
+          class="border-radius text-white order-pending"
+          v-if="data.value == 0"
+        >
+          Chờ xác nhận
         </div>
-      </div>
-    </section>
+        <div
+          class="border-radius text-white order-confirm"
+          v-if="data.value == 1"
+        >
+          Đã xác nhận
+        </div>
+        <div
+          class="border-radius text-white order-cancel"
+          v-if="data.value == 2"
+        >
+          Hủy thanh toán
+        </div>
+      </template>
+      <template #orderStatusTemplate="{ data }">
+        <div
+          class="border-radius text-white order-pending"
+          v-if="data.value == 0"
+        >
+          Chờ xác nhận
+        </div>
+        <div
+          class="border-radius text-white order-confirm"
+          v-if="data.value == 1"
+        >
+          Đã xác nhận
+        </div>
+        <div
+          class="border-radius text-white order-cancel"
+          v-if="data.value == 2"
+        >
+          Hủy thanh toán
+        </div>
+      </template>
+
+      <template #totalBillTemplate="{ data }">
+        <div class="text-red">
+          {{
+            data.value.toLocaleString("it-IT", {
+              style: "currency",
+              currency: "USD",
+            })
+          }}
+        </div>
+      </template>
+    </DxDataGrid>
   </div>
+  <DefaultFooter/>
 </template>
 
 <script setup>
-import CCartItem from "@/components/elements/CCartItem.vue";
-import router from "@/router";
-import { onMounted } from "vue";
-import useCartStore from "@/stores/cart";
+import { onMounted, ref } from "vue";
+import DxDataGrid, { DxColumn } from "devextreme-vue/data-grid";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
-
-const { state, initProcess } = useCartStore();
+import OrderRoom from "@/api/OrderRoom";
+import useAppStore from "@/stores/app";
+import DefaultFooter from "@/components/generals/defaultFooter.vue";
 
 onMounted(() => {
-  initProcess();
+  getOrderByUserID();
 });
-
-const handleRemoveItem = (index) => {
-  console.log(index);
-  state.listFavarite.splice(index, 1);
+const appStore = useAppStore();
+const { state } = appStore;
+const orders = ref([]);
+const getOrderByUserID = async () => {
+  const userID = state.detailUser.userID;
+  console.log(userID);
+  const res = await OrderRoom.getOrderRoomByUserID(userID);
+  orders.value = res.data;
 };
+const formatDate = (d) => {
+  try {
+    console.log(d);
+    const date = new Date(d);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
 
-const handleMoveItem = () => {
-  router.push({
-    path: "/hotel-detail/:id",
-    name: "Hotel Detail",
-    component: () => import("@/pages/HotelDetail/[roomID].vue"),
-  });
+    return `${day}/${month}/${year}`;
+  } catch (error) {
+    return d;
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-@mixin size($point) {
-  @if $point == lg-device {
-    @media (min-width: 1024px) and (max-width: 1600px) {
-      @content;
-    }
-  } @else if $point == md-device {
-    @media (min-width: 768px) and (max-width: 1023px) {
-      @content;
-    }
-  } @else if $point == sm-device {
-    @media (max-width: 767px) {
-      @content;
-    }
-  }
-}
-@font-face {
-  font-family: "Material Icons Outlined";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v54/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2)
-    format("woff2");
-}
-@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap");
-
-.body {
-  font-family: "Jost", sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  color: #34302d;
-  padding: 0px;
-  margin: 0px;
-  box-sizing: border-box;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
-  min-width: 360px;
-  @include size(sm-device) {
-    align-items: baseline;
-  }
-  @include size(md-device) {
-    align-items: baseline;
-  }
+.table-order{
+  width: 70%;
+  margin: 0 auto;
 }
 
-.cart_wrapper {
-  max-width: 1200px;
-  width: 100%;
-  max-height: 800px;
-  background-color: white;
-  margin: 30px;
-  overflow: hidden;
-  @include size(md-device) {
-    max-height: 1000px;
-  }
-  @include size(sm-device) {
-    max-height: unset;
-    max-width: 100%;
-    margin: 15px;
-  }
 
-  // cart_lists
-  .cart_lists {
-    border-radius: 8px;
-    background-color: #ecf0f1;
-    padding: 30px;
-    .cart_title {
-      display: flex;
-      align-items: center;
-      font-size: 22px;
-      font-weight: 400;
-      height: 50px;
-
-      span {
-        padding-right: 8px;
-        line-height: 18px;
-      }
-    }
-    .cart_list_wrap {
-      padding: 25px 40px;
-      overflow: hidden;
-      @include size(sm-device) {
-        padding-left: 0px;
-        padding-right: 0px;
-      }
-      .cart_overflow {
-        overflow-x: auto;
-        overflow-y: auto;
-        max-height: 380px;
-        .cart_responsive {
-          @include size(md-device) {
-            max-height: 380px;
-          }
-          @include size(sm-device) {
-            // max-height: 800px;
-          }
-          &::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-          }
-          &::-webkit-scrollbar-thumb {
-            background-color: #ddd;
-          }
-          &::-webkit-scrollbar-track {
-            background-color: #eee;
-          }
-          .tr_item {
-            display: grid;
-            grid-template-columns: 80px 1fr 125px 1fr 150px 50px 50px;
-            margin-bottom: 15px;
-            transition: all 0.3s linear;
-            position: relative;
-            transform: scale(0.995);
-            @for $i from 1 through 50 {
-              &:nth-last-child(#{$i}) {
-                animation: listshow linear;
-                animation-duration: 1000ms - 180ms * $i;
-                transform-origin: top;
-                @keyframes listshow {
-                  0% {
-                    opacity: 0;
-                    transform: scaleY(0);
-                    transform-origin: top;
-                  }
-                  50% {
-                    transform: scaleY(0);
-                  }
-                  100% {
-                    opacity: 1;
-                    transform: scaleY(1);
-                  }
-                }
-              }
-            }
-
-            @include size(sm-device) {
-              grid-template-columns: 80px auto 80px auto;
-            }
-
-            &::after {
-              content: "";
-              position: absolute;
-              left: 0px;
-              bottom: 0px;
-              height: 2px;
-              background-color: #d9d9d9;
-              width: 0px;
-              margin: auto;
-            }
-            @keyframes line {
-              0% {
-                width: 0px;
-              }
-              100% {
-                width: calc(100% - 50px);
-              }
-            }
-            &:hover {
-              transform: scale(1);
-              &::after {
-                width: calc(100% - 50px);
-                animation: line 0.5s linear;
-              }
-            }
-            .td_item {
-              padding: 10px;
-              background-color: #e5e9ea;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              font-weight: 400;
-              font-size: 16px;
-              color: #666;
-              transition: all 0.3s linear;
-              @include size(sm-device) {
-                padding: 5px;
-              }
-              &.item_img {
-                @include size(sm-device) {
-                  grid-row-start: 1;
-                  grid-row-end: 3;
-                }
-                img {
-                  height: 60px;
-                  width: 60px;
-                  overflow: hidden;
-                  border-radius: 100px;
-                  max-width: 100%;
-                }
-              }
-              &.item_name {
-                @include size(sm-device) {
-                  grid-row-start: 1;
-                  grid-row-end: 2;
-                  grid-column-start: 2;
-                  grid-column-end: 5;
-                  width: 100%;
-                }
-                .main {
-                  font-size: 16px;
-                  font-weight: 400;
-                  color: #666;
-                }
-                .sub {
-                  font-size: 12px;
-                  color: #666;
-                }
-              }
-              &.item_qty {
-                select {
-                  height: 30px;
-                  background-color: transparent;
-                  border-color: transparent;
-                  border-width: 2px;
-                  outline: none;
-                  color: #666;
-                  font-weight: 400;
-                  font-size: 16px;
-                  transition: all 0.3s linear;
-                  &:focus {
-                    background-color: #e2e2e2;
-                  }
-                  &:hover {
-                    border-bottom: solid 2px #e2e2e2;
-                  }
-                }
-              }
-              &.item_price {
-                label {
-                  margin: auto;
-                }
-              }
-              &.item_detail {
-                cursor: pointer;
-                background-color: transparent;
-                padding: 0;
-              }
-              &.item_detail:hover {
-                color: #bbb;
-                padding: 0;
-              }
-
-              &.item_remove {
-                cursor: pointer;
-                font-size: 18px;
-                opacity: 0.6;
-                padding: 5px;
-                cursor: pointer;
-                transition: all 0.2s linear;
-                padding-left: 10px;
-                &:hover {
-                  opacity: 1;
-                  transform: scale(1.1);
-                }
-                background-color: transparent;
-                @include size(sm-device) {
-                  position: absolute;
-                  right: 0px;
-                  top: 0px;
-                }
-              }
-            }
-          }
-        }
-      }
-      .footer {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        padding: 20px 5px;
-        .back_cart {
-          width: 50%;
-          flex: 0 0 50%;
-          a {
-            color: #303030;
-            vertical-align: middle;
-            font-size: 14px;
-            font-weight: 400;
-            text-decoration: none;
-            transition: all 0.3s;
-            &:hover {
-              color: #111;
-              span {
-                animation: arrow 1.5s infinite ease;
-              }
-            }
-            span {
-              vertical-align: sub;
-              font-size: 18px;
-              margin-right: 5px;
-            }
-            @keyframes arrow {
-              0% {
-                transform: translateX(0px);
-              }
-              25% {
-                transform: translateX(-2px);
-              }
-              75% {
-                transform: translateX(2px);
-              }
-              100% {
-                transform: translateX(0px);
-              }
-            }
-          }
-        }
-        .subtotal {
-          width: calc(50% - 80px);
-          flex: 0 0 calc(50% - 50px);
-          text-align: right;
-          font-size: 16px;
-          @include size(sm-device) {
-            width: 50%;
-            flex: 0 0 50%;
-          }
-          label {
-            margin-right: 15px;
-          }
-        }
-      }
-    }
-  }
-
-  // cart_details
-  .cart_details {
-    background: linear-gradient(45deg, #303030, #4b4643);
-    padding: 30px 40px;
-    width: 330px;
-    flex: 0 0 330px;
-    box-shadow: -8px 0px 32px rgba(0, 0, 0, 0.36);
-    position: relative;
-    @include size(md-device) {
-      width: 100%;
-      flex: 0 0 100%;
-    }
-    @include size(sm-device) {
-      width: 100%;
-      flex: 0 0 100%;
-      padding: 30px;
-    }
-    .cart_title {
-      font-size: 22px;
-      color: #f1c40f;
-      font-weight: 400;
-      margin-bottom: 60px;
-      @include size(md-device) {
-        margin-bottom: 40px;
-      }
-    }
-
-    .form_row {
-      display: flex;
-      flex-wrap: wrap;
-      @include size(md-device) {
-        margin-bottom: 40px;
-      }
-      .form_group {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0px;
-        margin-bottom: 35px;
-        padding: 0px 10px;
-        width: 100%;
-        @include size(md-device) {
-          &:nth-child(2) {
-            width: 50%;
-          }
-          &:nth-child(3) {
-            width: 30% !important;
-            flex: 0 0 30% !important;
-          }
-          &:nth-child(4) {
-            width: 20% !important;
-            flex: 0 0 20% !important;
-          }
-        }
-        &.w_75 {
-          width: 65%;
-          flex: 0 0 65%;
-        }
-        &.w_25 {
-          width: 35%;
-          flex: 0 0 35%;
-        }
-        .input_label {
-          color: #f3f3f3;
-          font-weight: 300;
-          font-size: 16pxx;
-          width: 100%;
-          flex: 0 0 100%;
-          letter-spacing: 0.5px;
-        }
-        .input {
-          width: 100%;
-          flex: 0 0 100%;
-          background-color: transparent;
-          border: none;
-          outline: none;
-          color: #eee;
-          font-size: 16px;
-          font-weight: 400;
-          letter-spacing: 0.5px;
-          border-bottom: solid 2px #999;
-          height: 32px;
-          transition: all 0.3s linear;
-          &::placeholder {
-            font-size: 16px;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.1);
-            transition: all 0.2s linear;
-          }
-          &:focus {
-            &::placeholder {
-              opacity: 0;
-            }
-          }
-        }
-        &.cart_type {
-          justify-content: space-between;
-          @include size(md-device) {
-            justify-content: left;
-          }
-          .type {
-            width: calc(100% / 3 - 15px);
-            padding: 0px;
-            margin-top: 5px;
-            cursor: pointer;
-            transition: all 0.3s linear;
-            @include size(md-device) {
-              width: 75px;
-            }
-            &:hover {
-              svg {
-                fill: #bbb;
-              }
-            }
-            svg {
-              width: 42px;
-              fill: #7f7a76;
-              transition: all 0.3s linear;
-            }
-            &.paypal {
-              svg {
-                width: 62px;
-                margin-top: -10px;
-              }
-            }
-          }
-          input {
-            display: none;
-            &#master {
-              &:checked ~ {
-                .master {
-                  svg {
-                    fill: #f4f4f4;
-                  }
-                }
-              }
-            }
-            &#visa {
-              &:checked ~ {
-                .visa {
-                  svg {
-                    fill: #f4f4f4;
-                  }
-                }
-              }
-            }
-            &#paypal {
-              &:checked ~ {
-                .paypal {
-                  svg {
-                    fill: #f4f4f4;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .btn {
-        width: calc(100%);
-        height: 65px;
-        margin: 0px -40px;
-        background-color: #f1c40f;
-        border: none;
-        color: #333;
-        font-size: 15px;
-        font-weight: 400;
-        position: absolute;
-        bottom: 0px;
-        transition: all 0.3s linear;
-        @include size(sm-device) {
-          position: static;
-          margin: auto;
-        }
-        &:hover {
-          background-color: darken($color: #f1c40f, $amount: 4);
-        }
-        &:active {
-          box-shadow: inset 0 0 28px 0px rgba(0, 0, 0, 0.3);
-        }
-      }
-    }
-  }
-}
 </style>

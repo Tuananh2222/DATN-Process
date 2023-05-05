@@ -11,7 +11,7 @@
         <div class="box-container">
           <TextBox
             v-model.trim="state.userName"
-            placeholder="Họ tên"
+            placeholder="Full Name"
             :required="false"
           />
           <textarea
@@ -50,7 +50,7 @@
             </div>
             <div class="unit__body">
               <a class="text-middle link link-gray-dark" href="tel:#"
-                >1-800-1234-567</a
+                >0971935724</a
               >
             </div>
           </div>
@@ -64,7 +64,7 @@
             </div>
             <div class="unit__body">
               <a class="text-middle link link-gray-dark" href="contacts.html"
-                >267 Park Avenue New York, NY 90210</a
+                >298 Cau Dien Street</a
               >
             </div>
           </div>

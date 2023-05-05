@@ -16,9 +16,6 @@
       <div class="icon" @click="handleUser">
         <font-awesome-icon :icon="['fas', 'user']" size="lg" />
       </div>
-      <div class="icon" @click="handleFavorite">
-        <font-awesome-icon :icon="['fas', 'heart']" size="lg" />
-      </div>
       <div class="icon notification">
         <a href="#">
           <div class="notBtn" href="#">
@@ -33,12 +30,12 @@
                   <div
                     v-for="(notification, index) in sortByField(
                       'sortOrder',
-                      state.notification
+                      state.notifications
                     )"
                     :key="index"
                     class="sec"
                   >
-                    <a href="https://codepen.io/Golez/">
+                    <a>
                       <div class="txt">
                         {{ notification.message }}
                       </div>
@@ -99,10 +96,6 @@ const handleUser = () => {
       router.push("/login");
     }
   });
-};
-
-const handleFavorite = () => {
-  router.push("/favorite");
 };
 
 const handleNotifications = () => {
@@ -267,8 +260,10 @@ const headerList = [
 
 .txt {
   vertical-align: top;
-  font-size: 1.25rem;
-  padding: 5px 10px 0px 10px;
+  font-size: 1.0rem;
+  padding: 5px 0 0px 10px;
+  white-space: pre-wrap;
+  line-height: 1.5;
 }
 
 .sub {

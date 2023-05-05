@@ -88,25 +88,21 @@ export const useAuthenStore = defineStore("authen", () => {
   const handleSignUp = async () => {
     fetchSignInMethodsForEmail(auth, state.email).then((signInMethods) => {
       if (signInMethods.length > 0) {
-        state.isExist = "Email đã tồn tại! Vui lòng nhập lại email!"
-      }
-      else {
+        state.isExist = "Email đã tồn tại! Vui lòng nhập lại email!";
+      } else {
         createUserWithEmailAndPassword(auth, state.email, state.password)
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            const userInsert = new UserInsert(user.uid, user.email)
+            const userInsert = new UserInsert(user.uid, user.email);
             for (let item of user.providerData) {
               if (item.providerId == "password") {
-                sendEmailVerification (user)
+                sendEmailVerification(user)
                   .then(async () => {
                     // Email verification sent
-                    await UserAPI.insertUser(userInsert)
-                    state.showPopup = true
-                    setTimeout(() => {
-                      router.push("/login");
-                    }, 5000)
-
+                    await UserAPI.insertUser(userInsert);
+                    state.showPopup = true;
+                    router.push("/login");
                   })
                   .catch((error) => {
                     // Handle errors
@@ -123,8 +119,7 @@ export const useAuthenStore = defineStore("authen", () => {
             // ..
           });
       }
-    })
-
+    });
   };
 
   return {

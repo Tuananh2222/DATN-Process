@@ -7,7 +7,7 @@ import Facilities from "@/api/Facilities";
 export const useHotelItemStore = defineStore("hotelItem", () => {
     const state = reactive({
         listFacilities: [],
-        
+        roomID:""
     });
 
     const initProcess = async () => {

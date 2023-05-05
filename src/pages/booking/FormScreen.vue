@@ -15,10 +15,7 @@
       <div class="detaile-room">
         <div class="header-detail-room">
           <div class="img-room">
-            <img
-              src="https://new-hls.s3.amazonaws.com/hbe/data/59d2d63d-b813-1541484722-4ff0-a98b-70a19e5d04fa/gallery/room/thumbs/sm_thumb_37940f85-ad3c-409a-b5e6-a72452535e58_1650034054.jpeg"
-              alt=""
-            />
+            <img :src="dataDetailRoom.imgUrl" width="240" />
           </div>
           <div class="description-room">
             <div class="title-description">{{ dataDetailRoom.roomName }}</div>
@@ -79,7 +76,13 @@
               <div class="text">per night</div>
             </div>
             <div class="room">
-              <div v-if="checkinDate && checkoutDate">
+              <div
+                v-if="
+                  state.orderRoom.arrivalTime &&
+                  state.orderRoom.depatureTime &&
+                  dayBooking >= 2
+                "
+              >
                 <CDropdown
                   :data="dataCountRoom"
                   fieldDisplay="name"
@@ -88,9 +91,9 @@
                   @changeValue="changeValueRoom"
                 />
               </div>
-              <div v-if="!checkoutDate">
+              <div v-if="dayBooking < 2">
                 <CButton
-                  :label="'MIN 2 NIGHTS'"
+                  :label="'MIN 2 DAYS'"
                   :class-name="'button-primary button-square button-block button-disabled'"
                 />
               </div>
@@ -98,7 +101,14 @@
           </div>
         </div>
       </div>
-      <div class="btn-booking" v-if="checkinDate && checkoutDate && coutnRoom">
+      <div
+        class="btn-booking"
+        v-if="
+          state.orderRoom.arrivalTime &&
+          state.orderRoom.depatureTime &&
+          countRoom
+        "
+      >
         <CDropdown
           :data="dataDeal"
           fieldDisplay="nameDeal"
@@ -110,11 +120,12 @@
           <CButton
             :label="'Booking Now'"
             :class-name="'button-primary button-square button-block button-effect-ujarak'"
+            @handle-button="handleSubmitForm"
           />
         </div>
         <div class="count-room">{{ nameRoom }}</div>
         <div class="price-room">
-          {{ priceAfterDiscount * dayBooking * coutnRoom }}
+          {{ priceAfterDiscount * dayBooking * countRoom }}
         </div>
         <div class="count-night-rent">
           for
@@ -124,6 +135,28 @@
       </div>
     </div>
   </div>
+  <CPopup :popup-title="'Phương thức thanh toán'" v-if="isShowPopupPayment">
+    <div class="payment-method">
+      <div class="payment-method-item">
+        <div class="title">Pay online with PayPal:</div>
+        <CPaypal
+          :price="(priceAfterDiscount * countRoom * dayBooking).toString()"
+          :name-room="dataDetailRoom.roomName"
+          :description="dataDetailRoom.description"
+          @pop-up="handleUpdateState"
+          @close-popup="handleButtonPaypal"
+        />
+      </div>
+      <div class="payment-method-item">
+        <div class="title">Direct payment:</div>
+        <div class="phone">
+          Please contact us directly via hotline:
+          <b style="font-weight: bold">0971935724</b> or go to the payment
+          counter
+        </div>
+      </div>
+    </div>
+  </CPopup>
   <DefaultFooter />
 </template>
 
@@ -139,71 +172,38 @@ import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import useOrderRoom from "@/stores/orderRoom";
 import CDateSelection from "@/components/elements/CDateSelection.vue";
-import { storeToRefs } from "pinia";
+import CPopup from "@/components/elements/CPopup.vue";
+import CPaypal from "@/components/elements/CPaypal.vue";
+import router from "@/router";
 
 const { initProcess } = useHotelItemStore();
 const orderRoomStore = useOrderRoom();
-const { getDataOrder, formatDate } = orderRoomStore;
+const { state, getDataOrder, formatDate, updateStatePayment, checkDateRange } =
+  orderRoomStore;
 const route = useRoute();
-
-const disabledDates = ref([]);
 const nameRoom = ref("");
 const nameDeal = ref("");
-const priceRoom = ref(0);
-const coutnRoom = ref(0);
-const { state } = storeToRefs(orderRoomStore);
-// const dayBooking = computed(() => {
-//   return Math.ceil(
-//     (checkoutDate.value - checkinDate.value) / (1000 * 60 * 60 * 24)
-//   );
-// });
+const countRoom = ref(0);
+const isShowPopupPayment = ref(false);
+const dayBooking = computed(() => {
+  return Math.ceil(
+    (state.orderRoom.depatureTime - state.orderRoom.arrivalTime) /
+      (1000 * 60 * 60 * 24)
+  );
+});
 
 let dataDetailRoom = ref({});
-
-// //xem sự thay đổi của thời gian check in
-// watch(checkinDate, (newValue, oldValue) => {
-//   const newDisabledDates = [...disabledDates.value];
-//   if (newValue) {
-//     newDisabledDates.push(
-//       new Date(newValue.getFullYear(), newValue.getMonth(), newValue.getDate())
-//     );
-//     disabledDates.value = newDisabledDates;
-//   }
-//   if (oldValue) {
-//     const indexToRemove = newDisabledDates.indexOf(oldValue);
-//     if (indexToRemove !== -1) {
-//       newDisabledDates.splice(indexToRemove, 1);
-//     }
-//     disabledDates.value = newDisabledDates;
-//   }
-// });
 
 onMounted(async () => {
   await initProcess();
   await GetRoomDetails();
   await getDataOrder();
-  await GetTimeRoom();
 });
 
 const GetRoomDetails = async () => {
   const { data } = await RoomAPI.getRoomByID(route.params.id);
   dataDetailRoom.value = data;
-  priceRoom.value = data.price;
-};
-
-const GetTimeRoom = async () => {
-  const newArrayDate = formatDate(state.listDate);
-  const minDate = newArrayDate.reduce((min, current) => {
-    const date1 = new Date(current.arrivalTime);
-    return date1 < min ? date1 : min;
-  }, new Date(newArrayDate[0].arrivalTime));
-
-  const maxDate = newArrayDate.reduce((max, current) => {
-    const currentDate = new Date(current.depatureTime);
-    return currentDate > max ? currentDate : max;
-  }, new Date(newArrayDate[0].depatureTime));
-
-  disabledDates.value = getDatesInRange(new Date(minDate), new Date(maxDate));
+  state.orderRoom.price = data.price;
 };
 
 const discountPriceEarly = (price) => {
@@ -215,19 +215,19 @@ const discountPriceNormal = (price) => {
 
 const priceAfterDiscount = computed(() => {
   if (nameDeal.value == "Early deal 65") {
-    return discountPriceEarly(priceRoom.value);
+    return discountPriceEarly(state.orderRoom.price);
   }
   if (nameDeal.value == "Basic deal") {
-    return discountPriceNormal(priceRoom.value);
+    return discountPriceNormal(state.orderRoom.price);
   }
-  return priceRoom.value;
+  return state.orderRoom.price;
 });
 
 const changeNameRoom = (name) => {
   nameRoom.value = name;
 };
 const changeValueRoom = (index) => {
-  coutnRoom.value = index;
+  countRoom.value = index;
 };
 
 const changeNameDeal = (deal) => {
@@ -235,7 +235,22 @@ const changeNameDeal = (deal) => {
 };
 
 const handleChooseDateIn = (date) => {
-  console.log(date);
+  state.orderRoom.arrivalTime = date;
+};
+const handleChooseDateOut = (date) => {
+  state.orderRoom.depatureTime = date;
+};
+
+const handleSubmitForm = () => {
+  isShowPopupPayment.value = true;
+};
+
+const handleUpdateState = async () => {
+  state.orderRoom.roomID = route.params.id;
+  state.orderRoom.price = priceAfterDiscount.value * countRoom.value * dayBooking.value;
+  isShowPopupPayment.value = false;
+  await updateStatePayment();
+  router.push("/hotel")
 };
 
 const dataCountRoom = [

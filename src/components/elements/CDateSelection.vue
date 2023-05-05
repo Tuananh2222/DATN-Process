@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-date">
     <div class="date-pick" @click="toggleCalendar">
       <div class="icon-calendar"></div>
       <span class="span-date">{{ formattedDate }} </span>
@@ -188,10 +188,9 @@ const formattedDate = computed(() => {
     padding-right: 3px;
   }
 }
-.container {
+.container-date {
   width: 100%;
   height: auto;
-  margin-bottom: 20px;
   .date-pick {
     width: 200px;
     height: 50px;

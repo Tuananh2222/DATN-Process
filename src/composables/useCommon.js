@@ -1,36 +1,44 @@
 export default function () {
-
   const formatNumber = (number) => {
     return number ? new Intl.NumberFormat().format(Number(number)) : 0;
   };
 
-  const formatDate = (dateIn) => {
-    if (!dateIn)
-      return ""
+  const formatDate = (d) => {
+    try {
+      const date = new Date(d);
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const year = date.getFullYear();
 
-    const date = new Date(dateIn)
-
-    return `${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}/${date.getMonth() < 9 ? `${0}${date.getMonth() + 1}` : date.getMonth() + 1}/${date.getFullYear()}`
-  }
+      return `${day}/${month}/${year}`;
+    } catch (error) {
+      return d;
+    }
+  };
 
   const getListPageNumber = (totalPage, currentPage) => {
     let pageRender = [];
 
     if (totalPage > 4) {
-      if (currentPage < 3)
-        pageRender = [1, 2, 3, null, totalPage]
+      if (currentPage < 3) pageRender = [1, 2, 3, null, totalPage];
       else if (currentPage > totalPage - 3)
-        pageRender = [1, null, totalPage - 2, totalPage - 1, totalPage]
+        pageRender = [1, null, totalPage - 2, totalPage - 1, totalPage];
       else
-        pageRender = [1, null, currentPage, currentPage + 1, currentPage + 2, null, totalPage]
+        pageRender = [
+          1,
+          null,
+          currentPage,
+          currentPage + 1,
+          currentPage + 2,
+          null,
+          totalPage,
+        ];
     } else {
-      for (let i = 1; i <= totalPage; i++)
-        pageRender.push(i)
+      for (let i = 1; i <= totalPage; i++) pageRender.push(i);
     }
 
-    return pageRender
-  }
-
+    return pageRender;
+  };
 
   /**
    * Random màu
@@ -63,6 +71,6 @@ export default function () {
     scrollTo,
     randomColor,
     formatDate,
-    getListPageNumber
+    getListPageNumber,
   };
 }

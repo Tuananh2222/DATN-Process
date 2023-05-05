@@ -11,7 +11,10 @@ export const useEvaluateStore = defineStore("evaluate", () => {
   });
 
   const insertEvaluate = async () => {
-    await EvaluateAPI.insertEvaluate({ ...state, evaluateID: uuidv4() });
+    await EvaluateAPI.insertEvaluate({ ...state, evaluateID: uuidv4() }).then(() => {
+      state.userName ='',
+      state.description = ''
+    });
     console.log("first");
   };
 

@@ -25,8 +25,14 @@ import CLoading from "./components/elements/CLoading.vue";
 import CToast from "./components/elements/CToast.vue";
 import useAppStore from "./stores/app";
 import { ToastMode } from "./utils/Resource/Enum";
+import { onMounted } from "vue";
 
 const AppStore = useAppStore();
+
+onMounted(() => {
+  AppStore.initWebsite();
+  localStorage.removeItem("__paypal_storage__")
+});
 </script>
 
 <style lang="scss">

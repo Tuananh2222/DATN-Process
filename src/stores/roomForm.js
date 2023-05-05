@@ -46,7 +46,7 @@ export const useRoomForm = defineStore("roomForm", () => {
       price: "",
       viewRoom: "",
       imgUrl: "",
-      description: ""
+      description: "",
     },
     hasErrors: {
       roomCode: "",
@@ -60,7 +60,7 @@ export const useRoomForm = defineStore("roomForm", () => {
       bedTypeID: "",
       bathroomID: "",
     },
-    isValidForm: false
+    isValidForm: false,
   });
   const ruleList = {
     roomCode: {
@@ -98,23 +98,22 @@ export const useRoomForm = defineStore("roomForm", () => {
     },
   };
   const validate = async (val) => {
-    const $v = useVuelidate(ruleList, state.rooms)
-    const v = await $v.value[val].$validate()
-    const vf = await $v.value.$validate()
+    const $v = useVuelidate(ruleList, state.rooms);
+    const v = await $v.value[val].$validate();
+    const vf = await $v.value.$validate();
     if (!v) {
-      state.hasErrors[val] = $v.value[val].$errors[0].$message
+      state.hasErrors[val] = $v.value[val].$errors[0].$message;
+    } else {
+      state.hasErrors.bedTypeID = "";
+      state.hasErrors.bathroomID = "";
+      2;
     }
-    else {
-      state.hasErrors.bedTypeID = ""
-      state.hasErrors.bathroomID = ""
-      2
-    }
-    state.isValidForm = vf
-    console.log(vf)
-  }
+    state.isValidForm = vf;
+    console.log(vf);
+  };
 
   const roomStore = useHotelStore();
-  const { loadDataRoom } = roomStore
+  const { loadDataRoom } = roomStore;
   const { checkField, checkAllField } = useValidate(
     ruleList,
     state.rooms,
@@ -180,77 +179,80 @@ export const useRoomForm = defineStore("roomForm", () => {
   };
 
   const isChanged = () => {
-    const fieldName = Object.keys(state.rooms)
+    const fieldName = Object.keys(state.rooms);
     let isChanged = false;
     if (state.formMode == FormMode.FORM_ADD) {
-      fieldName.forEach(field => {
-        if (state.rooms[field] && field != 'roomCode') {
+      fieldName.forEach((field) => {
+        if (state.rooms[field] && field != "roomCode") {
           isChanged = true;
         }
-      })
-    }
-    else {
-      fieldName.forEach(field => {
+      });
+    } else {
+      fieldName.forEach((field) => {
         if (state.rooms[field] != state.roomDetail[field]) {
-          isChanged = true
+          isChanged = true;
         }
-      })
+      });
     }
-    console.log(isChanged)
     return isChanged;
-  }
+  };
 
   const saveForm = async () => {
     try {
-      if (!state.isValidForm) {
+      if (state.isValidForm) {
         if (state.formMode == FormMode.FORM_ADD) {
-          await RoomAPI.insertNewRoom({ ...state.rooms, roomID: uuidv4() })
-
-        }
-        else if (state.formMode == FormMode.FORM_EDIT) {
-          await RoomAPI.updateRoom(state.idRoomEdit, state.rooms)
+          await RoomAPI.insertNewRoom({ ...state.rooms, roomID: uuidv4() });
+          state.isShowPopup = false;
+          await loadDataRoom();
+        } else if (state.formMode == FormMode.FORM_EDIT) {
+          await RoomAPI.updateRoom(state.idRoomEdit, state.rooms);
+          state.isShowPopup = false;
+          await loadDataRoom();
         }
       }
     } catch (error) {
-      const status = error.response.status
-      const responseError = error.response
+      const status = error.response.status;
+      const responseError = error.response;
       if (status == 500) {
-        state.toastMessage = responseError.userMsg
-        state.typeToast = ToastMode.ERROR
+        state.toastMessage = responseError.userMsg;
+        state.typeToast = ToastMode.ERROR;
         setTimeout(() => {
-          state.toastMessage = ""
-        }, 5000)
+          state.toastMessage = "";
+        }, 5000);
       }
 
       if (status == 400) {
-        const errors = error.response.data.errors
+        const errors = error.response.data.errors;
 
         if (errors.RoomCode) {
-          state.toastMessage = Resource.typeErrorDuplicateRoomCode
+          state.toastMessage = Resource.typeErrorDuplicateRoomCode;
           setTimeout(() => (state.toastMessage = ""), 3000);
         } else {
-          state.listErrorServer = errors
+          state.listErrorServer = errors;
           setTimeout(() => {
-            state.listErrorServer = []
-          }, 5000 + 100 * state.listErrorServer.length)
+            state.listErrorServer = [];
+          }, 5000 + 100 * state.listErrorServer.length);
         }
       }
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const deleteRoom = async () => {
     try {
       state.roomNameDelete = "";
       await RoomAPI.deleteRoom(state.idRoomTarget);
       await loadDataRoom();
-      state.toastMessage = Resource.deleteSuccess
-      state.typeToast = ToastMode.SUCCESS
-      state.idRoomEdit = null
+      state.toastMessage = Resource.deleteSuccess;
+      state.typeToast = ToastMode.SUCCESS;
+      setTimeout(() => {
+        state.typeToast = "";
+      },3000);
+      state.idRoomEdit = null;
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const emptyForm = () => {
     for (let key in state.rooms) {
@@ -271,7 +273,7 @@ export const useRoomForm = defineStore("roomForm", () => {
     validate,
     saveForm,
     isChanged,
-    deleteRoom
+    deleteRoom,
   };
 });
 export default useRoomForm;
