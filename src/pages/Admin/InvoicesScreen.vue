@@ -187,14 +187,23 @@ import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
 import { onMounted, ref } from "vue";
 import DxDataGrid, { DxColumn } from "devextreme-vue/data-grid";
 import { OrderStatus } from "@/utils/Resource/Enum";
+import useAppStore from "@/stores/app";
 
 onMounted(() => {
   getOrder();
 });
 const orders = ref([]);
+const appStore = useAppStore();
+const { state: stateApp } = appStore;
 const getOrder = async () => {
-  const res = await OrderRoom.getAllOrderRoom();
-  orders.value = res.data;
+  try {
+    const res = await OrderRoom.getAllOrderRoom();
+    orders.value = res.data;
+  } catch (error) {
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
+  }
 };
 const formatDate = (d) => {
   try {
@@ -212,14 +221,19 @@ const formatDate = (d) => {
 
 const updateStatusOrder = async (order, status) => {
   try {
-    const orderID =  order.orderRoomID;
-    console.log(orderID,{...order, statusOrder: status})
-    var res = await OrderRoom.updateOrderStatus(orderID,{...order, statusOrder: status});
-    getOrder()
+    const orderID = order.orderRoomID;
+    console.log(orderID, { ...order, statusOrder: status });
+    var res = await OrderRoom.updateOrderStatus(orderID, {
+      ...order,
+      statusOrder: status,
+    });
+    getOrder();
   } catch (error) {
-    
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -266,7 +280,7 @@ const updateStatusOrder = async (order, status) => {
     border-right: none;
   }
 }
-.action-wrapper{
+.action-wrapper {
   display: flex;
   justify-content: space-around;
 }

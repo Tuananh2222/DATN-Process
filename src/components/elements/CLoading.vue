@@ -71,7 +71,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  z-index: 9999999;
+  z-index: 9;
   background: #fff;
   transition: 0.3s all ease;
 }

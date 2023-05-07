@@ -13,6 +13,8 @@ export class Resource {
     static typeErrorDuplicateRoomCode = "Mã phòng đã tồn tại trong hệ thống."
     //Thông báo xóa thành công
     static deleteSuccess = "Xóa thành công."
+    // email chưa tồn tại
+    static emailNotExist = "Email chưa được đăng ký trên hệ thống. Vui lòng bạn hãy đăng ký tài khoản"
 
     /**
      * Func : convert message xóa

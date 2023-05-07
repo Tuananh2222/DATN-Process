@@ -85,21 +85,41 @@
     </div>
   </div>
   <DefaultFooter />
+  <CPopup
+    :popup-title="'Lexington Hotel'"
+    :popup-content="'We are happy to receive your feedback. Thank you for evaluating the system so we can make it better. Have a nice day and see you soon!'"
+    v-if="isShowPopup"
+  >
+    <div class="btn-confirm">
+      <CButton
+        :label="'Confirm'"
+        :class-name="'button-primary button-square button-block button-effect-ujarak'"
+        @handle-button="handleClose"
+      />
+    </div>
+  </CPopup>
 </template>
 
 <script setup>
 import CButton from "@/components/elements/CButton.vue";
+import CPopup from "@/components/elements/CPopup.vue";
 import TextBox from "@/components/elements/textBox.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import useEvaluateStore from "@/stores/evaluate";
+import { ref } from "vue";
 
 const evaluateStore = useEvaluateStore();
-const { state,insertEvaluate } = evaluateStore;
-
+const { state, insertEvaluate } = evaluateStore;
+const isShowPopup = ref(false)
 const sendEvaluate = async () => {
-  insertEvaluate()
+  insertEvaluate();
+  isShowPopup.value = true
 };
+
+const handleClose = () => {
+  isShowPopup.value = false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -261,5 +281,11 @@ const sendEvaluate = async () => {
   .btn-wrapper {
     margin-top: 7px;
   }
+}
+.btn-confirm{
+  margin-top: 10px;
+}
+:deep(.button-primary){
+  border-radius: 8px;
 }
 </style>

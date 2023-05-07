@@ -17,14 +17,14 @@
           :value-init="countValues"
           placeholder="Number of people in 1 room"
           @changeValue="handleChangeValue"
-          width="280px"
+          width="220px"
         />
       </div>
       <div class="app-actions-line">
         <div class="wrapper">
           <header>
             <h2>Price Range</h2>
-            <p>Use slider or enter min and max price</p>
+            <p>Choose your desired price</p>
           </header>
           <CRadio
             :value="150"
@@ -163,6 +163,9 @@ import CRadio from "@/components/elements/CRadio.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
+import useAppStore from "@/stores/app";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 import { onMounted, ref, watch } from "vue";
 
 const pageNumber = ref(1);
@@ -177,6 +180,8 @@ const selectedValue = ref(null);
 const minPrice = ref(0);
 const maxPrice = ref(0);
 const countValues = ref(0);
+const appStore = useAppStore();
+const { state: stateApp } = appStore;
 
 onMounted(async () => {
   isLoading.value = true;
@@ -206,19 +211,25 @@ const openModal = (id) => {
   router.push("/hotel-detail/" + id);
 };
 const getRoom = async () => {
-  const Data = await RoomAPI.filter(
-    pageSize.value,
-    pageNumber.value,
-    keyword.value,
-    minPrice.value,
-    maxPrice.value,
-    countValues.value
-  );
-  listHotel = Data.data;
-  console.log(listHotel);
-  rowEnd.value = Data.data.rowEnd;
-  rowStart.value = Data.data.rowStart;
-  totalRecord.value = Data.data.totalRecord;
+  try {
+    const Data = await RoomAPI.filter(
+      pageSize.value,
+      pageNumber.value,
+      keyword.value,
+      minPrice.value,
+      maxPrice.value,
+      countValues.value
+    );
+    listHotel = Data.data;
+    console.log(listHotel);
+    rowEnd.value = Data.data.rowEnd;
+    rowStart.value = Data.data.rowStart;
+    totalRecord.value = Data.data.totalRecord;
+  } catch (error) {
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
+  }
 };
 
 /**

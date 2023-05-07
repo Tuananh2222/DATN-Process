@@ -11,7 +11,9 @@ import {
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";
 import router from "@/router";
-import { UserInsert } from "@/Entities/User";
+import useAppStore from "./app";
+import { Resource } from "@/utils/Resource/resource";
+import { ToastMode } from "@/utils/Resource/Enum";
 
 export const useLoginStore = defineStore("login", () => {
   const auth = getAuth();
@@ -50,6 +52,9 @@ export const useLoginStore = defineStore("login", () => {
     state
   );
 
+  const appStore = useAppStore();
+  const { state: stateApp } = appStore;
+
   const handleSignIn = async () => {
     signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
@@ -80,33 +85,13 @@ export const useLoginStore = defineStore("login", () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
-
-  const handleSignInWithGoogle = async () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        console.log(token);
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode, errorMessage, credential, email);
-        // ...
+        if (errorCode || errorMessage) {
+          stateApp.toastMessage = Resource.emailNotExist;
+          console.log(stateApp.toastMessage)
+          stateApp.typeToast = ToastMode.ERROR;
+          setTimeout(() => (stateApp.toastMessage = ""), 5000);
+        }
+        console.log(errorCode);
       });
   };
 
@@ -120,27 +105,23 @@ export const useLoginStore = defineStore("login", () => {
           const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
-          const userInsert = new UserInsert(user.uid, user.displayName);
-          await UserAPI.insertUser(userInsert);
           sessionStorage.setItem("uid", user.uid);
-          console.log("first", user)
           // IdP data available using getAdditionalUserInfo(result)
           // ...
-          router.push("/")
-        }).catch((error) => {
+          router.push("/");
+        })
+        .catch((error) => {
           // Handle Errors here.
           const errorCode = error.code;
           const errorMessage = error.message;
           // The email of the user's account used.
-          const email = error.customData.email;
+          // const email = error.customData.email;
           // The AuthCredential type that was used.
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
-    } catch (error) {
-
-    }
-  }
+    } catch (error) {}
+  };
 
   return {
     state,
@@ -149,8 +130,7 @@ export const useLoginStore = defineStore("login", () => {
     checkAllField,
     isValidForm,
     handleSignIn,
-    handleSignInWithGoogle,
-    handleSignInWithPopup
+    handleSignInWithPopup,
   };
 });
 export default useLoginStore;

@@ -10,6 +10,7 @@ import { defineStore } from "pinia";
 import { reactive } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { useHotelStore } from "./hotel";
+import useAppStore from "./app";
 
 export const useRoomForm = defineStore("roomForm", () => {
   const state = reactive({
@@ -119,6 +120,8 @@ export const useRoomForm = defineStore("roomForm", () => {
     state.rooms,
     state.hasErrors
   );
+  const appStore = useAppStore();
+  const { state: stateApp } = appStore;
   const getBedType = async () => {
     try {
       const bedtypeData = (await BedType.getBedType()).data;
@@ -203,10 +206,20 @@ export const useRoomForm = defineStore("roomForm", () => {
         if (state.formMode == FormMode.FORM_ADD) {
           await RoomAPI.insertNewRoom({ ...state.rooms, roomID: uuidv4() });
           state.isShowPopup = false;
+          stateApp.toastMessage = Resource.saveSuccessMessage;
+          stateApp.typeToast = ToastMode.SUCCESS;
+          setTimeout(() => {
+            stateApp.toastMessage = "";
+          }, 3000);
           await loadDataRoom();
         } else if (state.formMode == FormMode.FORM_EDIT) {
           await RoomAPI.updateRoom(state.idRoomEdit, state.rooms);
           state.isShowPopup = false;
+          stateApp.toastMessage = Resource.saveSuccessMessage;
+          stateApp.typeToast = ToastMode.SUCCESS;
+          setTimeout(() => {
+            stateApp.toastMessage = "";
+          }, 3000);
           await loadDataRoom();
         }
       }
@@ -247,7 +260,7 @@ export const useRoomForm = defineStore("roomForm", () => {
       state.typeToast = ToastMode.SUCCESS;
       setTimeout(() => {
         state.typeToast = "";
-      },3000);
+      }, 3000);
       state.idRoomEdit = null;
     } catch (error) {
       console.log(error);

@@ -27,22 +27,27 @@ export const useOrderRoom = defineStore("orderRoom", () => {
   });
 
   const appStore = useAppStore();
-
   const { state: stateApp } = appStore;
 
   const getDataOrder = async () => {
-    const roomID = sessionStorage.getItem("roomID");
-    const data = await OrderRoom.getOrderRoomByRoomID(roomID);
-    state.listOrderRoom = data.data;
-    state.listDate = state.listOrderRoom.map(
-      ({ arrivalTime, depatureTime }) => ({ arrivalTime, depatureTime })
-    );
-    state.listDataDisabled = state.listDate.map((item) => {
-      return {
-        start: new Date(item.arrivalTime),
-        end: new Date(item.depatureTime),
-      };
-    });
+    try {
+      const roomID = sessionStorage.getItem("roomID");
+      const data = await OrderRoom.getOrderRoomByRoomID(roomID);
+      state.listOrderRoom = data.data;
+      state.listDate = state.listOrderRoom.map(
+        ({ arrivalTime, depatureTime }) => ({ arrivalTime, depatureTime })
+      );
+      state.listDataDisabled = state.listDate.map((item) => {
+        return {
+          start: new Date(item.arrivalTime),
+          end: new Date(item.depatureTime),
+        };
+      });
+    } catch (error) {
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
+    }
   };
 
   const formatDate = (array) => {
@@ -85,7 +90,9 @@ export const useOrderRoom = defineStore("orderRoom", () => {
           console.log(error);
         });
     } catch (error) {
-      console.log(error);
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
     }
   };
 
@@ -93,7 +100,11 @@ export const useOrderRoom = defineStore("orderRoom", () => {
     try {
       state.orderRoom.statusPayment = 1;
       submitForm();
-    } catch (error) {}
+    } catch (error) {
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
+    }
   };
 
   return {

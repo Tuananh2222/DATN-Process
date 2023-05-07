@@ -213,6 +213,7 @@ import CLoading from "@/components/elements/CLoading.vue";
 import DefaultFooter from "@/components/generals/defaultFooter.vue";
 import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
+import useAppStore from "@/stores/app";
 import { useHotelItemStore } from "@/stores/hotel-item";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { onMounted, ref } from "vue";
@@ -230,11 +231,18 @@ onMounted(async () => {
   await GetRoomDetails();
   isLoading.value = false;
 });
-
+const appStore = useAppStore();
+const { state: stateApp } = appStore;
 const GetRoomDetails = async () => {
-  state.roomID = route.params.id
-  const data = await (await RoomAPI.getRoomByID(state.roomID)).data;
-  dataDetail.value = data;
+  try {
+    state.roomID = route.params.id;
+    const data = await (await RoomAPI.getRoomByID(state.roomID)).data;
+    dataDetail.value = data;
+  } catch (error) {
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
+  }
 };
 
 const handleBookRoom = () => {
@@ -242,7 +250,7 @@ const handleBookRoom = () => {
     if (user) {
       const uid = user.uid;
       console.log(uid);
-      sessionStorage.setItem('roomID',route.params.id)
+      sessionStorage.setItem("roomID", route.params.id);
       router.push("/booking/booking-form/" + route.params.id);
     } else {
       router.push("/login");

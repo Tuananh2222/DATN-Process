@@ -162,7 +162,7 @@ const sendMessage = async () => {
             headers: {
               "Content-Type": "application/json",
               Authorization:
-                "Bearer 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",
+                "Bearer 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",
             },
           }
         );

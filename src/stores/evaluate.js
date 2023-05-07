@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { reactive } from "vue";
 import EvaluateAPI from "@/api/Evaluate";
 import { v4 as uuidv4 } from "uuid";
+import useAppStore from "./app";
 
 export const useEvaluateStore = defineStore("evaluate", () => {
   const state = reactive({
@@ -9,18 +10,31 @@ export const useEvaluateStore = defineStore("evaluate", () => {
     description: "",
     listEvaluate: [],
   });
-
+  const appStore = useAppStore();
+  const { state: stateApp } = appStore;
   const insertEvaluate = async () => {
-    await EvaluateAPI.insertEvaluate({ ...state, evaluateID: uuidv4() }).then(() => {
-      state.userName ='',
-      state.description = ''
-    });
-    console.log("first");
+    try {
+      await EvaluateAPI.insertEvaluate({ ...state, evaluateID: uuidv4() }).then(
+        () => {
+          (state.userName = ""), (state.description = "");
+        }
+      );
+    } catch (error) {
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
+    }
   };
 
   const getDataEvaluate = async () => {
-    const data = (await EvaluateAPI.getEvaluate()).data
-    state.listEvaluate = data
+    try {
+      const data = (await EvaluateAPI.getEvaluate()).data;
+      state.listEvaluate = data;
+    } catch (error) {
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
+    }
   };
 
   return { state, insertEvaluate, getDataEvaluate };

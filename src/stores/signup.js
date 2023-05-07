@@ -7,9 +7,9 @@ import {
   sendEmailVerification,
   fetchSignInMethodsForEmail,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
-import { firebase } from '@firebase/app'
+import { firebase } from "@firebase/app";
 import _ from "lodash";
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";
@@ -124,6 +124,41 @@ export const useAuthenStore = defineStore("authen", () => {
     });
   };
 
+  const handleSignUpWithPopup = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider)
+        .then(async (result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+          const email = "";
+          const userInsert = new UserInsert(user.uid, email);
+          await UserAPI.insertUser({
+            ...userInsert,
+            userName: user.displayName,
+          });
+          sessionStorage.setItem("uid", user.uid);
+          console.log("first", user);
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+          router.push("/login");
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          // const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+    } catch (error) {}
+  };
+
   return {
     state,
     handleSignUp,
@@ -132,6 +167,7 @@ export const useAuthenStore = defineStore("authen", () => {
     checkAllField,
     isValidForm,
     resetStateToDefault,
+    handleSignUpWithPopup,
   };
 });
 export default useAuthenStore;

@@ -1,14 +1,14 @@
 <template>
   <CToast
     :style="{ top: '10px', animationDuration: `0.5s` }"
-    :type="AppStore.typeToast"
-    :message="AppStore.toastMessage"
-    v-if="AppStore.toastMessage"
+    :type="AppStore.state.typeToast"
+    :message="AppStore.state.toastMessage"
+    v-if="AppStore.state.toastMessage"
   >
     <div
       :class="{
-        'icon-success': AppStore.typeToast == ToastMode.SUCCESS,
-        'icon-error': AppStore.typeToast == ToastMode.ERROR,
+        'icon-success': AppStore.state.typeToast == ToastMode.SUCCESS,
+        'icon-error': AppStore.state.typeToast == ToastMode.ERROR,
       }"
     ></div>
   </CToast>

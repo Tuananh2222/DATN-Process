@@ -4,6 +4,7 @@ import RoomAPI from "@/api/RoomAPI";
 import useCommon from "@/composables/useCommon";
 import { ToastMode } from "@/utils/Resource/Enum";
 import { Resource } from "@/utils/Resource/resource";
+import useAppStore from "./app";
 
 export const useHotelStore = defineStore("hotel", () => {
   const state = reactive({
@@ -30,14 +31,19 @@ export const useHotelStore = defineStore("hotel", () => {
     //message toast
     toastMessage: "",
     keyword: "",
-
   });
+  const appStore = useAppStore();
+  const { state: stateApp } = appStore;
   const { getListPageNumber } = useCommon();
   const loadDataRoom = async () => {
     try {
       state.idSelected = [];
       state.isSelectAll = false;
-      const res = await RoomAPI.filter(state.pageSize, state.pageNumber, state.keyword);
+      const res = await RoomAPI.filter(
+        state.pageSize,
+        state.pageNumber,
+        state.keyword
+      );
       const data = res.data;
       state.data = data.data;
       state.totalRecord = res.data.totalRecord;
@@ -47,23 +53,22 @@ export const useHotelStore = defineStore("hotel", () => {
         state.pageNumber
       );
     } catch (error) {
-      state.typeToast = ToastMode.ERROR;
-      state.toastMessage = Resource.errorMessage;
-      setTimeout(() => (state.toastMessage = ""), 3000);
-      console.log(error);
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
     }
   };
   const changePageNumber = async (pageNumber) => {
-    state.pageNumber = pageNumber
-    await loadDataRoom()
-  }
+    state.pageNumber = pageNumber;
+    await loadDataRoom();
+  };
   const selectItem = (id) => {
     if (state.idSelected.includes(id))
       state.idSelected = state.idSelected.filter((i) => i != id);
     else {
-      state.idSelected.push(id)
+      state.idSelected.push(id);
     }
-    console.log(state.idSelected)
+    console.log(state.idSelected);
 
     if (state.idSelected.length == state.data.length) state.isSelectAll = true;
     else state.isSelectAll = false;
@@ -73,9 +78,8 @@ export const useHotelStore = defineStore("hotel", () => {
   const toggleSelectAll = () => {
     if (!state.isSelectAll) {
       state.idSelected = state.data.map((room) => room["roomID"]);
-      state.isShowInteractMulti = true
-    }
-    else {
+      state.isShowInteractMulti = true;
+    } else {
       state.isShowInteractMulti = false;
       state.idSelected = [];
     }
