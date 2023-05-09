@@ -64,7 +64,6 @@ export const useOrderRoom = defineStore("orderRoom", () => {
       const rangeStart = rangeArray[i].start;
       const rangeEnd = rangeArray[i].end;
 
-      // Kiểm tra xem khoảng thời gian đã chọn có nằm trong khoảng thời gian của đối tượng trong mảng không
       if (
         (startDate >= rangeStart && startDate <= rangeEnd) ||
         (endDate >= rangeStart && endDate <= rangeEnd) ||
@@ -79,6 +78,7 @@ export const useOrderRoom = defineStore("orderRoom", () => {
   const submitForm = async () => {
     try {
       state.orderRoom.userID = stateApp.detailUser.userID;
+      console.log(state.orderRoom)
       await OrderRoom.insertOrderRoom(state.orderRoom)
         .then(async () => {
           await addDoc(collection(dbRealTime, "notification"), {

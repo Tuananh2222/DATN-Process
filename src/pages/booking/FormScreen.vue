@@ -125,7 +125,7 @@
         </div>
         <div class="count-room">{{ nameRoom }}</div>
         <div class="price-room">
-          {{ priceAfterDiscount * dayBooking * countRoom }}
+          {{ (priceAfterDiscount * dayBooking * countRoom).toFixed(2) }}
         </div>
         <div class="count-night-rent">
           for
@@ -140,7 +140,9 @@
       <div class="payment-method-item">
         <div class="title">Pay online with PayPal:</div>
         <CPaypal
-          :price="(priceAfterDiscount * countRoom * dayBooking).toString()"
+          :price="
+            (priceAfterDiscount * countRoom * dayBooking).toFixed(2).toString()
+          "
           :name-room="dataDetailRoom.roomName"
           :description="dataDetailRoom.description"
           @pop-up="handleUpdateState"
@@ -235,22 +237,26 @@ const changeNameDeal = (deal) => {
 };
 
 const handleChooseDateIn = (date) => {
-  state.orderRoom.arrivalTime = date;
+  if (date) {
+    const dateFormat = new Date(date);
+    state.orderRoom.arrivalTime = dateFormat;
+  }
 };
 const handleChooseDateOut = (date) => {
   state.orderRoom.depatureTime = date;
 };
 
-const handleSubmitForm = () => {
+const handleSubmitForm = async () => {
   isShowPopupPayment.value = true;
 };
 
 const handleUpdateState = async () => {
   state.orderRoom.roomID = route.params.id;
-  state.orderRoom.price = priceAfterDiscount.value * countRoom.value * dayBooking.value;
+  state.orderRoom.price =
+    priceAfterDiscount.value * countRoom.value * dayBooking.value.toFixed(2);
   isShowPopupPayment.value = false;
   await updateStatePayment();
-  router.push("/hotel")
+  router.push("/hotel");
 };
 
 const dataCountRoom = [

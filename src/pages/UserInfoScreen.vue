@@ -11,7 +11,7 @@
               alt="Avatar"
             />
           </section>
-          <h1>{{ state.detailInfoUser.userName }}</h1>
+          <h1>{{ state.detailInfoUser?.userName }}</h1>
           <ul>
             <li>
               <b>Full name:</b>
@@ -62,18 +62,18 @@
             <CButton
               :label="'Edit'"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
-              @handle-button="handleChangeForm"
+              @handle-button="handleChangeForm()"
             />
             <CButton
               v-if="isEdit"
               :label="'Save'"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
-              @handle-button="handleSaveForm"
+              @handle-button="handleSaveForm()"
             />
             <CButton
               :label="'Sign out'"
               :class-name="'button-primary button-square button-block button-effect-ujarak'"
-              @handle-button="submitLogout"
+              @handle-button="submitLogout()"
             />
           </div>
           <div class="mt-40">
@@ -166,19 +166,19 @@
                   class="border-radius text-white order-pending"
                   v-if="data.value == 0"
                 >
-                  Chờ xác nhận
+                  Wait for Pay
                 </div>
                 <div
                   class="border-radius text-white order-confirm"
                   v-if="data.value == 1"
                 >
-                  Đã xác nhận
+                  Paid
                 </div>
                 <div
                   class="border-radius text-white order-cancel"
                   v-if="data.value == 2"
                 >
-                  Hủy thanh toán
+                  Cancel Payment
                 </div>
               </template>
               <template #orderStatusTemplate="{ data }">
@@ -186,19 +186,19 @@
                   class="border-radius text-white order-pending"
                   v-if="data.value == 0"
                 >
-                  Chờ xác nhận
+                  Wait for confirmation
                 </div>
                 <div
                   class="border-radius text-white order-confirm"
                   v-if="data.value == 1"
                 >
-                  Đã xác nhận
+                  Confirmed
                 </div>
                 <div
                   class="border-radius text-white order-cancel"
                   v-if="data.value == 2"
                 >
-                  Hủy đặt
+                  Cancel
                 </div>
               </template>
 

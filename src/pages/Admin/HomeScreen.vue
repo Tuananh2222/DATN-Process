@@ -11,109 +11,53 @@
             <div class="header-container">
               <h3 class="section-header">Spending Statistics</h3>
               <div class="year-selector">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                <DxSelectBox
+                  :data-source="timeAnalysts"
+                  displayExpr="Title"
+                  valueExpr="Value"
+                  v-model="timeAnalyst"
+                  width="200px"
                 >
-                  <rect
-                    opacity="0.8"
-                    width="24"
-                    height="24"
-                    rx="6"
-                    fill="#F6F7F9"
-                  />
-                  <path
-                    d="M13.4999 15.96L10.2399 12.7C9.85492 12.315 9.85492 11.685 10.2399 11.3L13.4999 8.04004"
-                    stroke="#1A202C"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <span>2023</span>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    opacity="0.8"
-                    width="24"
-                    height="24"
-                    rx="6"
-                    fill="#F6F7F9"
-                  />
-                  <path
-                    d="M10.4551 15.96L13.7151 12.7C14.1001 12.315 14.1001 11.685 13.7151 11.3L10.4551 8.04004"
-                    stroke="#1A202C"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                </DxSelectBox>
               </div>
             </div>
             <div class="bar-chart">
               <DxChart
+                v-if="dataSource.length > 0"
                 id="chart"
                 :data-source="dataSource"
-                palette="Harmony Light"
-                title="Lexington Hotel Complaints"
               >
-                <DxCommonSeriesSettings argument-field="complaint" />
+                <DxCommonSeriesSettings
+                  argument-field="state"
+                  type="bar"
+                  hover-mode="allArgumentPoints"
+                  selection-mode="allArgumentPoints"
+                >
+                  <DxLabel :visible="true">
+                    <DxFormat :precision="0" type="fixedPoint" />
+                  </DxLabel>
+                </DxCommonSeriesSettings>
                 <DxSeries
-                  name="Complaint frequency"
-                  value-field="count"
+                  argument-field="title"
+                  value-field="total"
                   axis="frequency"
                   type="bar"
                   color="#fac29a"
                 />
 
-                <DxArgumentAxis>
-                  <DxLabel overlapping-behavior="stagger" />
-                </DxArgumentAxis>
-
-                <DxValueAxis
-                  :tick-interval="300"
-                  name="frequency"
-                  position="left"
-                />
-                <DxValueAxis
-                  :tick-interval="20"
-                  :show-zero="true"
-                  :value-margins-enabled="false"
-                  name="percentage"
-                  position="right"
-                >
-                  <DxLabel :customize-text="customizePercentageText" />
-                  <DxConstantLine
-                    :value="80"
-                    :width="2"
-                    color="#fc3535"
-                    dash-style="dash"
-                  >
-                    <DxLabel :visible="false" />
-                  </DxConstantLine>
-                </DxValueAxis>
-
-                <DxTooltip
-                  :enabled="true"
-                  :shared="true"
-                  :customize-tooltip="customizeTooltip"
-                />
-
+                <DxScrollBar :height="5" />
                 <DxLegend
-                  vertical-alignment="top"
+                  vertical-alignment="bottom"
                   horizontal-alignment="center"
                 />
+                <DxExport :enabled="true" />
               </DxChart>
+              <div
+                class="w-100pc mt-120 flex-center"
+                v-if="dataSource.length == 0"
+              >
+                Không có dữ liệu
+              </div>
             </div>
           </div>
           <div class="box total-box">
@@ -565,8 +509,11 @@
 </template>
 
 <script setup>
+import OrderRoom from "@/api/OrderRoom";
 import BaseTopAdmin from "@/components/generals/BaseTopAdmin.vue";
 import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
+import useAppStore from "@/stores/app";
+import { TimeAnalyst } from "@/utils/Resource/Enum";
 import DxChart, {
   DxArgumentAxis,
   DxCommonSeriesSettings,
@@ -577,29 +524,64 @@ import DxChart, {
   DxValueAxis,
   DxConstantLine,
 } from "devextreme-vue/chart";
+import DxSelectBox from "devextreme-vue/select-box";
+import { ref, watch } from "vue";
 
-const complaintsData = [
-  { complaint: "Monday", count: 780 },
-  { complaint: "Tuesday", count: 120 },
-  { complaint: "Wednesday", count: 52 },
-  { complaint: "Thursday", count: 1123 },
-  { complaint: "Friday", count: 321 },
-  { complaint: "Saturday", count: 89 },
-  { complaint: "Sunday", count: 222 },
+const appStore = useAppStore();
+const { state: stateApp } = appStore;
+const timeAnalyst = ref(TimeAnalyst.CurrentWeek);
+
+const dataSource = ref([]);
+watch(
+  timeAnalyst,
+  async () => {
+    try {
+      const res = await OrderRoom.getReport(timeAnalyst.value);
+      console.log(res);
+      if (res) {
+        dataSource.value = res;
+      } else {
+        stateApp.typeToast = ToastMode.ERROR;
+        stateApp.toastMessage = Resource.errorMessage;
+        setTimeout(() => (stateApp.toastMessage = ""), 3000);
+      }
+    } catch (error) {
+      stateApp.typeToast = ToastMode.ERROR;
+      stateApp.toastMessage = Resource.errorMessage;
+      setTimeout(() => (stateApp.toastMessage = ""), 3000);
+    }
+  },
+  {
+    deep: true,
+    immediate: true,
+  }
+);
+const timeAnalysts = [
+  {
+    Title: "Tuần này",
+    Value: TimeAnalyst.CurrentWeek,
+  },
+  {
+    Title: "Tuần trước",
+    Value: TimeAnalyst.LastWeek,
+  },
+  {
+    Title: "Tháng này",
+    Value: TimeAnalyst.CurrentMonth,
+  },
+  {
+    Title: "Tháng trước",
+    Value: TimeAnalyst.LastMonth,
+  },
+  {
+    Title: "Năm nay",
+    Value: TimeAnalyst.CurrentYear,
+  },
+  {
+    Title: "Năm trước",
+    Value: TimeAnalyst.LastYear,
+  },
 ];
-const data = complaintsData.sort((a, b) => b.count - a.count);
-const totalCount = data.reduce((prevValue, item) => prevValue + item.count, 0);
-
-let cumulativeCount = 0;
-
-const dataSource = data.map((item) => {
-  cumulativeCount += item.count;
-  return {
-    complaint: item.complaint,
-    count: item.count,
-    cumulativePercentage: Math.round((cumulativeCount * 100) / totalCount),
-  };
-});
 </script>
 
 <style lang="scss" scoped>
@@ -679,6 +661,7 @@ const dataSource = data.map((item) => {
   display: flex;
   align-items: center;
   gap: 24px;
+  max-width: 200px;
 }
 
 .total-box {

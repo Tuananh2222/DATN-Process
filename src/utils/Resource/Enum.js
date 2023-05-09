@@ -29,3 +29,12 @@ export const OrderStatus = {
   Confirm: 1,
   Cancel: 2,
 };
+
+export const TimeAnalyst = {
+  CurrentWeek: 1,
+  LastWeek: 2,
+  CurrentMonth: 3,
+  LastMonth: 4,
+  CurrentYear: 5,
+  LastYear: 6,
+}

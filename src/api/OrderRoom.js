@@ -20,5 +20,8 @@ class OrderRoomAPI {
   updateOrderStatus(orderRoomID, statusOrder) {
     return BaseAPIConfig.put(`${this.controller}/${orderRoomID}`, statusOrder);
   }
+  getReport(timeAnalyst) {
+    return BaseAPIConfig.get(`${this.controller}/report`, timeAnalyst);
+  }
 }
 export default new OrderRoomAPI();

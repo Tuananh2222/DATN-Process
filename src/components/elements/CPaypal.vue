@@ -19,22 +19,19 @@ const props = defineProps({
   description: {
     type: String,
   },
-  paypalRequestProp: {
-    type: String,
-  },
 });
 
 const isShowPopup = ref(false);
 const client_id =
   "ASu2CgXspblwQ3wg_4EejqKdpkVmt2BmA2GxIFYOtNA9Xf69O4VsIPb1PXtWw_htFtaWO3kVfyg9CZ9n";
 
-console.log(props.paypalRequestProp);
 const orderID = ref("");
 onMounted(async () => {
   try {
     const paypal = await loadScript({
       "client-id": client_id,
     });
+    console.log(props);
     const paypalRequest = await uuidv4();
     await paypal
       .Buttons({
@@ -45,7 +42,7 @@ onMounted(async () => {
               "Content-Type": "application/json",
               "PayPal-Request-Id": paypalRequest,
               Authorization:
-                "Bearer A21AAKn-Fbei-Mbqrwb1m_uMu6NyD3bA5mxKS3epNY3h756OM6nwqtG5nRJpo79o2ECfqz8SrlB7aAHuYk2aLdOBWJpibyN4A",
+                "Bearer A21AAIcMosMl4q_44BVHT6QqSPObN3VxSI4kQ1mY5irnG9x_Z_4qqyO4w8TjBw8SBEJm9WT8ykVhoakU_Xs68y3JqjaMZkYZw",
             },
             body: JSON.stringify({
               intent: "CAPTURE",
@@ -54,7 +51,7 @@ onMounted(async () => {
                   items: [
                     {
                       name: props.nameRoom,
-                      description: props.description,
+                      description: "Need to payments",
                       quantity: "1",
                       unit_amount: {
                         currency_code: "USD",
@@ -92,7 +89,7 @@ onMounted(async () => {
                 "Content-Type": "application/json",
                 "PayPal-Request-Id": "7b92603e-77ed-4896-8e78-5dea2050476a",
                 Authorization:
-                  "Bearer A21AAKn-Fbei-Mbqrwb1m_uMu6NyD3bA5mxKS3epNY3h756OM6nwqtG5nRJpo79o2ECfqz8SrlB7aAHuYk2aLdOBWJpibyN4A",
+                  "Bearer A21AAIcMosMl4q_44BVHT6QqSPObN3VxSI4kQ1mY5irnG9x_Z_4qqyO4w8TjBw8SBEJm9WT8ykVhoakU_Xs68y3JqjaMZkYZw",
               },
               body: JSON.stringify({
                 amount: {
