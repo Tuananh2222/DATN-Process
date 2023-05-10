@@ -38,3 +38,8 @@ export const TimeAnalyst = {
   CurrentYear: 5,
   LastYear: 6,
 }
+
+export const TabAnalyst = {
+  Order: 1,
+  InCome: 2
+}

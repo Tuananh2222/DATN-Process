@@ -20,8 +20,9 @@ class OrderRoomAPI {
   updateOrderStatus(orderRoomID, statusOrder) {
     return BaseAPIConfig.put(`${this.controller}/${orderRoomID}`, statusOrder);
   }
-  getReport(timeAnalyst) {
-    return BaseAPIConfig.get(`${this.controller}/report`, timeAnalyst);
+  getReport(timeAnalyst, curentTab) {
+    let filterQuery = `report?timeAnalist=${timeAnalyst}&curentTab=${curentTab}`
+    return BaseAPIConfig.get(`${this.controller}/${filterQuery}`);
   }
 }
 export default new OrderRoomAPI();
