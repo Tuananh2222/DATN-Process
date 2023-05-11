@@ -1,5 +1,5 @@
 import axios from "axios";
-let BaseAPIConfig = axios.create({ baseURL: "http://localhost:5294/api/" });
+let BaseAPIConfig = axios.create({ baseURL: process.env.VUE_APP_URL_SERVICE });
 
 BaseAPIConfig.interceptors.response.use(
     (response) => response,

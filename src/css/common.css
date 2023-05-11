@@ -85,6 +85,8 @@ body {
   font-weight: 400;
   margin: 0;
   box-sizing: border-box;
+  width: 100% !important;
+  background-color: white !important;
 }
 
 a {
