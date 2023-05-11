@@ -113,29 +113,17 @@
 <script setup>
 import RoomAPI from "@/api/RoomAPI";
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 const messages = ref([]);
 const newMessages = ref("");
 const isOpen = ref(false);
 const pageNumber = ref(1);
 const pageSize = ref(9);
 const keyword = ref("");
-let listHotel = ref([]);
 const canSend = ref(false);
 const listMessageCanSend = ["hotel", "booking", "room", "book"];
 
-onMounted(() => {
-  getRoom();
-});
 
-const getRoom = async () => {
-  const Data = await RoomAPI.filter(
-    pageSize.value,
-    pageNumber.value,
-    keyword.value
-  );
-  listHotel.value = Data.data.data;
-};
 
 const sendMessage = async () => {
   if (newMessages.value.trim() != "") {

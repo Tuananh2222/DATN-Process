@@ -156,6 +156,11 @@
           <b style="font-weight: bold">0971935724</b> or go to the payment
           counter
         </div>
+        <CButton
+          :label="'Confirm'"
+          :class-name="'button-primary button-square button-block button-effect-ujarak'"
+          @handle-button="handleConfirm"
+        />
       </div>
     </div>
   </CPopup>
@@ -177,16 +182,27 @@ import CDateSelection from "@/components/elements/CDateSelection.vue";
 import CPopup from "@/components/elements/CPopup.vue";
 import CPaypal from "@/components/elements/CPaypal.vue";
 import router from "@/router";
+import useAppStore from "@/stores/app";
+import { Resource } from "@/utils/Resource/resource";
 
 const { initProcess } = useHotelItemStore();
 const orderRoomStore = useOrderRoom();
-const { state, getDataOrder, formatDate, updateStatePayment, checkDateRange } =
-  orderRoomStore;
+const {
+  state,
+  getDataOrder,
+  formatDate,
+  updateStatePayment,
+  checkDateRange,
+  submitForm,
+} = orderRoomStore;
 const route = useRoute();
 const nameRoom = ref("");
 const nameDeal = ref("");
 const countRoom = ref(0);
 const isShowPopupPayment = ref(false);
+const appStore = useAppStore();
+const { state: stateApp } = appStore;
+
 const dayBooking = computed(() => {
   return Math.ceil(
     (state.orderRoom.depatureTime - state.orderRoom.arrivalTime) /
@@ -251,12 +267,32 @@ const handleSubmitForm = async () => {
 };
 
 const handleUpdateState = async () => {
-  state.orderRoom.roomID = route.params.id;
-  state.orderRoom.price =
-    priceAfterDiscount.value * countRoom.value * dayBooking.value.toFixed(2);
-  isShowPopupPayment.value = false;
-  await updateStatePayment();
-  router.push("/hotel");
+  try {
+    state.orderRoom.roomID = route.params.id;
+    state.orderRoom.price =
+      priceAfterDiscount.value * countRoom.value * dayBooking.value.toFixed(2);
+    await updateStatePayment();
+    isShowPopupPayment.value = false;
+    router.push("/hotel");
+  } catch (error) {
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
+  }
+};
+
+const handleConfirm = async () => {
+  try {
+    state.orderRoom.roomID = route.params.id;
+    state.orderRoom.price =
+      priceAfterDiscount.value * countRoom.value * dayBooking.value;
+    await submitForm();
+    isShowPopupPayment.value = false;
+  } catch (error) {
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
+  }
 };
 
 const dataCountRoom = [
