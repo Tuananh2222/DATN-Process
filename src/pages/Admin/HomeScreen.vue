@@ -51,7 +51,7 @@
                 </DxCommonSeriesSettings>
                 <DxSeries
                   argument-field="title"
-                  value-field="total"
+                  valueField="total"
                   type="bar"
                   color="#fac29a"
                   name="Lexington Revenue"
@@ -64,10 +64,7 @@
                 />
                 <DxExport :enabled="true" />
               </DxChart>
-              <div
-                class="w-100pc mt-120 flex-center"
-                v-if="dataSource.length == 0"
-              >
+              <div class="w-full flex-center" v-if="dataSource.length == 0">
                 Không có dữ liệu
               </div>
             </div>
