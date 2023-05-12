@@ -176,18 +176,24 @@ const handleHidePopupError = () => {
 
 .card {
   //Sizing
-  width: 30%;
-  height: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 28%;
+  height: 70%;
+  background: #ffffff;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  border-radius: 8px;
 }
 
 .title {
   //Position
-  padding-top: 30px;
   padding-bottom: 15px;
   text-align: center;
   font-size: 36px;
   font-weight: 700;
-  color: #ffffff;
+  color: #000;
 }
 
 .socials {
@@ -235,7 +241,7 @@ const handleHidePopupError = () => {
   margin: 0 auto;
 
   //Font
-  color: #ffffff;
+  color: #000;
   font-size: 14px;
   font-weight: 400;
 
@@ -314,7 +320,7 @@ button.disable {
   margin: 20px auto;
 
   //Font
-  color: #ffffff;
+  color: #000;
   font-size: 14px;
   font-weight: 400;
 }

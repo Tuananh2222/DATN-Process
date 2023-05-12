@@ -31,17 +31,17 @@ export const useLoginStore = defineStore("login", () => {
 
   const ruleList = {
     email: {
-      required: helpers.withMessage("Vui lòng nhập email!", required),
-      email: helpers.withMessage("Vui lòng nhập đúng định dạng", email),
+      required: helpers.withMessage("Please enter email!", required),
+      email: helpers.withMessage("Please enter the correct format!", email),
     },
     password: {
-      required: helpers.withMessage("Vui lòng nhập mật khẩu!", required),
+      required: helpers.withMessage("Please enter password!", required),
       minLength: helpers.withMessage(
-        "Vui lòng nhập tối thiểu 6 ký tự",
+        "Please enter at least 6 characters!",
         minLength(6)
       ),
       passwordRegex: helpers.withMessage(
-        "Vui lòng nhập tối thiểu tám ký tự, một chữ hoa, một chữ thường và một số",
+        "Please enter a minimum of eight characters, one uppercase, one lowercase and one number!",
         passwordValidate
       ),
     },
@@ -120,7 +120,7 @@ export const useLoginStore = defineStore("login", () => {
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {
