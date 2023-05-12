@@ -152,15 +152,13 @@ import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
 import useAppStore from "@/stores/app";
 import { TabAnalyst, TimeAnalyst, ToastMode } from "@/utils/Resource/Enum";
 import { Resource } from "@/utils/Resource/resource";
-import DxChart, {
-  DxArgumentAxis,
+import {
+  DxChart,
   DxCommonSeriesSettings,
-  DxLabel,
+  DxExport,
   DxLegend,
   DxSeries,
-  DxTooltip,
-  DxValueAxis,
-  DxConstantLine,
+  DxScrollBar,
 } from "devextreme-vue/chart";
 import DxSelectBox from "devextreme-vue/select-box";
 import { onMounted, ref, watch } from "vue";
