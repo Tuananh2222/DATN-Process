@@ -221,7 +221,6 @@ const getRoom = async () => {
       countValues.value
     );
     listHotel = Data.data;
-    console.log(listHotel);
     rowEnd.value = Data.data.rowEnd;
     rowStart.value = Data.data.rowStart;
     totalRecord.value = Data.data.totalRecord;

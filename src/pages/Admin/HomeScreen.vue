@@ -52,9 +52,9 @@
                 <DxSeries
                   argument-field="title"
                   value-field="total"
-                  axis="frequency"
                   type="bar"
                   color="#fac29a"
+                  name="Lexington Revenue"
                 />
 
                 <DxScrollBar :height="5" />
