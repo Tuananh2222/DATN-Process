@@ -51,9 +51,10 @@
                 </DxCommonSeriesSettings>
                 <DxSeries
                   argument-field="title"
-                  valueField="total"
+                  value-field="total"
                   type="bar"
-                  color="#fac29a"
+                  color="teal"
+                  width="80"
                   name="Lexington Revenue"
                 />
 
