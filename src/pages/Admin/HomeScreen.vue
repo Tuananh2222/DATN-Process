@@ -53,7 +53,7 @@
                   argument-field="title"
                   value-field="total"
                   type="bar"
-                  color="teal"
+                  color="#fac29a"
                   width="80"
                   name="Lexington Revenue"
                 />
