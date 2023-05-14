@@ -35,7 +35,7 @@
         <div class="page-break"></div>
         <div class="alt-login">Or log in with</div>
         <div class="socials">
-          <div class="facebook">
+          <div class="facebook" @click="handleSignInWithFacebook()">
             <svg
               width="35"
               height="35"
@@ -128,7 +128,7 @@ import useLoginStore from "@/stores/login";
 import { storeToRefs } from "pinia";
 
 const loginStore = useLoginStore();
-const { state, handleSignIn, handleSignInWithPopup } = loginStore;
+const { state, handleSignIn, handleSignInWithPopup,handleSignInWithFacebook } = loginStore;
 const { isValidForm } = storeToRefs(loginStore);
 
 const submitSignIn = async () => {

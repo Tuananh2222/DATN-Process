@@ -162,6 +162,7 @@ export const useLoginStore = defineStore("login", () => {
     isValidForm,
     handleSignIn,
     handleSignInWithPopup,
+    handleSignInWithFacebook
   };
 });
 export default useLoginStore;
