@@ -259,7 +259,7 @@ export const useRoomForm = defineStore("roomForm", () => {
       state.toastMessage = Resource.deleteSuccess;
       state.typeToast = ToastMode.SUCCESS;
       setTimeout(() => {
-        state.typeToast = "";
+        state.toastMessage = "";
       }, 3000);
       state.idRoomEdit = null;
     } catch (error) {
