@@ -140,6 +140,15 @@
                 cellTemplate="orderStatusTemplate"
               >
               </DxColumn>
+              <DxColumn
+                :width="160"
+                :data-field="'typePayment'"
+                :allow-sorting="false"
+                :caption="'Type Payment'"
+                alignment="center"
+                cellTemplate="typePaymentTemplate"
+              >
+              </DxColumn>
 
               <DxColumn
                 :width="100"
@@ -199,6 +208,20 @@
                   v-if="data.value == 2"
                 >
                   Cancel
+                </div>
+              </template>
+              <template #typePaymentTemplate="{ data }">
+                <div
+                  class="border-radius text-white payment-direct"
+                  v-if="data.value == 0"
+                >
+                  Direct Payment
+                </div>
+                <div
+                  class="border-radius text-white payment-online"
+                  v-if="data.value == 1"
+                >
+                  Online Payment
                 </div>
               </template>
 
@@ -263,7 +286,6 @@ const getOrderByUserID = async () => {
 };
 const formatDate = (d) => {
   try {
-    console.log(d);
     const date = new Date(d);
     const month = date.getMonth() + 1;
     const day = date.getDate();

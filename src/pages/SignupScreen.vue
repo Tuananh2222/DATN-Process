@@ -50,7 +50,7 @@
           <div class="page-break"></div>
           <div class="alt-login">Or sign up with</div>
           <div class="socials">
-            <div class="facebook">
+            <div class="facebook" @click="handleSignUpWithFacebook()">
               <svg
                 width="35"
                 height="35"
@@ -145,7 +145,7 @@ import DefaultFooter from "@/components/generals/defaultFooter.vue";
 let isShowPopup = ref(false);
 
 const authenStore = useAuthenStore();
-const { state, handleSignUp, handleSignUpWithPopup } = authenStore;
+const { state, handleSignUp, handleSignUpWithPopup,handleSignUpWithFacebook } = authenStore;
 const { isValidForm } = storeToRefs(authenStore);
 const submitSignup = () => {
   handleSignUp();
@@ -178,8 +178,8 @@ const handleHidePopupError = () => {
   //Sizing
   display: flex;
   flex-direction: row;
-  width: 28%;
-  height: 70%;
+  width: 33%;
+  height: 80%;
   background: #ffffff;
   justify-content: center;
   align-items: center;

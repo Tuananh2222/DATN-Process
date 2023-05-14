@@ -26,6 +26,7 @@
           type="password"
           @focusOut="loginStore.checkField('password')"
         />
+        <div class="forgot" @click="handleForgotPassword()">Forgot Password?</div>
         <div class="btn-wrapper">
           <button @click="submitSignIn()" :class="isValidForm ? '' : 'disable'">
             Log In
@@ -110,8 +111,6 @@
           <div>
             Don’t have an account yet? <a @click="handleSignup()">Sign up</a>
           </div>
-
-          <a class="forgot" @click="handleForgotPassword()">Forgot Password?</a>
         </div>
       </div>
     </div>
@@ -170,7 +169,7 @@ const handleForgotPassword = () => {
   flex-direction: row;
   //Sizing
   width: 28%;
-  height: 60%;
+  height: 80%;
   background: #ffffff;
   justify-content: center;
   align-items: center;
@@ -178,6 +177,11 @@ const handleForgotPassword = () => {
   border-radius: 8px;
   .card-left {
     width: 80%;
+    .forgot {
+      color: #02c0ff;
+      cursor: pointer;
+      margin-top: 10px;
+    }
   }
 }
 .cart-forgot-password {
@@ -289,7 +293,7 @@ const handleForgotPassword = () => {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 button {
   border-radius: 20px;

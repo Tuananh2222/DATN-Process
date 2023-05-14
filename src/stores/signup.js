@@ -8,6 +8,7 @@ import {
   fetchSignInMethodsForEmail,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider,
 } from "firebase/auth";
 import { firebase } from "@firebase/app";
 import _ from "lodash";
@@ -156,7 +157,42 @@ export const useAuthenStore = defineStore("authen", () => {
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
-    } catch (error) { }
+    } catch (error) {}
+  };
+
+  const handleSignUpWithFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        const email = "";
+        const userInsert = new UserInsert(user.uid, email);
+        await UserAPI.insertUser({
+          ...userInsert,
+          userName: user.displayName,
+        });
+        sessionStorage.setItem("uid", user.uid);
+        router.push("/login");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
   };
 
   return {
@@ -168,6 +204,7 @@ export const useAuthenStore = defineStore("authen", () => {
     isValidForm,
     resetStateToDefault,
     handleSignUpWithPopup,
+    handleSignUpWithFacebook
   };
 });
 export default useAuthenStore;

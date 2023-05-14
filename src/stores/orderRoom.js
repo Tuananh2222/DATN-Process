@@ -22,7 +22,7 @@ export const useOrderRoom = defineStore("orderRoom", () => {
       price: 0,
       statusOrder: 0,
       statusPayment: 0,
-      orderDate: new Date(),
+      typePayment:0
     },
   });
 
@@ -99,6 +99,7 @@ export const useOrderRoom = defineStore("orderRoom", () => {
   const updateStatePayment = async () => {
     try {
       state.orderRoom.statusPayment = 1;
+      state.orderRoom.typePayment = 1
       submitForm();
     } catch (error) {
       stateApp.typeToast = ToastMode.ERROR;
