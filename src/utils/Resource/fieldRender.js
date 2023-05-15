@@ -59,18 +59,4 @@ export const fieldRenderEmployee = [
     fieldDisplay: "CHi TIẾT",
     width: "220px",
   },
-  {
-    textPositionClass: "text-center",
-    fieldName: "arrivalTime",
-    fieldDisplay: "NGÀY VÀO",
-    type: "date",
-    width: "114px",
-  },
-  {
-    textPositionClass: "text-center",
-    fieldName: "depatureTime",
-    fieldDisplay: "NGÀY RA",
-    type: "date",
-    width: "114px",
-  },
 ];

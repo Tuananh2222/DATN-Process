@@ -215,6 +215,7 @@ ul {
 
 .icon-success {
   background: url("./../public/icon/tick.svg") center;
+  background-size: cover;
   width: 36px;
   height: 36px;
   min-width: 36px;

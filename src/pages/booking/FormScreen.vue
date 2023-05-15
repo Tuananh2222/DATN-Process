@@ -273,7 +273,6 @@ const handleUpdateState = async () => {
       priceAfterDiscount.value * countRoom.value * dayBooking.value.toFixed(2);
     await updateStatePayment();
     isShowPopupPayment.value = false;
-    router.push("/hotel");
   } catch (error) {
     stateApp.typeToast = ToastMode.ERROR;
     stateApp.toastMessage = Resource.errorMessage;

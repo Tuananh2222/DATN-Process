@@ -102,7 +102,8 @@
                 </svg>
               </div>
               <h1 class="price">
-                {{ totalPrice }}<span class="price-currency">(USD)</span>
+                {{ totalPrice.toFixed(2)
+                }}<span class="price-currency">(USD)</span>
               </h1>
             </div>
             <div class="total-box__right">
@@ -135,7 +136,8 @@
                 </svg>
               </div>
               <h1 class="price">
-                {{ totalPrice * 0.9 }}<span class="price-currency">(USD)</span>
+                {{ (totalPrice * 0.9).toFixed(2)
+                }}<span class="price-currency">(USD)</span>
               </h1>
             </div>
           </div>

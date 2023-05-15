@@ -7,6 +7,7 @@ import useAppStore from "./app";
 import { addDoc, collection } from "firebase/firestore";
 import { dbRealTime } from "@/firebaseConfig";
 import dayjs from "dayjs";
+import router from "@/router";
 
 export const useOrderRoom = defineStore("orderRoom", () => {
   const state = reactive({
@@ -85,6 +86,7 @@ export const useOrderRoom = defineStore("orderRoom", () => {
             message:
               "You have made a successful reservation. Thanks for visiting ❤️",
           });
+          router.push('/user-info')
         })
         .catch((error) => {
           console.log(error);

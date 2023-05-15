@@ -42,7 +42,7 @@ onMounted(async () => {
               "Content-Type": "application/json",
               "PayPal-Request-Id": paypalRequest,
               Authorization:
-                "Bearer A21AAIcMosMl4q_44BVHT6QqSPObN3VxSI4kQ1mY5irnG9x_Z_4qqyO4w8TjBw8SBEJm9WT8ykVhoakU_Xs68y3JqjaMZkYZw",
+                "Bearer A21AAJEIXsOs3PIuIua1MED4EtSgaJuebhG4Kg87OhFOcwOiaR3jQ7hFmwRQJVaK1kepY4TKFJN78xaG5ZiqACb-oJJAa8cTw",
             },
             body: JSON.stringify({
               intent: "CAPTURE",
@@ -89,7 +89,7 @@ onMounted(async () => {
                 "Content-Type": "application/json",
                 "PayPal-Request-Id": "7b92603e-77ed-4896-8e78-5dea2050476a",
                 Authorization:
-                  "Bearer A21AAIcMosMl4q_44BVHT6QqSPObN3VxSI4kQ1mY5irnG9x_Z_4qqyO4w8TjBw8SBEJm9WT8ykVhoakU_Xs68y3JqjaMZkYZw",
+                  "Bearer A21AAJEIXsOs3PIuIua1MED4EtSgaJuebhG4Kg87OhFOcwOiaR3jQ7hFmwRQJVaK1kepY4TKFJN78xaG5ZiqACb-oJJAa8cTw",
               },
               body: JSON.stringify({
                 amount: {
