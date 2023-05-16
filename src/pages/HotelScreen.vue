@@ -99,14 +99,14 @@
             class="msp-user-paging-content w-full flex align-items-center flex-between"
           >
             <div class="msp-user-paging-content-left text-nowrap">
-              Tổng số bản ghi : <b>{{ totalRecord }}</b>
+              Total number of records : <b>{{ totalRecord }}</b>
             </div>
 
             <div class="msp-user-paging-content-right flex align-items-center">
-              <div class="text-nowrap m-r-8">Số bản ghi trên trang</div>
+              <div class="text-nowrap m-r-8">Number of records per page</div>
 
               <div class="msp-user-paging-info text-nowrap">
-                <b>{{ rowStart }}</b> - <b>{{ rowEnd }}</b> bản ghi
+                <b>{{ rowStart }}</b> - <b>{{ rowEnd }}</b> record
               </div>
 
               <div class="msp-user-paging-arrow-gr flex flex-between">
@@ -123,7 +123,7 @@
                       style="color: #fafafa"
                     />
                   </div>
-                  <div class="msp-user-paging-arrow-tooltip">Quay lại</div>
+                  <div class="msp-user-paging-arrow-tooltip">Come back</div>
                 </div>
 
                 <div class="msp-icon-36 flex-center msp-user-paging-arrow">
@@ -140,7 +140,7 @@
                       style="color: #fafafa"
                     />
                   </div>
-                  <div class="msp-user-paging-arrow-tooltip">Tiếp tục</div>
+                  <div class="msp-user-paging-arrow-tooltip">Continue</div>
                 </div>
               </div>
             </div>

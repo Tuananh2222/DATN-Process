@@ -244,11 +244,19 @@ const formatDate = (d) => {
 const updateStatusOrder = async (order, status) => {
   try {
     const orderID = order.orderRoomID;
-    console.log(orderID, { ...order, statusOrder: status });
-    var res = await OrderRoom.updateOrderStatus(orderID, {
-      ...order,
-      statusOrder: status,
-    });
+    if (status == 1) {
+      var res = await OrderRoom.updateOrderStatus(orderID, {
+        ...order,
+        statusOrder: status,
+      });
+    } else if (status == 2) {
+      var res = await OrderRoom.updateOrderStatus(orderID, {
+        ...order,
+        statusOrder: status,
+        arrivalTime: "",
+        depatureTime: "",
+      });
+    }
     getOrder();
   } catch (error) {
     stateApp.typeToast = ToastMode.ERROR;

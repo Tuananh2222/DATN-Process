@@ -23,7 +23,7 @@ export const useOrderRoom = defineStore("orderRoom", () => {
       price: 0,
       statusOrder: 0,
       statusPayment: 0,
-      typePayment:0
+      typePayment: 0
     },
   });
 
@@ -89,7 +89,9 @@ export const useOrderRoom = defineStore("orderRoom", () => {
           router.push('/user-info')
         })
         .catch((error) => {
-          console.log(error);
+          stateApp.typeToast = ToastMode.ERROR;
+          stateApp.toastMessage = Resource.errorMessage;
+          setTimeout(() => (stateApp.toastMessage = ""), 3000);
         });
     } catch (error) {
       stateApp.typeToast = ToastMode.ERROR;
