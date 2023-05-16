@@ -7,6 +7,8 @@ import router from "@/router";
 import UserAPI from "@/api/UserAPI";
 import { UserInsert } from "@/Entities/User";
 import useAppStore from "./app";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 
 export const useUserStore = defineStore("user", () => {
   const auth = getAuth();
@@ -35,7 +37,12 @@ export const useUserStore = defineStore("user", () => {
   const getUser = async () => {
     try {
       state.uid = sessionStorage.getItem("uid");
-      state.detailInfoUser = (await UserAPI.getUserByUUID(state.uid)).data;
+      if (!state.uid) {
+        router.push("/login")
+      }
+      else {
+        state.detailInfoUser = (await UserAPI.getUserByUUID(state.uid)).data;
+      }
     } catch (error) {
       stateApp.typeToast = ToastMode.ERROR;
       stateApp.toastMessage = Resource.errorMessage;
