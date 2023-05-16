@@ -32,7 +32,6 @@ const AppStore = useAppStore();
 onMounted(() => {
   AppStore.initWebsite();
   localStorage.removeItem("__paypal_storage__")
-  console.log(process.env);
 });
 </script>
 

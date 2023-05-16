@@ -69,7 +69,15 @@
             cellTemplate="orderStatusTemplate"
           >
           </DxColumn>
-
+          <DxColumn
+            :width="160"
+            :data-field="'typePayment'"
+            :allow-sorting="false"
+            :caption="'Type Payment'"
+            alignment="center"
+            cellTemplate="typePaymentTemplate"
+          >
+          </DxColumn>
           <DxColumn
             :width="100"
             :data-field="'price'"
@@ -104,19 +112,19 @@
               class="border-radius text-white order-pending"
               v-if="data.value == 0"
             >
-              Chờ xác nhận
+              Wait for Pay
             </div>
             <div
               class="border-radius text-white order-confirm"
               v-if="data.value == 1"
             >
-              Đã xác nhận
+              Paid
             </div>
             <div
               class="border-radius text-white order-cancel"
               v-if="data.value == 2"
             >
-              Hủy thanh toán
+              Cancel Payment
             </div>
           </template>
           <template #orderStatusTemplate="{ data }">
@@ -124,19 +132,33 @@
               class="border-radius text-white order-pending"
               v-if="data.value == 0"
             >
-              Chờ xác nhận
+              Wait for confirmation
             </div>
             <div
               class="border-radius text-white order-confirm"
               v-if="data.value == 1"
             >
-              Đã xác nhận
+              Confirmed
             </div>
             <div
               class="border-radius text-white order-cancel"
               v-if="data.value == 2"
             >
-              Hủy đặt
+              Cancel
+            </div>
+          </template>
+          <template #typePaymentTemplate="{ data }">
+            <div
+              class="border-radius text-white payment-direct"
+              v-if="data.value == 0"
+            >
+              Direct Payment
+            </div>
+            <div
+              class="border-radius text-white payment-online"
+              v-if="data.value == 1"
+            >
+              Online Payment
             </div>
           </template>
 

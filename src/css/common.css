@@ -215,6 +215,7 @@ ul {
 
 .icon-success {
   background: url("./../public/icon/tick.svg") center;
+  background-size: cover;
   width: 36px;
   height: 36px;
   min-width: 36px;
@@ -481,6 +482,13 @@ input::placeholder {
 
 .order-cancel {
   background-color: rgb(161, 0, 0);
+}
+.payment-direct {
+  background-color: darkorange;
+}
+
+.payment-online {
+  background-color: #25b973;
 }
 
 .icon-order-success {

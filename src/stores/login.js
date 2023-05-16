@@ -87,7 +87,7 @@ export const useLoginStore = defineStore("login", () => {
         const errorMessage = error.message;
         if (errorCode || errorMessage) {
           stateApp.toastMessage = Resource.emailNotExist;
-          console.log(stateApp.toastMessage)
+          console.log(stateApp.toastMessage);
           stateApp.typeToast = ToastMode.ERROR;
           setTimeout(() => (stateApp.toastMessage = ""), 5000);
         }
@@ -120,7 +120,38 @@ export const useLoginStore = defineStore("login", () => {
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
-    } catch (error) { }
+    } catch (error) {}
+  };
+  const handleSignInWithFacebook = async () => {
+    try {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // The signed-in user info.
+          const user = result.user;
+
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          const credential = FacebookAuthProvider.credentialFromResult(result);
+          const accessToken = credential.accessToken;
+
+          sessionStorage.setItem("uid", user.uid);
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+          router.push("/");
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = FacebookAuthProvider.credentialFromError(error);
+
+          // ...
+        });
+    } catch (error) {}
   };
 
   return {
@@ -131,6 +162,7 @@ export const useLoginStore = defineStore("login", () => {
     isValidForm,
     handleSignIn,
     handleSignInWithPopup,
+    handleSignInWithFacebook
   };
 });
 export default useLoginStore;
