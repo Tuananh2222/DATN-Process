@@ -29,19 +29,19 @@ const userStore = useUserStore();
 const { handleLogout } = userStore;
 const navList = [
   {
-    text: "Dashboard",
+    text: "Tổng quan",
     to: "Home Admin",
   },
   {
-    text: "Invoices",
+    text: "Đơn đặt",
     to: "Invoices",
   },
   {
-    text: "Rooms",
+    text: "Phòng",
     to: "Rooms",
   },
   {
-    text: "Evaluate",
+    text: "Đánh giá",
     to: "Evaluate Admin",
   },
 ];

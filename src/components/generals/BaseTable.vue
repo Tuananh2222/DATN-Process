@@ -15,11 +15,11 @@
           >
             {{ field["fieldDisplay"] }}
           </th>
-          <th class="text-center">CHỨC NĂNG</th>
+          <th class="text-center">Method</th>
         </tr>
       </thead>
 
-      <div class="table-empty" v-if="props.data.length == 0">Trống</div>
+      <div class="table-empty" v-if="props.data.length == 0">Drum</div>
       <tbody>
         <tr v-for="(row, index) in props.data" :key="index">
           <td
@@ -44,8 +44,8 @@
 
           <td class="text-center">
             <div class="table-context-wrapper">
-              <div @click="showFormEdit(row[idRow])">Sửa</div>
-              <div @click="handleDeleteItem(row[idRow])">Xóa</div>
+              <div @click="showFormEdit(row[idRow])">Edit</div>
+              <div @click="handleDeleteItem(row[idRow])">Delete</div>
             </div>
           </td>
         </tr>

@@ -104,7 +104,7 @@ const handleNotifications = () => {
 
 const headerList = [
   {
-    text: "Trang chủ",
+    text: "Home",
     to: "Home",
   },
   {

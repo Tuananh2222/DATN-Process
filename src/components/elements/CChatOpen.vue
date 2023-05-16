@@ -168,7 +168,7 @@ const sendMessage = async () => {
       messages.value.push({
         role: "system",
         content:
-          "Vui lòng nhập đúng chủ đề về đặt phòng khách sạn hoặc liên quan",
+          "Please enter the correct subject of hotel booking or related",
       });
     }
 

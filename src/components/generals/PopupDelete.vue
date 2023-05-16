@@ -3,7 +3,7 @@
     <BasePopup id="popup-delete">
       <template #header>
         <div class="popup-header flex align-items-center flex-between">
-          <div class="popup-delete-title">Xóa Phòng</div>
+          <div class="popup-delete-title">Delete Room</div>
 
           <div
             @click="$emit('closePopupDelete')"

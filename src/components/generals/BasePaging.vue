@@ -1,8 +1,8 @@
 <template>
   <div class="grid-paging">
     <div class="grid-paging-left">
-      Tổng số :
-      <span :style="{ fontWeight: 'bold' }">{{ totalRecord }}</span> bản ghi
+      Total :
+      <span :style="{ fontWeight: 'bold' }">{{ totalRecord }}</span> record
     </div>
 
     <div class="grid-paging-right">
