@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider,
 } from "firebase/auth";
 
 import { useValidate } from "@/composables/useValidate";
@@ -120,10 +121,11 @@ export const useLoginStore = defineStore("login", () => {
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleSignInWithFacebook = async () => {
     try {
+      const provider = new FacebookAuthProvider();
       signInWithPopup(auth, provider)
         .then((result) => {
           // The signed-in user info.
@@ -151,7 +153,7 @@ export const useLoginStore = defineStore("login", () => {
 
           // ...
         });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {
