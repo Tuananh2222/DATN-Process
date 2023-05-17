@@ -4,6 +4,8 @@ import { reactive } from "vue";
 import { defineStore } from "pinia";
 import Facilities from "@/api/Facilities";
 import useAppStore from "./app";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 
 export const useHotelItemStore = defineStore("hotelItem", () => {
   const state = reactive({

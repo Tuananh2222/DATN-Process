@@ -7,7 +7,7 @@ import json from '../public/blog.json'
 export const useBlogStore = defineStore("blog", () => {
     const state = reactive({
         listBlog: [],
-        detailBlog:{}
+        detailBlog: {}
     });
 
     const initProcess = async () => {
@@ -16,7 +16,6 @@ export const useBlogStore = defineStore("blog", () => {
 
     const getDetailBlog = (id) => {
         state.detailBlog = state.listBlog.find(item => item.id === id)
-        console.log(state.detailBlog)
     }
 
 

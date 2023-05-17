@@ -3,6 +3,8 @@ import { reactive } from "vue";
 import EvaluateAPI from "@/api/Evaluate";
 import { v4 as uuidv4 } from "uuid";
 import useAppStore from "./app";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 
 export const useEvaluateStore = defineStore("evaluate", () => {
   const state = reactive({

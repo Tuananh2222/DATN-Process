@@ -215,6 +215,8 @@ import DefaultHeader from "@/components/generals/defaultHeader.vue";
 import router from "@/router";
 import useAppStore from "@/stores/app";
 import { useHotelItemStore } from "@/stores/hotel-item";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";

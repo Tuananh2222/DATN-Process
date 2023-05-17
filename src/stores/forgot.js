@@ -6,6 +6,8 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { useValidate } from "@/composables/useValidate";
 import { defineStore } from "pinia";
 import useAppStore from "./app";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 
 export const useForgotStore = defineStore("forgot", () => {
   const state = reactive({

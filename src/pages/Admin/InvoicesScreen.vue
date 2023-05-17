@@ -208,8 +208,9 @@ import NavigationAdmin from "@/components/generals/NavigationAdmin.vue";
 
 import { onMounted, ref } from "vue";
 import DxDataGrid, { DxColumn } from "devextreme-vue/data-grid";
-import { OrderStatus } from "@/utils/Resource/Enum";
+import { OrderStatus, ToastMode } from "@/utils/Resource/Enum";
 import useAppStore from "@/stores/app";
+import { Resource } from "@/utils/Resource/resource";
 
 onMounted(() => {
   getOrder();
@@ -229,7 +230,6 @@ const getOrder = async () => {
 };
 const formatDate = (d) => {
   try {
-    console.log(d);
     const date = new Date(d);
     const month = date.getMonth() + 1;
     const day = date.getDate();
