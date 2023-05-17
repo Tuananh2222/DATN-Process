@@ -5,10 +5,12 @@
       <CDateSelection
         :data-disable="state.listDataDisabled"
         @click-confirm="handleChooseDateIn"
+        :title-date-pick="'Date Check In'"
       />
       <CDateSelection
         :data-disable="state.listDataDisabled"
         @click-confirm="handleChooseDateOut"
+        :title-date-pick="'Date Check Out'"
       />
     </div>
     <div class="booking-form">

@@ -7,7 +7,7 @@
     <div v-if="isOpenCalendar" class="popup-calendar">
       <div class="calendar">
         <div class="header-calendar">
-          <span class="title-header">Date Picker</span>
+          <span class="title-header">{{ titleDatePick }}</span>
           <div class="icon-close" @click="handleCloseCalendar"></div>
         </div>
         <div class="content-calendar">
@@ -46,6 +46,9 @@ const props = defineProps({
   dataDisable: {
     type: Array,
   },
+  titleDatePick:{
+    type: String,
+  }
 });
 const state = reactive({
   date: Date.now(),
