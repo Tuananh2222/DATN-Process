@@ -250,12 +250,13 @@ const updateStatusOrder = async (order, status) => {
       var res = await OrderRoom.updateOrderStatus(orderID, {
         ...order,
         statusOrder: status,
+        statusPayment: 1
       });
       disableButton.value =  false
     } else if (status == 2) {
       var res = await OrderRoom.updateOrderStatus(orderID, {
         ...order,
-        statusOrder: status,
+        statusOrder: status
       });
       disableButton.value = true
     }
