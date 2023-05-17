@@ -253,6 +253,8 @@ import { onBeforeMount, ref, onMounted } from "vue";
 import DxDataGrid, { DxColumn } from "devextreme-vue/data-grid";
 import OrderRoom from "@/api/OrderRoom";
 import useAppStore from "@/stores/app";
+import { ToastMode } from "@/utils/Resource/Enum";
+import { Resource } from "@/utils/Resource/resource";
 
 const userStore = useUserStore();
 
@@ -260,6 +262,7 @@ const { state, handleLogout, getUser, handleEditUser } = userStore;
 const isEdit = ref(false);
 onBeforeMount(async () => {
   await getUser();
+  await getOrderByUserID();
 });
 const submitLogout = () => {
   handleLogout();
@@ -280,9 +283,15 @@ const appStore = useAppStore();
 const { state: stateApp } = appStore;
 const orders = ref([]);
 const getOrderByUserID = async () => {
-  const userID = stateApp.detailUser.userID;
-  const res = await OrderRoom.getOrderRoomByUserID(userID);
-  orders.value = res.data;
+  try {
+    const userID = state.detailInfoUser.userID;
+    const res = await OrderRoom.getOrderRoomByUserID(userID);
+    orders.value = res.data;
+  } catch (error) {
+    stateApp.typeToast = ToastMode.ERROR;
+    stateApp.toastMessage = Resource.errorMessage;
+    setTimeout(() => (stateApp.toastMessage = ""), 3000);
+  }
 };
 const formatDate = (d) => {
   try {

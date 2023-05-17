@@ -17,7 +17,7 @@
           :value-init="countValues"
           placeholder="Number of people in 1 room"
           @changeValue="handleChangeValue"
-          width="220px"
+          width="280px"
         />
       </div>
       <div class="app-actions-line">

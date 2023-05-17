@@ -69,11 +69,6 @@ const router = createRouter({
       component: () => import("@/pages/booking/FormScreen.vue"),
     },
     {
-      path: "/booking/booking-pay",
-      name: "Booking Pay",
-      component: () => import("@/pages/booking/PayScreen.vue"),
-    },
-    {
       path: "/admin/home",
       name: "Home Admin",
       component: () => import("@/pages/Admin/HomeScreen.vue"),

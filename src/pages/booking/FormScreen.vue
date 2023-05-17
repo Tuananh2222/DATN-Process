@@ -135,7 +135,7 @@
       </div>
     </div>
   </div>
-  <CPopup :popup-title="'Phương thức thanh toán'" v-if="isShowPopupPayment">
+  <CPopup :popup-title="'Method Payment'" v-if="isShowPopupPayment">
     <div class="payment-method">
       <div class="payment-method-item">
         <div class="title">Pay online with PayPal:</div>
@@ -184,9 +184,12 @@ import CPaypal from "@/components/elements/CPaypal.vue";
 import router from "@/router";
 import useAppStore from "@/stores/app";
 import { Resource } from "@/utils/Resource/resource";
+import useUserStore from "@/stores/user";
 
 const { initProcess } = useHotelItemStore();
+const userStore = useUserStore();
 const orderRoomStore = useOrderRoom();
+const { getUser, state: stateUser } = userStore;
 const {
   state,
   getDataOrder,
@@ -216,6 +219,7 @@ onMounted(async () => {
   await initProcess();
   await GetRoomDetails();
   await getDataOrder();
+  await getUser();
 });
 
 const GetRoomDetails = async () => {
@@ -268,6 +272,7 @@ const handleSubmitForm = async () => {
 
 const handleUpdateState = async () => {
   try {
+    state.orderRoom.userID = stateUser.detailInfoUser.userID;
     state.orderRoom.roomID = route.params.id;
     state.orderRoom.price =
       priceAfterDiscount.value * countRoom.value * dayBooking.value.toFixed(2);
@@ -283,6 +288,7 @@ const handleUpdateState = async () => {
 const handleConfirm = async () => {
   try {
     state.orderRoom.roomID = route.params.id;
+    state.orderRoom.userID = stateUser.detailInfoUser.userID;
     state.orderRoom.price =
       priceAfterDiscount.value * countRoom.value * dayBooking.value;
     await submitForm();

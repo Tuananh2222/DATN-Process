@@ -78,8 +78,6 @@ export const useOrderRoom = defineStore("orderRoom", () => {
 
   const submitForm = async () => {
     try {
-      state.orderRoom.userID = stateApp.detailUser.userID;
-      console.log(state.orderRoom)
       await OrderRoom.insertOrderRoom(state.orderRoom)
         .then(async () => {
           await addDoc(collection(dbRealTime, "notification"), {
