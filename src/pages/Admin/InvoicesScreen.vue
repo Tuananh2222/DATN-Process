@@ -177,7 +177,6 @@
               <div
                 @click="updateStatusOrder(data.key, OrderStatus.Confirm)"
                 class="button mr-12 action-edit"
-                :class="disableButton && 'disabled'"
               >
                 <div
                   title="Duyệt đơn"
@@ -219,7 +218,6 @@ onMounted(() => {
 const orders = ref([]);
 const appStore = useAppStore();
 const { state: stateApp } = appStore;
-const disableButton = ref(false)
 const getOrder = async () => {
   try {
     const res = await OrderRoom.getAllOrderRoom();
@@ -250,15 +248,13 @@ const updateStatusOrder = async (order, status) => {
       var res = await OrderRoom.updateOrderStatus(orderID, {
         ...order,
         statusOrder: status,
-        statusPayment: 1
+        statusPayment: 1,
       });
-      disableButton.value =  false
     } else if (status == 2) {
       var res = await OrderRoom.updateOrderStatus(orderID, {
         ...order,
-        statusOrder: status
+        statusOrder: status,
       });
-      disableButton.value = true
     }
     getOrder();
   } catch (error) {
@@ -316,8 +312,5 @@ const updateStatusOrder = async (order, status) => {
 .action-wrapper {
   display: flex;
   justify-content: space-around;
-}
-.disabled{
-  pointer-events: none;
 }
 </style>
