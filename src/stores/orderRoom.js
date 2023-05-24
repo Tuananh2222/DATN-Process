@@ -37,7 +37,8 @@ export const useOrderRoom = defineStore("orderRoom", () => {
       const roomID = sessionStorage.getItem("roomID");
       const data = await OrderRoom.getOrderRoomByRoomID(roomID);
       state.listOrderRoom = data.data;
-      const afterListRoom = state.listOrderRoom.filter(item => item.statusOrder !== 2)
+      const afterListRoom = state.listOrderRoom.filter(item => item.statusOrder === 1 || (item.statusOrder === 0 && item.statusPayment === 1))
+      console.log(afterListRoom)
       state.listDate = afterListRoom.map(
         ({ arrivalTime, depatureTime }) => ({ arrivalTime, depatureTime })
       );
