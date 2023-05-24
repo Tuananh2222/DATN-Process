@@ -144,7 +144,7 @@
                 :width="160"
                 :data-field="'typePayment'"
                 :allow-sorting="false"
-                :caption="'Type Payment'"
+                :caption="'Payment Type'"
                 alignment="center"
                 cellTemplate="typePaymentTemplate"
               >
