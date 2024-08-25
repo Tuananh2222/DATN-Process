@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 const base = "https://api-m.sandbox.paypal.com";
 const CLIENT_ID =
-  "ASu2CgXspblwQ3wg_4EejqKdpkVmt2BmA2GxIFYOtNA9Xf69O4VsIPb1PXtWw_htFtaWO3kVfyg9CZ9n";
+  "CLIENT_ID";
 const APP_SECRET =
-  "EJ5G59H4u6439rJJ7wSSmesq_CrLqlQyd2aMVerchFYRle-BQCm-LjMw3hnnoN4xCTvQCEwbBhZmWKjE";
+  "APP_SECRET";
 class PaypalAPI {
   async createOrder() {
     const accessToken = await generateAccessToken();
