@@ -150,7 +150,7 @@ const sendMessage = async () => {
             headers: {
               "Content-Type": "application/json",
               Authorization:
-                "Bearer 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",
+                "Bearer token",
             },
           }
         );
